@@ -77,7 +77,7 @@ class MLP {
     /**
     * Log the current network parameters values in a string
     * 
-    * @param parameterShow 
+    * @param parameterShow - The show type
     */
     logParameters( parameterShow:string = 'verbose'): void{
         let netStr:string = '-=-=- WEIGHS OF THE NETWORK: -=-=- \n\n';
@@ -103,7 +103,7 @@ class MLP {
                         netStr += `          ${identSimbol} W${ j }${ k }: ${this.weights[l][j][k]}\n `;
                     }
                 }
-
+                
                 netStr += '\n';
             }
 

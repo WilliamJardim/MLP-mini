@@ -51,7 +51,12 @@ class MLP {
             this.biases.push(layerBiases);
         }
     }
-    printParameters(parameterShow = 'verbose') {
+    /**
+    * Log the current network parameters values in a string
+    *
+    * @param parameterShow - The show type
+    */
+    logParameters(parameterShow = 'verbose') {
         let netStr = '-=-=- WEIGHS OF THE NETWORK: -=-=- \n\n';
         let identSimbol = '--->';
         for (let l = 0; l < this.weights.length; l++) {
