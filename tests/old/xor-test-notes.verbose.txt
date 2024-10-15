@@ -1,0 +1,460 @@
+(12.10.2024)
+parametros
+    // Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+    const layers = [2, 2, 1];
+    const mlp = new MLP(layers);
+
+    // Dados de entrada para o problema XOR
+    const inputs = [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+        [1, 1]
+    ];
+
+    // Saídas esperadas para o XOR
+    const targets = [
+        [0],
+        [1],
+        [1],
+        [0]
+    ];
+
+    // Treinando a rede
+    mlp.train(inputs, targets, 0.1, 10000);
+
+    // Testando a rede
+    console.log('Previsões:');
+    inputs.forEach(input => {
+        const prediction = mlp.predict(input);
+        console.log(`Entrada: ${input}, Previsão: ${prediction}`);
+    });
+
+resultados dos varios testes desse dia:
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0380151626241063
+mlp.js:125 Epoch 0, Erro total: 1.029056776564079
+mlp.js:125 Epoch 1000, Erro total: 0.2569321885918298
+mlp.js:125 Epoch 2000, Erro total: 0.0024324379056543132
+mlp.js:125 Epoch 3000, Erro total: 0.0006053990422711505
+mlp.js:125 Epoch 4000, Erro total: 0.0002649690939703819
+mlp.js:125 Epoch 5000, Erro total: 0.00014715274904709229
+mlp.js:125 Epoch 6000, Erro total: 0.00009322536763227991
+mlp.js:125 Epoch 7000, Erro total: 0.00006421074703172487
+mlp.js:125 Epoch 8000, Erro total: 0.00004685708239734797
+mlp.js:125 Epoch 9000, Erro total: 0.00003567139656122882
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0711100225798693
+mlp.js:125 Epoch 0, Erro total: 1.0535950478548894
+mlp.js:125 Epoch 1000, Erro total: 0.4637580671029329
+mlp.js:125 Epoch 2000, Erro total: 0.0030844597037639762
+mlp.js:125 Epoch 3000, Erro total: 0.000686105016281062
+mlp.js:125 Epoch 4000, Erro total: 0.00028812548292064723
+mlp.js:125 Epoch 5000, Erro total: 0.0001566303762208087
+mlp.js:125 Epoch 6000, Erro total: 0.00009794578964564703
+mlp.js:125 Epoch 7000, Erro total: 0.00006687361520659485
+mlp.js:125 Epoch 8000, Erro total: 0.000048494204758768263
+mlp.js:125 Epoch 9000, Erro total: 0.00003674331319763746
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1071343597344685
+mlp.js:125 Epoch 0, Erro total: 1.0820861373675321
+mlp.js:125 Epoch 1000, Erro total: 0.6804410711810371
+mlp.js:125 Epoch 2000, Erro total: 0.003896089389106468
+mlp.js:125 Epoch 3000, Erro total: 0.0007722809528735283
+mlp.js:125 Epoch 4000, Erro total: 0.0003132812503115805
+mlp.js:125 Epoch 5000, Erro total: 0.0001675514317690938
+mlp.js:125 Epoch 6000, Erro total: 0.0001037952925375369
+mlp.js:125 Epoch 7000, Erro total: 0.00007043799299158969
+mlp.js:125 Epoch 8000, Erro total: 0.00005086283998559817
+mlp.js:125 Epoch 9000, Erro total: 0.00003841798218211504
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0072032230656813
+mlp.js:125 Epoch 0, Erro total: 1.005093030151514
+mlp.js:125 Epoch 1000, Erro total: 0.9341350686869141
+mlp.js:125 Epoch 2000, Erro total: 0.522085921641888
+mlp.js:125 Epoch 3000, Erro total: 0.5089925211850583
+mlp.js:125 Epoch 4000, Erro total: 0.5056379623053859
+mlp.js:125 Epoch 5000, Erro total: 0.5041318983869882
+mlp.js:125 Epoch 6000, Erro total: 0.5032822274695878
+mlp.js:125 Epoch 7000, Erro total: 0.5027384651534389
+mlp.js:125 Epoch 8000, Erro total: 0.5023613740524502
+mlp.js:125 Epoch 9000, Erro total: 0.502084876042372
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 0
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0621395635824935
+mlp.js:125 Epoch 0, Erro total: 1.0478847517358654
+mlp.js:125 Epoch 1000, Erro total: 0.02654863851247504
+mlp.js:125 Epoch 2000, Erro total: 0.0015711808120485375
+mlp.js:125 Epoch 3000, Erro total: 0.0004794047341441403
+mlp.js:125 Epoch 4000, Erro total: 0.00022601522057659758
+mlp.js:125 Epoch 5000, Erro total: 0.0001304115325541452
+mlp.js:125 Epoch 6000, Erro total: 0.00008456092008803936
+mlp.js:125 Epoch 7000, Erro total: 0.00005915780195600909
+mlp.js:125 Epoch 8000, Erro total: 0.000043654817771791364
+mlp.js:125 Epoch 9000, Erro total: 0.00003351389088747038
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.298482248532555
+mlp.js:125 Epoch 0, Erro total: 1.2213413276158152
+mlp.js:125 Epoch 1000, Erro total: 1.0000027385401933
+mlp.js:125 Epoch 2000, Erro total: 0.9997669335589778
+mlp.js:125 Epoch 3000, Erro total: 0.7796573265455233
+mlp.js:125 Epoch 4000, Erro total: 0.5170423912733593
+mlp.js:125 Epoch 5000, Erro total: 0.5077017744409731
+mlp.js:125 Epoch 6000, Erro total: 0.5049319683993694
+mlp.js:125 Epoch 7000, Erro total: 0.5036218829347598
+mlp.js:125 Epoch 8000, Erro total: 0.5028621846617851
+mlp.js:125 Epoch 9000, Erro total: 0.5023675675209152
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 0
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.035390325862795
+mlp.js:125 Epoch 0, Erro total: 1.0249465611947128
+mlp.js:125 Epoch 1000, Erro total: 0.909965662460597
+mlp.js:125 Epoch 2000, Erro total: 0.015266253853919349
+mlp.js:125 Epoch 3000, Erro total: 0.0012855735976652059
+mlp.js:125 Epoch 4000, Erro total: 0.0004293801626969933
+mlp.js:125 Epoch 5000, Erro total: 0.00021061599349089146
+mlp.js:125 Epoch 6000, Erro total: 0.00012424458820022835
+mlp.js:125 Epoch 7000, Erro total: 0.00008170486392649175
+mlp.js:125 Epoch 8000, Erro total: 0.00005771925333413945
+mlp.js:125 Epoch 9000, Erro total: 0.000042898122848747805
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1595611531227972
+mlp.js:125 Epoch 0, Erro total: 1.124034434117426
+mlp.js:125 Epoch 1000, Erro total: 0.1668008286369585
+mlp.js:125 Epoch 2000, Erro total: 0.0027101219960760075
+mlp.js:125 Epoch 3000, Erro total: 0.0006648179471545326
+mlp.js:125 Epoch 4000, Erro total: 0.00028801768456850107
+mlp.js:125 Epoch 5000, Erro total: 0.00015886613790224336
+mlp.js:125 Epoch 6000, Erro total: 0.00010015553141266807
+mlp.js:125 Epoch 7000, Erro total: 0.00006872898357041835
+mlp.js:125 Epoch 8000, Erro total: 0.00005000768246642263
+mlp.js:125 Epoch 9000, Erro total: 0.00003797923687725229
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0763695634077322
+mlp.js:125 Epoch 0, Erro total: 1.0542367485259247
+mlp.js:125 Epoch 1000, Erro total: 1.0004068645592386
+mlp.js:125 Epoch 2000, Erro total: 0.9971658161831696
+mlp.js:125 Epoch 3000, Erro total: 0.7036797796535088
+mlp.js:125 Epoch 4000, Erro total: 0.017518032945610065
+mlp.js:125 Epoch 5000, Erro total: 0.001434949076943321
+mlp.js:125 Epoch 6000, Erro total: 0.00046574780713997706
+mlp.js:125 Epoch 7000, Erro total: 0.0002251335300673638
+mlp.js:125 Epoch 8000, Erro total: 0.00013162430678628862
+mlp.js:125 Epoch 9000, Erro total: 0.000086029890890704
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0524980221317095
+mlp.js:125 Epoch 0, Erro total: 1.036291701368047
+mlp.js:125 Epoch 1000, Erro total: 0.6587186089618031
+mlp.js:125 Epoch 2000, Erro total: 0.5172658807590851
+mlp.js:125 Epoch 3000, Erro total: 0.5079776017818344
+mlp.js:125 Epoch 4000, Erro total: 0.5051816310218733
+mlp.js:125 Epoch 5000, Erro total: 0.5038623891456737
+mlp.js:125 Epoch 6000, Erro total: 0.5030997577118723
+mlp.js:125 Epoch 7000, Erro total: 0.502604489404561
+mlp.js:125 Epoch 8000, Erro total: 0.502257607335886
+mlp.js:125 Epoch 9000, Erro total: 0.5020014163004112
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 0
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0349812379664924
+mlp.js:125 Epoch 0, Erro total: 1.0263706815909739
+mlp.js:125 Epoch 1000, Erro total: 0.8251379695327629
+mlp.js:125 Epoch 2000, Erro total: 0.5212667365863585
+mlp.js:125 Epoch 3000, Erro total: 0.508690041840555
+mlp.js:125 Epoch 4000, Erro total: 0.50547345837119
+mlp.js:125 Epoch 5000, Erro total: 0.5040261246065433
+mlp.js:125 Epoch 6000, Erro total: 0.5032074468132944
+mlp.js:125 Epoch 7000, Erro total: 0.5026822632038604
+mlp.js:125 Epoch 8000, Erro total: 0.5023172922071207
+mlp.js:125 Epoch 9000, Erro total: 0.502049192818539
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 0
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0032607817648505
+mlp.js:125 Epoch 0, Erro total: 1.0023988448767969
+mlp.js:125 Epoch 1000, Erro total: 0.9883096722998621
+mlp.js:125 Epoch 2000, Erro total: 0.016811608129159793
+mlp.js:125 Epoch 3000, Erro total: 0.0014417809816978028
+mlp.js:125 Epoch 4000, Erro total: 0.000466473158546336
+mlp.js:125 Epoch 5000, Erro total: 0.0002245961985903361
+mlp.js:125 Epoch 6000, Erro total: 0.0001309067873614425
+mlp.js:125 Epoch 7000, Erro total: 0.00008535916622184676
+mlp.js:125 Epoch 8000, Erro total: 0.000059919693338530936
+mlp.js:125 Epoch 9000, Erro total: 0.000044313726059822454
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0819963871736127
+mlp.js:125 Epoch 0, Erro total: 1.0597990330793194
+mlp.js:125 Epoch 1000, Erro total: 1.0002816307362663
+mlp.js:125 Epoch 2000, Erro total: 0.975168831113719
+mlp.js:125 Epoch 3000, Erro total: 0.5334143844696172
+mlp.js:125 Epoch 4000, Erro total: 0.5103167177186841
+mlp.js:125 Epoch 5000, Erro total: 0.5058552714948472
+mlp.js:125 Epoch 6000, Erro total: 0.5040631941144246
+mlp.js:125 Epoch 7000, Erro total: 0.50310906713136
+mlp.js:125 Epoch 8000, Erro total: 0.5025195278777297
+mlp.js:125 Epoch 9000, Erro total: 0.502120117177279
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 0
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1887667608679455
+mlp.js:125 Epoch 0, Erro total: 1.1395756271304684
+mlp.js:125 Epoch 1000, Erro total: 1.000031346034267
+mlp.js:125 Epoch 2000, Erro total: 0.9341760188973174
+mlp.js:125 Epoch 3000, Erro total: 0.06701195131450893
+mlp.js:125 Epoch 4000, Erro total: 0.0021248721410513684
+mlp.js:125 Epoch 5000, Erro total: 0.0005821957009142494
+mlp.js:125 Epoch 6000, Erro total: 0.00026291333913478876
+mlp.js:125 Epoch 7000, Erro total: 0.00014819675776276317
+mlp.js:125 Epoch 8000, Erro total: 0.00009468106378532568
+mlp.js:125 Epoch 9000, Erro total: 0.00006556005676085015
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1715811576947173
+mlp.js:125 Epoch 0, Erro total: 1.1349773730894959
+mlp.js:125 Epoch 1000, Erro total: 0.11771472803328856
+mlp.js:125 Epoch 2000, Erro total: 0.00227638930224506
+mlp.js:125 Epoch 3000, Erro total: 0.000587837076216187
+mlp.js:125 Epoch 4000, Erro total: 0.0002599768797031994
+mlp.js:125 Epoch 5000, Erro total: 0.00014505660247014765
+mlp.js:125 Epoch 6000, Erro total: 0.00009213614084825348
+mlp.js:125 Epoch 7000, Erro total: 0.00006356413475788233
+mlp.js:125 Epoch 8000, Erro total: 0.00004643690609671338
+mlp.js:125 Epoch 9000, Erro total: 0.00003538002227928855
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0554900148107238
+mlp.js:125 Epoch 0, Erro total: 1.0391129887964419
+mlp.js:125 Epoch 1000, Erro total: 0.9974468455296066
+mlp.js:125 Epoch 2000, Erro total: 0.2527699293267644
+mlp.js:125 Epoch 3000, Erro total: 0.0023848366259741675
+mlp.js:125 Epoch 4000, Erro total: 0.0006055298222380281
+mlp.js:125 Epoch 5000, Erro total: 0.0002670473602109545
+mlp.js:125 Epoch 6000, Erro total: 0.00014888770763659214
+mlp.js:125 Epoch 7000, Erro total: 0.00009454749884346006
+mlp.js:125 Epoch 8000, Erro total: 0.00006522399591806852
+mlp.js:125 Epoch 9000, Erro total: 0.000047649923479388965
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1263450280293708
+mlp.js:125 Epoch 0, Erro total: 1.0890662869884857
+mlp.js:125 Epoch 1000, Erro total: 0.8426867591799853
+mlp.js:125 Epoch 2000, Erro total: 0.527690972473075
+mlp.js:125 Epoch 3000, Erro total: 0.5095366437718518
+mlp.js:125 Epoch 4000, Erro total: 0.5057212299524355
+mlp.js:125 Epoch 5000, Erro total: 0.504122720579508
+mlp.js:125 Epoch 6000, Erro total: 0.5032497177366113
+mlp.js:125 Epoch 7000, Erro total: 0.5027009900036327
+mlp.js:125 Epoch 8000, Erro total: 0.5023246085103568
+mlp.js:125 Epoch 9000, Erro total: 0.5020505865730035
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 0
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.4792489371304227
+mlp.js:125 Epoch 0, Erro total: 1.3990163085849825
+mlp.js:125 Epoch 1000, Erro total: 0.34351841993886223
+mlp.js:125 Epoch 2000, Erro total: 0.0033803907476247577
+mlp.js:125 Epoch 3000, Erro total: 0.0007450941677344219
+mlp.js:125 Epoch 4000, Erro total: 0.000310958882845083
+mlp.js:125 Epoch 5000, Erro total: 0.00016831259687541926
+mlp.js:125 Epoch 6000, Erro total: 0.0001049111032490434
+mlp.js:125 Epoch 7000, Erro total: 0.00007144754652366571
+mlp.js:125 Epoch 8000, Erro total: 0.000051704057725484066
+mlp.js:125 Epoch 9000, Erro total: 0.00003910774750793646
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1199059826271947
+mlp.js:125 Epoch 0, Erro total: 1.0891792546178158
+mlp.js:125 Epoch 1000, Erro total: 0.6960757764067329
+mlp.js:125 Epoch 2000, Erro total: 0.5163963663129788
+mlp.js:125 Epoch 3000, Erro total: 0.5078759385895737
+mlp.js:125 Epoch 4000, Erro total: 0.5051928429905456
+mlp.js:125 Epoch 5000, Erro total: 0.5038978798141421
+mlp.js:125 Epoch 6000, Erro total: 0.5031395785728623
+mlp.js:125 Epoch 7000, Erro total: 0.5026431174216718
+mlp.js:125 Epoch 8000, Erro total: 0.5022935021878178
+mlp.js:125 Epoch 9000, Erro total: 0.5020343017078599
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 0
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.003246080034262
+mlp.js:125 Epoch 0, Erro total: 1.0026417662493006
+mlp.js:125 Epoch 1000, Erro total: 0.06329622320786389
+mlp.js:125 Epoch 2000, Erro total: 0.0019105381498965767
+mlp.js:125 Epoch 3000, Erro total: 0.0005334775858654964
+mlp.js:125 Epoch 4000, Erro total: 0.00024320968492576718
+mlp.js:125 Epoch 5000, Erro total: 0.00013789996230706008
+mlp.js:125 Epoch 6000, Erro total: 0.00008846530641632957
+mlp.js:125 Epoch 7000, Erro total: 0.00006144503732449012
+mlp.js:125 Epoch 8000, Erro total: 0.000045108533493550676
+mlp.js:125 Epoch 9000, Erro total: 0.00003449520119547844
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0328317238171996
+mlp.js:125 Epoch 0, Erro total: 1.025927744070489
+mlp.js:125 Epoch 1000, Erro total: 0.4407106262951744
+mlp.js:125 Epoch 2000, Erro total: 0.0036167458453202957
+mlp.js:125 Epoch 3000, Erro total: 0.0007661964886708755
+mlp.js:125 Epoch 4000, Erro total: 0.0003160689650698683
+mlp.js:125 Epoch 5000, Erro total: 0.00017017269981967376
+mlp.js:125 Epoch 6000, Erro total: 0.00010575576277565589
+mlp.js:125 Epoch 7000, Erro total: 0.00007188807634954841
+mlp.js:125 Epoch 8000, Erro total: 0.00005195662137477997
+mlp.js:125 Epoch 9000, Erro total: 0.00003926282116653147
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0042203282505495
+mlp.js:125 Epoch 0, Erro total: 1.0034557695499924
+mlp.js:125 Epoch 1000, Erro total: 0.5474230905374764
+mlp.js:125 Epoch 2000, Erro total: 0.005312174909100223
+mlp.js:125 Epoch 3000, Erro total: 0.0008978910809323232
+mlp.js:125 Epoch 4000, Erro total: 0.00034773241247976146
+mlp.js:125 Epoch 5000, Erro total: 0.00018192022767308928
+mlp.js:125 Epoch 6000, Erro total: 0.00011124200067768225
+mlp.js:125 Epoch 7000, Erro total: 0.00007484319770685272
+mlp.js:125 Epoch 8000, Erro total: 0.00005371077546366022
+mlp.js:125 Epoch 9000, Erro total: 0.00004038003921293455
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.317746645352822
+mlp.js:125 Epoch 0, Erro total: 1.2530536750462327
+mlp.js:125 Epoch 1000, Erro total: 0.9985751121189627
+mlp.js:125 Epoch 2000, Erro total: 0.6181399003372642
+mlp.js:125 Epoch 3000, Erro total: 0.005734637990415299
+mlp.js:125 Epoch 4000, Erro total: 0.0009414769462497863
+mlp.js:125 Epoch 5000, Erro total: 0.00036017110061433094
+mlp.js:125 Epoch 6000, Erro total: 0.00018715098479250126
+mlp.js:125 Epoch 7000, Erro total: 0.00011394255892161406
+mlp.js:125 Epoch 8000, Erro total: 0.00007642630324132039
+mlp.js:125 Epoch 9000, Erro total: 0.0000547225316562812
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1321576363854704
+mlp.js:125 Epoch 0, Erro total: 1.1044845348695158
+mlp.js:125 Epoch 1000, Erro total: 0.2556804007026623
+mlp.js:125 Epoch 2000, Erro total: 0.003055277349766676
+mlp.js:125 Epoch 3000, Erro total: 0.0007076502894968893
+mlp.js:125 Epoch 4000, Erro total: 0.0003004245935848847
+mlp.js:125 Epoch 5000, Erro total: 0.00016401407823859825
+mlp.js:125 Epoch 6000, Erro total: 0.00010276067738453095
+mlp.js:125 Epoch 7000, Erro total: 0.00007022415275118282
+mlp.js:125 Epoch 8000, Erro total: 0.00005094367630246665
+mlp.js:125 Epoch 9000, Erro total: 0.000038603615482922884
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.080220641443881
+mlp.js:125 Epoch 0, Erro total: 1.0600272857682949
+mlp.js:125 Epoch 1000, Erro total: 0.9990683607687629
+mlp.js:125 Epoch 2000, Erro total: 0.6784051485879363
+mlp.js:125 Epoch 3000, Erro total: 0.004004095726981205
+mlp.js:125 Epoch 4000, Erro total: 0.000779852271275643
+mlp.js:125 Epoch 5000, Erro total: 0.00031504690863284163
+mlp.js:125 Epoch 6000, Erro total: 0.000168209594239381
+mlp.js:125 Epoch 7000, Erro total: 0.00010411050718126628
+mlp.js:125 Epoch 8000, Erro total: 0.00007061435100211279
+mlp.js:125 Epoch 9000, Erro total: 0.000050972462709096616
+xor-test.js:25 Previsões:
+xor-test.js:28 Entrada: 0,0, Previsão: 0
+xor-test.js:28 Entrada: 0,1, Previsão: 1
+xor-test.js:28 Entrada: 1,0, Previsão: 1
+xor-test.js:28 Entrada: 1,1, Previsão: 0
+
+
