@@ -1,4 +1,6 @@
 
+![Icone](./images/logo/logo256x256.png "Icone")
+
 # MLP - Implementação de Rede Neural Multicamadas (MLP) em JavaScript
 
 Este repositório contém uma implementação independente de uma Rede Neural Multicamadas (MLP) em JavaScript, gerada com a ajuda de Inteligência Artificial. A rede foi implementada sem o uso de bibliotecas de aprendizado de máquina ou notação matricial. Ela pode ser configurada para suportar múltiplas camadas e unidades, sendo aplicada ao problema clássico do XOR.
