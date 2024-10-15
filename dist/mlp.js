@@ -51,6 +51,32 @@ class MLP {
             this.biases.push(layerBiases);
         }
     }
+    printParameters(parameterShow = 'verbose') {
+        let netStr = '-=-=- WEIGHS OF THE NETWORK: -=-=- \n\n';
+        let identSimbol = '--->';
+        for (let l = 0; l < this.weights.length; l++) {
+            netStr += `LAYER ${l}:\n `;
+            for (let j = 0; j < this.weights[l].length; j++) {
+                if (parameterShow == 'verbose') {
+                    netStr += `     ${identSimbol} UNIT OF NUMBER ${j}:\n `;
+                }
+                else if (parameterShow == 'short') {
+                    netStr += `     ${identSimbol} UNIT ${j}:\n `;
+                }
+                for (let k = 0; k < this.weights[l][j].length; k++) {
+                    if (parameterShow == 'verbose') {
+                        netStr += `          ${identSimbol} WEIGHT OF INPUT X${k}: ${this.weights[l][j][k]}\n `;
+                    }
+                    else if (parameterShow == 'short') {
+                        netStr += `          ${identSimbol} W${j}${k}: ${this.weights[l][j][k]}\n `;
+                    }
+                }
+                netStr += '\n';
+            }
+            netStr += '\n';
+        }
+        console.log(netStr);
+    }
     // Forward pass (passagem direta)
     forward(input) {
         let activations = input;
