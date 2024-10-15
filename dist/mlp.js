@@ -76,11 +76,24 @@ class MLP {
                         netStr += `          ${identSimbol} W${j}${k}: ${this.weights[l][j][k]}\n `;
                     }
                 }
+                netStr += `          ${identSimbol} BIAS: ${this.biases[l][j]}\n `;
                 netStr += '\n';
             }
             netStr += '\n';
         }
         console.log(netStr);
+    }
+    /**
+    * Export the current network parameters values into a JSON object
+    * @returns {JSON}
+    */
+    exportParameters() {
+        return (JSON.parse(JSON.stringify({
+            weighs: [...this.weights.copyWithin()],
+            biases: [...this.biases.copyWithin()],
+            //Other info
+            generatedAt: new Date().getTime()
+        })));
     }
     // Forward pass (passagem direta)
     forward(input) {
