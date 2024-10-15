@@ -1,4 +1,4 @@
-start ./compile.bat
+call ./compile.bat
 cd ..
 git add .
 git commit -m "Novo commit"
