@@ -75,7 +75,6 @@ class MLP {
     train(inputs, targets, learningRate = 0.1, epochs = 10000, printEpochs = 1000) {
         console.log(`Erro inicial(ANTES DO TREINAMENTO): ${compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
         for (let epoch = 0; epoch < epochs; epoch++) {
-            let totalError = 0;
             inputs.forEach((input, i) => {
                 const target = targets[i];
                 // Passagem direta
@@ -120,7 +119,7 @@ class MLP {
                     }
                 }
             });
-            totalError = compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));
+            let totalError = compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
                 console.log(`Epoch ${epoch}, Erro total: ${totalError}`);

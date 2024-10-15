@@ -117,8 +117,7 @@ class MLP {
         console.log(`Erro inicial(ANTES DO TREINAMENTO): ${ compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
 
         for (let epoch = 0; epoch < epochs; epoch++) {
-            let totalError = 0;
-
+        
             inputs.forEach((input, i) => {
                 const target = targets[i];
 
@@ -174,7 +173,7 @@ class MLP {
                 }
             });
 
-            totalError = compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) );
+            let totalError:number = compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) );
 
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
