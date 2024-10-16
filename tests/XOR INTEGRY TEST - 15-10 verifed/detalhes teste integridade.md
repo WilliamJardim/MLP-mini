@@ -26,7 +26,9 @@ salvei essas informações no script.js, que contem os parametros iniciais, e os
 
 CONCLUSAO:
 Eu fiz o script.js dentro da pasta do primeiro commit, que eu baixei( fiz o scrips.js do "new integry" ), conforme expliquei acima, detalhando os passos de criação do script,
-abri o arquivo de anotações que eu havia criado(anotando as informações da executação do script.js do modelo antigo antes das minhas mudanças de hoje dia 16.10) conform expliquei 
+abri o arquivo de anotações que eu havia criado la dentro da pasta do commit antigo(anotando as informações da executação do script.js do modelo antigo antes das minhas mudanças de hoje dia 16.10) conform expliquei 
 e comparei valor por valor, a olho mesmo, e posso garantir pra mim mesmo que NADA MUDOU, está tudo ok, os resultados da executação do script.js no modelo MLP antigo de ontem dia 15.10, foram exatamente os mesmos resultados da execução após as atualizações e refatorações que fiz hoje 16.10
 confirmei que o treinamento e backpropagation não sofreram nenhuma alteração acidental.
+
+as mudanças que fiz não afetaram em nada os resultados que já estavam sendo produzidos antes.
 
