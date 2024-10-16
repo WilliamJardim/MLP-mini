@@ -74,6 +74,8 @@ class MLP {
             const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight());
             this.biases.push(layerBiases);
         }
+        //Faz a exportação dos parametros iniciais
+        this.initialParameters = this.exportParameters();
     }
     /**
     * Calcula o custo de todas as amostras de uma só vez

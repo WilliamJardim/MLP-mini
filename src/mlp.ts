@@ -89,6 +89,7 @@ class MLP {
     private weights : number[][][];
     private biases  : number[][];
     private layerActivations : number[][];
+    private initialParameters: DoneParameters;
 
     public constructor(config: MLPConfig) {
         const classContext = this;
@@ -126,6 +127,9 @@ class MLP {
             const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight()) as number[];
             this.biases.push(layerBiases);
         }
+
+        //Faz a exportação dos parametros iniciais
+        this.initialParameters = this.exportParameters();
     }
 
     /**
@@ -150,6 +154,13 @@ class MLP {
         });
 
         return cost;
+    }
+
+    /**
+    * Retorna os parametros iniciais que foram usados para inicializar a rede
+    */
+    public getInitialParameters(): DoneParameters{
+        return this.initialParameters;
     }
     
     /**
