@@ -70,6 +70,13 @@ interface MLPConfig{
     
 }
 
+interface DoneParameters{
+    weights: number[][][],
+    biases: number[][],
+    layers: []
+    generatedAt: Date
+}
+
 // Função para inicializar pesos de forma aleatória
 function randomWeight(): number {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
@@ -188,16 +195,30 @@ class MLP {
 
     /**
     * Export the current network parameters values into a JSON object
-    * @returns {JSON}
+    * @returns {DoneParameters}
     */
-    public exportParameters(): JSON{
+    public exportParameters(): DoneParameters{
         return ( JSON.parse( JSON.stringify( {
-            weighs: [... this.weights ],
+            weights: [... this.weights ],
             biases: [... this.biases  ],
+
+            layers: this.layers,
 
             //Other info
             generatedAt: new Date().getTime()
         } ) ) );
+    }
+
+    /**
+    * Import the parameters intro this network
+    * @param {parameters} - The JSON object that contain the weights and biases 
+    */
+    public importParameters( parameters:DoneParameters ): void{
+        console.log(`Loading parameters from JSON, from date: ${ parameters.generatedAt! }`);
+        this.layers  = parameters!.layers;
+        this.weights = parameters!.weights;
+        this.biases  = parameters!.biases;
+        console.log(`Success from import JSON, from date: ${ parameters.generatedAt! }`);
     }
 
     // Forward pass (passagem direta)
