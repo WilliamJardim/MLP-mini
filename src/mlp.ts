@@ -30,18 +30,18 @@ function randomWeight(): number {
 
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
-    private layers;
-    private weights;
-    private biases;
-    private layerActivations;
+    private layers  : number[];
+    private weights : number[][][];
+    private biases  : number[][];
+    private layerActivations : number[][];
 
     public constructor(layers: number[]) {
         // layers é um array onde cada elemento é o número de neurônios na respectiva camada
         this.layers = layers as number[];
 
         // Inicializando pesos e biases para todas as camadas
-        this.weights = [] as number[];
-        this.biases  = [] as number[];
+        this.weights = [];
+        this.biases  = [];
 
         for (let i = 1; i < layers.length; i++) {
             // Pesos entre a camada i-1 e a camada i
@@ -136,8 +136,8 @@ class MLP {
     */
     public exportParameters(): JSON{
         return ( JSON.parse( JSON.stringify( {
-            weighs: [... this.weights.copyWithin() ],
-            biases: [... this.biases.copyWithin()  ],
+            weighs: [... this.weights ],
+            biases: [... this.biases  ],
 
             //Other info
             generatedAt: new Date().getTime()
@@ -149,10 +149,10 @@ class MLP {
         let activations = input as number[];
 
         // Passar pelos neurônios de cada camada
-        this.layerActivations = [activations] as number[][]; // Para armazenar as ativações de cada camada
+        this.layerActivations = [activations]; // Para armazenar as ativações de cada camada
 
         for (let l = 0; l < this.weights.length; l++) {
-            const nextActivations = [] as number[];
+            const nextActivations:number[] = [];
 
             for (let j = 0; j < this.weights[l].length; j++) {
 

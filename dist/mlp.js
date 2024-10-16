@@ -101,8 +101,8 @@ class MLP {
     */
     exportParameters() {
         return (JSON.parse(JSON.stringify({
-            weighs: [...this.weights.copyWithin()],
-            biases: [...this.biases.copyWithin()],
+            weighs: [...this.weights],
+            biases: [...this.biases],
             //Other info
             generatedAt: new Date().getTime()
         })));
