@@ -142,3 +142,20 @@ script.js:56 Entrada: 1,1, Estimativa: 0
     ]
 ]
  */
+
+
+async function generateHash(input) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+// Exemplo de geraçao de hash do resultado
+generateHash( String( inputs ) + ' ' +
+              String( targets ) +  ' ' +
+              String( mlp.weights ) +
+              String( mlp.biases ) ).then(hash => console.log('Hash exato desse resultado: ', hash));
+  

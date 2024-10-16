@@ -15,6 +15,49 @@ for( let p = 0 ; p < 10 ; p++){
 ```
 Ai eu fui no editor de código, e fui pegando sequencialmente do console do navegador os números, e fui colocando lá nas posições do array weights e biases
 
+Os resultados dos pesos e bias em sequencia(que eu obtive na geração aleatorio descrita cima) e defini como sendo pesos e biases foram as seguintes:
+0.8228850033675079,
+-0.314907800152612
+0.001901923545564177,
+0.6076617485704823
+0.21803494362838416,
+0.13302177857890918
+-0.6336502693201962,
+0.9156237345346292
+-0.02445825279113123
+(Eu me lembro muito bem desses valores de hoje quando eu estava construindo esse teste)
+
+Eu organizei da seguinte forma:
+mlp.weights = [
+    [
+        [
+            0.8228850033675079,
+            -0.314907800152612
+        ],
+        [
+            0.001901923545564177,
+            0.6076617485704823
+        ]
+    ],
+    [
+        [
+            0.21803494362838416,
+            0.13302177857890918
+        ]
+    ]
+];
+
+mlp.biases = [
+    [
+        -0.6336502693201962,
+        0.9156237345346292
+    ],
+    [
+        -0.02445825279113123
+    ]
+]
+
+esses são os pesos iniciais(que vão ser sempre os mesmos de forma estatica/fixa )
 
 e criei esse arquivo script.html que serve para testar a integridade
 eu coloquei esses 9 pesos estaticos nos pesos e biases(que eu gerei aleatorio na mão pelo metodo Math.random() * 2 - 1 )
