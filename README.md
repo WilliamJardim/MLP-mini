@@ -88,10 +88,10 @@ O problema XOR é um problema lógico clássico que não pode ser resolvido com 
   - `estimate(input)`: Retorna estimativas (estimativas) para um dado conjunto de entradas.
 
 ## Integridade dos arquivos do projeto
-Este projeto é cuidadosamente testado em detalhes, isso pode ser notado nos arquivos de teste de integridade que introduzi a partir do dia 16.10.2024, garantindo a integridade do comportamento dos arquivos do dia 15.10.2024(data initial do projeto) para com as futuras versões.
+Este projeto é cuidadosamente testado em detalhes, isso pode ser notado nos arquivos de teste de integridade que introduzi a partir do dia 16.10.2024, garantindo a integridade do comportamento dos arquivos do dia 15.10.2024 (data inicial do projeto) para com as futuras versões.
 Você poderá ler sobre esses testes aqui:
 
-  [Arquivo do teste de integridade]("./tests/XOR INTEGRITY TEST 15-10 verified/detalhes_teste_integridade.md")
+  [Caminho para o arquivo do teste de integridade]("./tests/XOR INTEGRITY TEST 15-10 verified/detalhes_teste_integridade.md")
 
 
 ## Licença
