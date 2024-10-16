@@ -8,7 +8,7 @@ const mlp = new MLP({
     initialization: Initialization.Dev,
 });
 
-mlp.weights = [
+var pesosIniciais = [
     [
         [
             0.8228850033675079,
@@ -26,8 +26,9 @@ mlp.weights = [
         ]
     ]
 ];
+mlp.weights = [...pesosIniciais.copyWithin()];
 
-mlp.biases = [
+var biasesIniciais = [
     [
         -0.6336502693201962,
         0.9156237345346292
@@ -36,6 +37,7 @@ mlp.biases = [
         -0.02445825279113123
     ]
 ]
+mlp.biases = [...biasesIniciais.copyWithin()];
 
 // Dados de entrada para o problema XOR
 const inputs = [
