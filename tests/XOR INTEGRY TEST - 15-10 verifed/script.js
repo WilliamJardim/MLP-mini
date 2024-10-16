@@ -160,5 +160,5 @@ async function generateHash(input) {
 generateHash( String( inputs ) + ' ' +
               String( targets ) +  ' ' +
               String( mlp.weights ) +
-              String( mlp.biases ) ).then(hash => console.log('Hash exato desse resultado: ', hash));
+              String( mlp.biases ) ).then(hash => console.log('Hash 1 desse resultado: ', hash));
   

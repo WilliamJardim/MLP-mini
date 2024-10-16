@@ -75,3 +75,5 @@ confirmei que o treinamento e backpropagation não sofreram nenhuma alteração 
 
 as mudanças que fiz não afetaram em nada os resultados que já estavam sendo produzidos antes.
 
+# Hashes do teste
+Hash 1: 7e349ea735552563926e9fcbfae337b6d405abf916457af9bc6cce94e97e2c7e
