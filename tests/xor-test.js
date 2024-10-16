@@ -1,6 +1,13 @@
 // Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
-const layers = [2, 2, 1];
-const mlp = new MLP(layers);
+const config = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 2, functions: [ 'Sigmoid', 'Sigmoid' ]  }, 
+        { type: LayerType.Final,  inputs: 2, units: 1, functions: [ 'Sigmoid' ]  }
+    ]
+};
+
+const mlp = new MLP(config);
 
 // Dados de entrada para o problema XOR
 const inputs = [

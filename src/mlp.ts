@@ -23,6 +23,53 @@ class ActivationFunctions {
     }
 }
 
+enum Initialization{
+    Zeros = 'Zeros'
+}
+
+enum Task{
+    BinaryClassification = 'binary_classification'
+} 
+
+enum TrainType{
+    Online = 'online'
+}
+
+interface HyperParameters{
+    learningRate: number
+}
+
+enum LayerType{
+    Input = 'input',
+    Hidden = 'hidden',
+    Final = 'final'
+}
+
+enum ActivationFunctionsNames{
+    Sigmoid = 'sigmoid',
+    ReLU = 'ReLU'
+}
+
+interface LayerDeclaration{
+    type      : LayerType,
+    inputs    : number,
+    units     : number,
+    functions : Array<ActivationFunctionsNames>
+}
+
+interface MLPConfig{
+    
+    initialization: Initialization,
+    task: Task,
+    traintype: TrainType,
+
+    hyperparameters: HyperParameters,
+
+    //Structure
+    layers: Array<LayerDeclaration>
+    
+}
+
 // Função para inicializar pesos de forma aleatória
 function randomWeight(): number {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
@@ -30,27 +77,36 @@ function randomWeight(): number {
 
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
+    private config  : MLPConfig;
     private layers  : number[];
     private weights : number[][][];
     private biases  : number[][];
     private layerActivations : number[][];
 
-    public constructor(layers: number[]) {
-        // layers é um array onde cada elemento é o número de neurônios na respectiva camada
-        this.layers = layers as number[];
+    public constructor(config: MLPConfig) {
+        const classContext = this;
+
+        this.config = config;
+
+        // layers é um array onde cada elemento é o número de unidades na respectiva camada
+        // Essa informação será extraida do config
+        this.layers = [] as number[];
+        this.config.layers.forEach( function( layerDeclaration:LayerDeclaration, layerIndex: number ){
+            classContext.layers[ layerIndex ] = layerDeclaration.units;
+        });
 
         // Inicializando pesos e biases para todas as camadas
         this.weights = [];
         this.biases  = [];
 
-        for (let i = 1; i < layers.length; i++) {
+        for (let i = 1; i < this.layers.length; i++) {
             // Pesos entre a camada i-1 e a camada i
-            const layerWeights = [] as number[][];
+            const layerWeights: number[][] = [];
 
-            for (let j = 0; j < layers[i]; j++) {
-                const neuronWeights = [] as number[];
+            for (let j = 0; j < this.layers[i]; j++) {
+                const neuronWeights: number[] = [];
 
-                for (let k = 0; k < layers[i - 1]; k++) {
+                for (let k = 0; k < this.layers[i - 1]; k++) {
                     neuronWeights.push( randomWeight() );
                 }
                 
@@ -60,7 +116,7 @@ class MLP {
             this.weights.push(layerWeights);
 
             // Biases para a camada i
-            const layerBiases = Array(layers[i]).fill(0).map(() => randomWeight()) as number[];
+            const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight()) as number[];
             this.biases.push(layerBiases);
         }
     }
