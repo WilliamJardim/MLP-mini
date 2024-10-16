@@ -1,40 +1,31 @@
-// Função de ativação sigmoide
-function sigmoid(x: number): number {
-    return 1 / (1 + Math.exp(-x));
-}
+class ActivationFunctions {
+    // Torna a classe um singleton impedindo instanciamento externo
+    private constructor() {}
 
-// Derivada da sigmoide
-function sigmoidDerivative(x: number): number {
-    return x * (1 - x);
+    // Função de ativação sigmoide
+    public static sigmoid(x: number): number {
+        return 1 / (1 + Math.exp(-x));
+    }
+
+    // Derivada da sigmoide
+    public static sigmoidDerivative(x: number): number {
+        return x * (1 - x);
+    }
+
+    // Função de ativação ReLU
+    public static ReLU(x: number): number {
+        return Math.max(0, x);
+    }
+
+    // Derivada da ReLU
+    public static ReLUDerivative(x: number): number {
+        return x > 0 ? 1 : 0;
+    }
 }
 
 // Função para inicializar pesos de forma aleatória
 function randomWeight(): number {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
-}
-
-/**
-* Calcula o custo 
-* 
-* @param {Array} train_samples - Todas as amostras de treinamento
-* @returns {Number} - o custo
-*/
-var compute_train_cost = function( inputs: number[][], mytargets:number[][], estimatedValues:number[][] ): number{
-
-    let cost = 0;
-    
-    inputs.forEach((input: number[], i: number) => {
-        const targets                = mytargets[i];
-        const estimations: number[]  = estimatedValues[i];
-
-        for( let S = 0 ; S < estimations.length ; S++ )
-        {
-            cost = cost + Math.pow( (estimations[S] - targets[S]), 2 );
-        }
-
-    });
-
-    return cost;
 }
 
 // Rede Neural MLP com suporte a múltiplas camadas
@@ -72,6 +63,30 @@ class MLP {
             const layerBiases = Array(layers[i]).fill(0).map(() => randomWeight()) as number[];
             this.biases.push(layerBiases);
         }
+    }
+
+    /**
+    * Calcula o custo de todas as amostras de uma só vez
+    * 
+    * @param {Array} train_samples - Todas as amostras de treinamento
+    * @returns {Number} - o custo
+    */
+    compute_train_cost( inputs: number[][], mytargets:number[][], estimatedValues:number[][] ): number{
+
+        let cost = 0;
+        
+        inputs.forEach((input: number[], i: number) => {
+            const targets                = mytargets[i];
+            const estimations: number[]  = estimatedValues[i];
+
+            for( let S = 0 ; S < estimations.length ; S++ )
+            {
+                cost = cost + Math.pow( (estimations[S] - targets[S]), 2 );
+            }
+
+        });
+
+        return cost;
     }
     
     /**
@@ -149,7 +164,7 @@ class MLP {
 
                 weightedSum += this.biases[l][j];
 
-                nextActivations.push( sigmoid(weightedSum) );
+                nextActivations.push( ActivationFunctions.sigmoid(weightedSum) );
             }
 
             activations = nextActivations;
@@ -169,7 +184,7 @@ class MLP {
 
     ): void {
 
-        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${ compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
+        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${ this.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
 
         for (let epoch = 0; epoch < epochs; epoch++) {
         
@@ -200,7 +215,7 @@ class MLP {
                             error += layerErrors[0][k] * this.weights[l][k][j];
                         }
                     
-                        layerError.push(error * sigmoidDerivative(this.layerActivations[l][j]));
+                        layerError.push(error * ActivationFunctions.sigmoidDerivative(this.layerActivations[l][j]));
                     }
 
                     /**
@@ -228,7 +243,7 @@ class MLP {
                 }
             });
 
-            let totalError:number = compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) );
+            let totalError:number = this.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) );
 
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
