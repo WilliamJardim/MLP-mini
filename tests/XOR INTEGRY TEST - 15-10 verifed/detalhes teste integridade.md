@@ -6,6 +6,16 @@ EU USEI ESSE PONTO DO MEU RESPOTÒRIO:
 
 Eu gerei 9 valores aleatórios na mão para serem os pesos e biases estaticos que vou usar no teste
 
+# Código usado para gerar os pesos e biases
+Para isso, usei o seguinte código JavaScript mesmo diretamente no console do navegador:
+```javascript
+for( let p = 0 ; p < 10 ; p++){ 
+    console.log( Math.random() * 2 - 1 ) 
+};
+```
+Ai eu fui no editor de código, e fui pegando sequencialmente do console do navegador os números, e fui colocando lá nas posições do array weights e biases
+
+
 e criei esse arquivo script.html que serve para testar a integridade
 eu coloquei esses 9 pesos estaticos nos pesos e biases(que eu gerei aleatorio na mão pelo metodo Math.random() * 2 - 1 )
 e coloquei o dataset do XOR
