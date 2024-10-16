@@ -1,6 +1,9 @@
 Eu fiz esse teste hoje 16.10
 eu baixei os arquivos do primeiro commit da minha rede neural MLP no meu github, do primeiro commit de ontem dia 15.10, antes da refatoração de hoje.
 
+EU USEI ESSE PONTO DO MEU RESPOTÒRIO:
+[ Link para o repositório na versão inicial dele de 15.10.2024 ](https://github.com/WilliamJardim/MLP-mini/tree/91bbd8bee309b5ae4cc27c234724a6cfc07941fe)
+
 Eu gerei 9 valores aleatórios na mão para serem os pesos e biases estaticos que vou usar no teste
 
 e criei esse arquivo script.html que serve para testar a integridade
