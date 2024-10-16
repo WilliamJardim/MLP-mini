@@ -162,3 +162,11 @@ generateHash( String( inputs ) + ' ' +
               String( mlp.weights ) +
               String( mlp.biases ) ).then(hash => console.log('Hash 1 desse resultado: ', hash));
   
+// Exemplo de geraçao de hash do resultado
+generateHash( String( inputs ) + ' ' +
+              String( targets ) +  ' ' +
+              String( pesosIniciais ) +
+              String( biasesIniciais ) + 
+              String( mlp.weights ) +
+              String( mlp.biases ) ).then(hash => console.log('Hash 2 desse resultado: ', hash));
+ 
