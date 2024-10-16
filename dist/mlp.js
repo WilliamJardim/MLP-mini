@@ -95,6 +95,12 @@ class MLP {
         return cost;
     }
     /**
+    * Retorna os parametros iniciais que foram usados para inicializar a rede
+    */
+    getInitialParameters() {
+        return this.initialParameters;
+    }
+    /**
     * Log the current network parameters values in a string
     *
     * @param parameterShow - The show type
