@@ -52,7 +52,7 @@ class MLP {
     * @param {Array} train_samples - Todas as amostras de treinamento
     * @returns {Number} - o custo
     */
-    compute_train_cost(inputs, mytargets, estimatedValues) {
+    static compute_train_cost(inputs, mytargets, estimatedValues) {
         let cost = 0;
         inputs.forEach((input, i) => {
             const targets = mytargets[i];
@@ -129,7 +129,7 @@ class MLP {
     }
     // Função de treinamento com retropropagação
     train(inputs, targets, learningRate = 0.1, epochs = 10000, printEpochs = 1000) {
-        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${this.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
+        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
         for (let epoch = 0; epoch < epochs; epoch++) {
             inputs.forEach((input, i) => {
                 const target = targets[i];
@@ -175,7 +175,7 @@ class MLP {
                     }
                 }
             });
-            let totalError = this.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));
+            let totalError = MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
                 console.log(`Epoch ${epoch}, Erro total: ${totalError}`);

@@ -35,7 +35,7 @@ class MLP {
     private biases;
     private layerActivations;
 
-    constructor(layers: number[]) {
+    public constructor(layers: number[]) {
         // layers é um array onde cada elemento é o número de neurônios na respectiva camada
         this.layers = layers as number[];
 
@@ -71,7 +71,7 @@ class MLP {
     * @param {Array} train_samples - Todas as amostras de treinamento
     * @returns {Number} - o custo
     */
-    compute_train_cost( inputs: number[][], mytargets:number[][], estimatedValues:number[][] ): number{
+    public static compute_train_cost( inputs: number[][], mytargets:number[][], estimatedValues:number[][] ): number{
 
         let cost = 0;
         
@@ -94,7 +94,7 @@ class MLP {
     * 
     * @param parameterShow - The show type
     */
-    logParameters( parameterShow:string = 'verbose'): void{
+    public logParameters( parameterShow:string = 'verbose'): void{
         let netStr:string = '-=-=- WEIGHS OF THE NETWORK: -=-=- \n\n';
         let identSimbol = '--->';
 
@@ -134,7 +134,7 @@ class MLP {
     * Export the current network parameters values into a JSON object
     * @returns {JSON}
     */
-    exportParameters(): JSON{
+    public exportParameters(): JSON{
         return ( JSON.parse( JSON.stringify( {
             weighs: [... this.weights.copyWithin() ],
             biases: [... this.biases.copyWithin()  ],
@@ -145,7 +145,7 @@ class MLP {
     }
 
     // Forward pass (passagem direta)
-    forward(input: number[]) {
+    public forward(input: number[]) {
         let activations = input as number[];
 
         // Passar pelos neurônios de cada camada
@@ -175,7 +175,7 @@ class MLP {
     }
 
     // Função de treinamento com retropropagação
-    train(
+    public train(
           inputs: number[][], 
           targets: number[][], 
           learningRate: number = 0.1, 
@@ -184,7 +184,7 @@ class MLP {
 
     ): void {
 
-        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${ this.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
+        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${ MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
 
         for (let epoch = 0; epoch < epochs; epoch++) {
         
@@ -243,7 +243,7 @@ class MLP {
                 }
             });
 
-            let totalError:number = this.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) );
+            let totalError:number = MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) );
 
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
@@ -253,7 +253,7 @@ class MLP {
     }
 
     // Função para prever a saída para um novo conjunto de entradas
-    estimate(input: number[]): number[] {
+    public estimate(input: number[]): number[] {
         const output = this.forward(input) as number[];
         return output.map( (o: number) => (o > 0.5 ? 1 : 0) );
     }
