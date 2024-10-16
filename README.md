@@ -25,8 +25,14 @@ Esta implementação foi desenvolvida de forma independente para ser simples e d
 A estrutura da rede é definida por um array onde cada elemento indica o número de unidades em cada camada. Por exemplo, a rede para o problema XOR possui 2 unidades na camada de entrada, 2 na camada oculta e 1 unidade na camada de saída:
 
 ```javascript
-const layers = [2, 2, 1]; // 2 na entrada, 2 na oculta, 1 na saída
-const mlp = new MLP(layers);
+const mlp = new MLP({
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 2 }, 
+        { type: LayerType.Final,  inputs: 2, units: 1 }
+    ],
+    initialization: Initialization.Random
+});
 ```
 
 A função `train` é usada para treinar a rede, e `estimate` é usada para realizar estimativas após o treinamento.
@@ -80,6 +86,13 @@ O problema XOR é um problema lógico clássico que não pode ser resolvido com 
   - `forward(input)`: Realiza a passagem direta através da rede.
   - `train(inputs, targets, learningRate, epochs)`: Treina a rede usando backpropagation.
   - `estimate(input)`: Retorna estimativas (estimativas) para um dado conjunto de entradas.
+
+## Integridade dos arquivos do projeto
+Este projeto é cuidadosamente testado em detalhes, isso pode ser notado nos arquivos de teste de integridade que introduzi a partir do dia 16.10.2024, garantindo a integridade do comportamento dos arquivos do dia 15.10.2024(data initial do projeto) para com as futuras versões.
+Você poderá ler sobre esses testes aqui:
+
+  [Arquivo do teste de integridade](./tests/XOR INTEGRY TEST - 15-10 verifed/detalhes teste integridade.md);
+
 
 ## Licença
 
