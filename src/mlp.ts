@@ -24,7 +24,10 @@ class ActivationFunctions {
 }
 
 enum Initialization{
-    Zeros = 'Zeros'
+    Zeros = 'Zeros',
+    Manual = 'Manual',
+    Random = 'Random',
+    Dev    = 'Dev'
 }
 
 enum Task{
@@ -57,6 +60,14 @@ interface LayerDeclaration{
     functions : Array<ActivationFunctionsNames>
 }
 
+
+interface DoneParameters{
+    weights: number[][][],
+    biases: number[][],
+    layers: []
+    generatedAt: Date
+}
+
 interface MLPConfig{
     
     initialization: Initialization,
@@ -66,16 +77,11 @@ interface MLPConfig{
     hyperparameters: HyperParameters,
 
     //Structure
-    layers: Array<LayerDeclaration>
-    
+    layers: Array<LayerDeclaration>,
+
+    parameters: DoneParameters
 }
 
-interface DoneParameters{
-    weights: number[][][],
-    biases: number[][],
-    layers: []
-    generatedAt: Date
-}
 
 // Função para inicializar pesos de forma aleatória
 function randomWeight(): number {
@@ -107,25 +113,36 @@ class MLP {
         this.weights = [];
         this.biases  = [];
 
-        for (let i = 1; i < this.layers.length; i++) {
-            // Pesos entre a camada i-1 e a camada i
-            const layerWeights: number[][] = [];
+        if( config.initialization == Initialization.Random )
+        {
+            for (let i = 1; i < this.layers.length; i++) {
+                // Pesos entre a camada i-1 e a camada i
+                const layerWeights: number[][] = [];
 
-            for (let j = 0; j < this.layers[i]; j++) {
-                const neuronWeights: number[] = [];
+                for (let j = 0; j < this.layers[i]; j++) {
+                    const neuronWeights: number[] = [];
 
-                for (let k = 0; k < this.layers[i - 1]; k++) {
-                    neuronWeights.push( randomWeight() );
+                    for (let k = 0; k < this.layers[i - 1]; k++) {
+                        neuronWeights.push( randomWeight() );
+                    }
+                    
+                    layerWeights.push(neuronWeights);
                 }
-                
-                layerWeights.push(neuronWeights);
+
+                this.weights.push(layerWeights);
+
+                // Biases para a camada i
+                const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight()) as number[];
+                this.biases.push(layerBiases);
             }
 
-            this.weights.push(layerWeights);
+        }if( config.initialization == Initialization.Manual )
+        {
+            this.importParameters( config.parameters! );
 
-            // Biases para a camada i
-            const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight()) as number[];
-            this.biases.push(layerBiases);
+        }else if( config.initialization == Initialization.Dev )
+        {
+            //Aqui fica por conta do programador definir os parametros antes de tentar usar o modelo
         }
 
         //Faz a exportação dos parametros iniciais

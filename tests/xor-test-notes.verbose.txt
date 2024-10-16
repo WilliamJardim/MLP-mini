@@ -458,3 +458,21 @@ xor-test.js:28 Entrada: 1,0, Previsão: 1
 xor-test.js:28 Entrada: 1,1, Previsão: 0
 
 
+(16.10.2024 16:20 após as atualização de hoje)
+Erro inicial(ANTES DO TREINAMENTO): 1.0852357363916894
+mlp.js:241 Epoch 0, Erro total: 1.0613025983483366
+mlp.js:241 Epoch 1000, Erro total: 1.0001142700977432
+mlp.js:241 Epoch 2000, Erro total: 0.641802878025237
+mlp.js:241 Epoch 3000, Erro total: 0.0046744834477295905
+mlp.js:241 Epoch 4000, Erro total: 0.0008583967523728915
+mlp.js:241 Epoch 5000, Erro total: 0.00033811543819974884
+mlp.js:241 Epoch 6000, Erro total: 0.00017793268456135249
+mlp.js:241 Epoch 7000, Erro total: 0.00010908007687006474
+mlp.js:241 Epoch 8000, Erro total: 0.00007347730268566225
+mlp.js:241 Epoch 9000, Erro total: 0.0000527616044550891
+xor-test.js:33 Estimativas:
+xor-test.js:36 Entrada: 0,0, Estimativa: 0
+xor-test.js:36 Entrada: 0,1, Estimativa: 1
+xor-test.js:36 Entrada: 1,0, Estimativa: 1
+xor-test.js:36 Entrada: 1,1, Estimativa: 0
+

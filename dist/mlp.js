@@ -21,6 +21,9 @@ class ActivationFunctions {
 var Initialization;
 (function (Initialization) {
     Initialization["Zeros"] = "Zeros";
+    Initialization["Manual"] = "Manual";
+    Initialization["Random"] = "Random";
+    Initialization["Dev"] = "Dev";
 })(Initialization || (Initialization = {}));
 var Task;
 (function (Task) {
@@ -59,20 +62,28 @@ class MLP {
         // Inicializando pesos e biases para todas as camadas
         this.weights = [];
         this.biases = [];
-        for (let i = 1; i < this.layers.length; i++) {
-            // Pesos entre a camada i-1 e a camada i
-            const layerWeights = [];
-            for (let j = 0; j < this.layers[i]; j++) {
-                const neuronWeights = [];
-                for (let k = 0; k < this.layers[i - 1]; k++) {
-                    neuronWeights.push(randomWeight());
+        if (config.initialization == Initialization.Random) {
+            for (let i = 1; i < this.layers.length; i++) {
+                // Pesos entre a camada i-1 e a camada i
+                const layerWeights = [];
+                for (let j = 0; j < this.layers[i]; j++) {
+                    const neuronWeights = [];
+                    for (let k = 0; k < this.layers[i - 1]; k++) {
+                        neuronWeights.push(randomWeight());
+                    }
+                    layerWeights.push(neuronWeights);
                 }
-                layerWeights.push(neuronWeights);
+                this.weights.push(layerWeights);
+                // Biases para a camada i
+                const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight());
+                this.biases.push(layerBiases);
             }
-            this.weights.push(layerWeights);
-            // Biases para a camada i
-            const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight());
-            this.biases.push(layerBiases);
+        }
+        if (config.initialization == Initialization.Manual) {
+            this.importParameters(config.parameters);
+        }
+        else if (config.initialization == Initialization.Dev) {
+            //Aqui fica por conta do programador definir os parametros antes de tentar usar o modelo
         }
         //Faz a exportação dos parametros iniciais
         this.initialParameters = this.exportParameters();

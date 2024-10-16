@@ -4,7 +4,8 @@ const config = {
         { type: LayerType.Input,  inputs: 2, units: 2 }, 
         { type: LayerType.Hidden, inputs: 2, units: 2, functions: [ 'Sigmoid', 'Sigmoid' ]  }, 
         { type: LayerType.Final,  inputs: 2, units: 1, functions: [ 'Sigmoid' ]  }
-    ]
+    ],
+    initialization: Initialization.Random
 };
 
 const mlp = new MLP(config);

@@ -4,7 +4,8 @@ const mlp = new MLP({
         { type: 'input', units: 2 },
         { type: 'hidden', units: 2 },
         { type: 'final', units: 1 }
-    ]
+    ],
+    initialization: Initialization.Dev,
 });
 
 mlp.weights = [
