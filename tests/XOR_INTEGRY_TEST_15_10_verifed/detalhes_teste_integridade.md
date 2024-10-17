@@ -80,3 +80,25 @@ as mudanças que fiz não afetaram em nada os resultados que já estavam sendo p
 # Hashes do teste
 Hash 1: 7e349ea735552563926e9fcbfae337b6d405abf916457af9bc6cce94e97e2c7e
 Hash 2: e727b358b88d8152b034da93750bdff29ae14e66a73b3f0649bf3abb5c029706
+
+# Resultados esperados que toda execução deve produzir para estar intacta
+```javascript
+Erro inicial(ANTES DO TREINAMENTO): 1.006463576017077
+bundle.js:251 Epoch 0, Erro total: 1.0042949265382282
+bundle.js:251 Epoch 1000, Erro total: 0.7573042453719532
+bundle.js:251 Epoch 2000, Erro total: 0.006762246801441626
+bundle.js:251 Epoch 3000, Erro total: 0.0009645604240061526
+bundle.js:251 Epoch 4000, Erro total: 0.0003579708746998038
+bundle.js:251 Epoch 5000, Erro total: 0.0001837263766912989
+bundle.js:251 Epoch 6000, Erro total: 0.00011114722652080309
+bundle.js:251 Epoch 7000, Erro total: 0.00007427321273021063
+bundle.js:251 Epoch 8000, Erro total: 0.00005305475269371219
+bundle.js:251 Epoch 9000, Erro total: 0.000039753414805063484
+script.js:62 Estimativas:
+script.js:65 Entrada: 0,0, Estimativa: 0
+script.js:65 Entrada: 0,1, Estimativa: 1
+script.js:65 Entrada: 1,0, Estimativa: 1
+script.js:65 Entrada: 1,1, Estimativa: 0
+script.js:163 Hash 1 desse resultado:  7e349ea735552563926e9fcbfae337b6d405abf916457af9bc6cce94e97e2c7e
+script.js:171 Hash 2 desse resultado:  e727b358b88d8152b034da93750bdff29ae14e66a73b3f0649bf3abb5c029706
+```
