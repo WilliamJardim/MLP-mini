@@ -1,4 +1,4 @@
-import '../Enums';
+import '../utils/Enums';
 
 export default interface LayerDeclaration{
     type      : LayerType,

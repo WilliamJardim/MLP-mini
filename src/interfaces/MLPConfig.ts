@@ -1,5 +1,5 @@
 import LayerDeclaration from '../interfaces/LayerDeclaration';
-import '../Enums';
+import '../utils/Enums';
 
 export default interface MLPConfig{
     

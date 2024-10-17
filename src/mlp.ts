@@ -1,7 +1,7 @@
-import ActivationFunctions from './ActivationFunctions';
+import ActivationFunctions from './utils/ActivationFunctions';
 import LayerDeclaration from './interfaces/LayerDeclaration';
 import MLPConfig from './interfaces/MLPConfig';
-import './Enums';
+import './utils/Enums';
 
 // Função para inicializar pesos de forma aleatória
 function randomWeight(): number {
