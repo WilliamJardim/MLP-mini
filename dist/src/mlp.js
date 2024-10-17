@@ -1,6 +1,7 @@
 import ActivationFunctions from './utils/ActivationFunctions';
 import './utils/Enums';
 import ValidateStructure from './validators/ValidateStructure';
+import ValidateDataset from './validators/ValidateDataset';
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
@@ -148,6 +149,8 @@ class MLP {
     }
     // Função de treinamento com retropropagação
     train(inputs, targets, learningRate = 0.1, epochs = 10000, printEpochs = 1000) {
+        // Valida os dados de treinamento
+        ValidateDataset(this.config, inputs, targets);
         console.log(`Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
         for (let epoch = 0; epoch < epochs; epoch++) {
             inputs.forEach((input, i) => {

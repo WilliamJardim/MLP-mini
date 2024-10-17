@@ -3,6 +3,7 @@ import LayerDeclaration from './interfaces/LayerDeclaration';
 import MLPConfig from './interfaces/MLPConfig';
 import './utils/Enums';
 import ValidateStructure from './validators/ValidateStructure';
+import ValidateDataset from './validators/ValidateDataset';
 
 // Função para inicializar pesos de forma aleatória
 function randomWeight(): number {
@@ -212,6 +213,11 @@ class MLP {
           printEpochs:number = 1000
 
     ): void {
+
+        // Valida os dados de treinamento
+        ValidateDataset( this.config, 
+                         inputs, 
+                         targets );
 
         console.log(`Erro inicial(ANTES DO TREINAMENTO): ${ MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
 
