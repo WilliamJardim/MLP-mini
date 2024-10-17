@@ -32,9 +32,15 @@ class MLP {
         // layers é um array onde cada elemento é o número de unidades na respectiva camada
         // Essa informação será extraida do config
         this.layers = [];
+        //Esse aqui é um array para armazenar os nomes das funções de ativações das unidades de cada camada, assim: Array de Array<string>
+        this.layers_functions = [];
         this.config.layers.forEach(function (layerDeclaration, layerIndex) {
             classContext.layers[layerIndex] = layerDeclaration.units;
+            if (layerDeclaration.functions) {
+                classContext.layers_functions[layerIndex] = layerDeclaration.functions;
+            }
         });
+        debugger;
         // Inicializando pesos e biases para todas as camadas
         this.weights = [];
         this.biases = [];

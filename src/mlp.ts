@@ -12,12 +12,13 @@ function randomWeight(): number {
 
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
-    private config  : MLPConfig;
-    private layers  : number[];
-    private weights : number[][][];
-    private biases  : number[][];
-    private layerActivations : number[][];
-    private initialParameters: DoneParameters;
+    private config             : MLPConfig;
+    private layers             : number[];
+    private layers_functions   : string[][];
+    private weights            : number[][][];
+    private biases             : number[][];
+    private layerActivations   : number[][];
+    private initialParameters  : DoneParameters;
 
     public constructor(config: MLPConfig) {
         const classContext = this;
@@ -29,10 +30,21 @@ class MLP {
 
         // layers é um array onde cada elemento é o número de unidades na respectiva camada
         // Essa informação será extraida do config
-        this.layers = [] as number[];
+        this.layers = []             as number[];
+
+        //Esse aqui é um array para armazenar os nomes das funções de ativações das unidades de cada camada, assim: Array de Array<string>
+        this.layers_functions = []   as string[][];
+
         this.config.layers.forEach( function( layerDeclaration:LayerDeclaration, layerIndex: number ){
             classContext.layers[ layerIndex ] = layerDeclaration.units;
+
+            if( layerDeclaration.functions )
+            {
+                classContext.layers_functions[ layerIndex ] = layerDeclaration.functions;
+            }
         });
+
+        //Adicionar validação aqui para validar as funções das camadas
 
         // Inicializando pesos e biases para todas as camadas
         this.weights = [];
