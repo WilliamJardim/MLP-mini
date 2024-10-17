@@ -1,5 +1,5 @@
-import ActivationFunctions from './ActivationFunctions';
-import './Enums';
+import ActivationFunctions from './utils/ActivationFunctions';
+import './utils/Enums';
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1

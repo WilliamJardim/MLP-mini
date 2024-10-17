@@ -1,1 +1,1 @@
-import '../Enums';
+import '../utils/Enums';
