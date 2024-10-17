@@ -78,8 +78,11 @@ confirmei que o treinamento e backpropagation não sofreram nenhuma alteração 
 as mudanças que fiz não afetaram em nada os resultados que já estavam sendo produzidos antes.
 
 # Hashes do teste
+Os hashs estão abaixo:
 - Hash 1: 7e349ea735552563926e9fcbfae337b6d405abf916457af9bc6cce94e97e2c7e
 - Hash 2: e727b358b88d8152b034da93750bdff29ae14e66a73b3f0649bf3abb5c029706
+
+Eles não devem mudar!
 
 # Resultados esperados que toda execução deve produzir para estar intacta
 ```javascript
