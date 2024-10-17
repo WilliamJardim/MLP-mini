@@ -6,7 +6,7 @@
     },
     "exclude": [
         "node_modules",
-        "src/old",
+        "old_src",
         "tests/old",
         "olddev"
     ]
