@@ -102,3 +102,7 @@ script.js:65 Entrada: 1,1, Estimativa: 0
 script.js:163 Hash 1 desse resultado:  7e349ea735552563926e9fcbfae337b6d405abf916457af9bc6cce94e97e2c7e
 script.js:171 Hash 2 desse resultado:  e727b358b88d8152b034da93750bdff29ae14e66a73b3f0649bf3abb5c029706
 ```
+
+# Esclarecimentos
+Para obter esse historico de erro ao longo das epocas, eu rodei novamente o "script.html"[Veja ele aqui](./script.html) do teste de integridade 
+Eu rodei novamente, e como de esperado, como não houve nenhuma alteração no algoritmo, o resultado permaneceu exatamente o mesmo descrito no arquivo [Compare aqui](./resultado-atualizado.txt) e tembem exatamente o mesmo das anotações iniciais dos resultados do dia 15.10.2024
