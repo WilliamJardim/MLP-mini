@@ -2,6 +2,7 @@ import ActivationFunctions from './utils/ActivationFunctions';
 import './utils/Enums';
 import ValidateStructure from './validators/ValidateStructure';
 import ValidateDataset from './validators/ValidateDataset';
+import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
@@ -24,7 +25,11 @@ class MLP {
                 classContext.layers_functions[layerIndex] = layerDeclaration.functions;
             }
         });
-        debugger;
+        //Adicionar validação aqui para validar as funções das camadas
+        if (this.layers_functions.length > 0) {
+            //Se tiver this.layers_functions, então ele precisa validar
+            ValidateLayerFunctions(this.config);
+        }
         // Inicializando pesos e biases para todas as camadas
         this.weights = [];
         this.biases = [];

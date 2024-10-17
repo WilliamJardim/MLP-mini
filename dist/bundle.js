@@ -18,6 +18,7 @@
 
 
 
+
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
@@ -40,7 +41,11 @@ class MLP {
                 classContext.layers_functions[layerIndex] = layerDeclaration.functions;
             }
         });
-        debugger;
+        //Adicionar validação aqui para validar as funções das camadas
+        if (this.layers_functions.length > 0) {
+            //Se tiver this.layers_functions, então ele precisa validar
+            ValidateLayerFunctions(this.config);
+        }
         // Inicializando pesos e biases para todas as camadas
         this.weights = [];
         this.biases = [];
@@ -314,6 +319,19 @@ function ValidateDataset(config, train_inputs, train_targets) {
             throw `A quantidade de targets da linha ${i} do seu dataset é ${targetTrainInputs.length}, sendo que na camada de saida da sua rede, voce tem ${lastLayer.units}. As quantidades precisam bater!`;
         }
         ;
+    }
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\validators\ValidateLayerFunctions.js
+
+function ValidateLayerFunctions(config) {
+    const layers = config.layers;
+    for (let i = 0; i < layers.length; i++) {
+        const currentLayer = layers[i];
+        if (currentLayer.functions && currentLayer.functions.length != currentLayer.units) {
+            throw ` A camada camada${i} tem ${currentLayer.functions.length} funções, sendo elas [${currentLayer.functions}], porém, essa camada possui ${currentLayer.units} unidades. A quantidade nao bate! `;
+        }
     }
 }
 
