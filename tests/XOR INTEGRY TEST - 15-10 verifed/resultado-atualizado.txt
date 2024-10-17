@@ -15,3 +15,8 @@ script.js:65 Entrada: 0,1, Estimativa: 1
 script.js:65 Entrada: 1,0, Estimativa: 1
 script.js:65 Entrada: 1,1, Estimativa: 0
 script.js:163 Hash exato desse resultado:  7e349ea735552563926e9fcbfae337b6d405abf916457af9bc6cce94e97e2c7e
+
+NOTA: Esse é o arquivo atualizado com o hash, 
+porém, ele deu exatamente o mesmo resultado do custo ao longo das epocas que o script do teste da versão do dia 15.10.2024
+o resultado é o mesmo, eu tenho os arquivos iniciais que usei pra fazer esse teste pela primeira vez, dentro da pasta do ZIP extraido do commit antigo que eu mencionei nas outras notas.
+Isso é comprovado.
