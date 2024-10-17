@@ -1,5 +1,5 @@
 
-// Conteúdo do arquivo: mlp.js
+// Conteúdo do arquivo: ActivationFunctions.js
 class ActivationFunctions {
     // Torna a classe um singleton impedindo instanciamento externo
     constructor() { }
@@ -20,6 +20,9 @@ class ActivationFunctions {
         return x > 0 ? 1 : 0;
     }
 }
+
+
+// Conteúdo do arquivo: Enums.js
 var Initialization;
 (function (Initialization) {
     Initialization["Zeros"] = "Zeros";
@@ -46,6 +49,11 @@ var ActivationFunctionsNames;
     ActivationFunctionsNames["Sigmoid"] = "sigmoid";
     ActivationFunctionsNames["ReLU"] = "ReLU";
 })(ActivationFunctionsNames || (ActivationFunctionsNames = {}));
+
+
+// Conteúdo do arquivo: mlp.js
+
+
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1

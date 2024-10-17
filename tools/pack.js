@@ -1,10 +1,17 @@
+/**
+* Junta todos os arquivos JS compilados para um unico arquivo dist/bundle.js
+*/
 const fs   = require('fs');
 const path = require('path');
 
 // Diretório onde estão os arquivos .js que serão concatenados
-const distDir = path.join(__dirname, '../dist');
+const distDir = path.join(__dirname, '../dist/src/');
+if( !fs.existsSync(distDir) ){
+   fs.mkdirSync(distDir);
+}
+
 // Arquivo de saída final
-const outputFile = path.join(distDir, 'bundle.js');
+const outputFile = path.join(distDir, '../', 'bundle.js');
 
 // Função que une todos os arquivos .js em um só
 function bundleJSFiles() {

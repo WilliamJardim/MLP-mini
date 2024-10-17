@@ -1,49 +1,5 @@
-class ActivationFunctions {
-    // Torna a classe um singleton impedindo instanciamento externo
-    constructor() { }
-    // Função de ativação sigmoide
-    static sigmoid(x) {
-        return 1 / (1 + Math.exp(-x));
-    }
-    // Derivada da sigmoide
-    static sigmoidDerivative(x) {
-        return x * (1 - x);
-    }
-    // Função de ativação ReLU
-    static ReLU(x) {
-        return Math.max(0, x);
-    }
-    // Derivada da ReLU
-    static ReLUDerivative(x) {
-        return x > 0 ? 1 : 0;
-    }
-}
-var Initialization;
-(function (Initialization) {
-    Initialization["Zeros"] = "Zeros";
-    Initialization["Manual"] = "Manual";
-    Initialization["Random"] = "Random";
-    Initialization["Dev"] = "Dev";
-})(Initialization || (Initialization = {}));
-var Task;
-(function (Task) {
-    Task["BinaryClassification"] = "binary_classification";
-})(Task || (Task = {}));
-var TrainType;
-(function (TrainType) {
-    TrainType["Online"] = "online";
-})(TrainType || (TrainType = {}));
-var LayerType;
-(function (LayerType) {
-    LayerType["Input"] = "input";
-    LayerType["Hidden"] = "hidden";
-    LayerType["Final"] = "final";
-})(LayerType || (LayerType = {}));
-var ActivationFunctionsNames;
-(function (ActivationFunctionsNames) {
-    ActivationFunctionsNames["Sigmoid"] = "sigmoid";
-    ActivationFunctionsNames["ReLU"] = "ReLU";
-})(ActivationFunctionsNames || (ActivationFunctionsNames = {}));
+import ActivationFunctions from './ActivationFunctions';
+import './Enums';
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+        "outDir": "./dist/src/",
         "target": "ES2015",
         "noEmitOnError": false
     },

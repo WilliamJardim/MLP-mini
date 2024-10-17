@@ -3,6 +3,7 @@
 */
 const { exec } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
 // Caminho para o arquivo compile.bat
 const batFilePath = path.join(__dirname, '../repository-scripts', 'compile.bat');
@@ -22,14 +23,42 @@ function runBatchFile() {
 
     console.log(`Saída do compile.bat:\n${stdout}`);
     console.log('compile.bat executado com sucesso!');
+
+    // Gerar o pack
+    require('./pack.js');
+
+    // REMOVE OS IMPORT E EXPORTS DO BUNDLE UNIFICADO
+
+    // Função para limpar os 'export' e 'import' do código
+    function removeExportsImports(content) {
+      // Remove "export default" e "export" do início das linhas
+      content = String(content).replace(/^export\s+default\s+/gm, '');
+      content = String(content).replace(/^export\s+/gm, '');
+      
+      // Remove as linhas que contém "import"
+      content = String(content).replace(/^import\s+.*;/gm, '');
+
+      return content;
+    }
+
+    // Função para sobrescrever o arquivo bundle.js com o conteúdo processado
+    function overwriteBundle(content, filePath = 'bundle.js') {
+      const cleanedContent = removeExportsImports(content);
+      fs.writeFileSync(filePath, cleanedContent);
+      console.log(`Arquivo ${filePath} sobrescrito com sucesso!`);
+    }
+
+    // Chama a função para sobrescrever o arquivo bundle.js
+    const bundlePath = path.join('../', 'dist', 'bundle.js');
+    overwriteBundle( fs.readFileSync(bundlePath), path.join('../', 'dist', 'bundle.js') );
+
+    // Checar o pack
+    require('./checkpack.js');
+
+    console.log('Processamento do dist/bundle.js finalizado e arquivo pronto para uso em app web');
   });
-}
+
+  }
 
 // Chama a função
 runBatchFile();
-
-// Gerar o pack
-require('./pack.js');
-
-// Gerar o pack
-require('./checkpack.js');
