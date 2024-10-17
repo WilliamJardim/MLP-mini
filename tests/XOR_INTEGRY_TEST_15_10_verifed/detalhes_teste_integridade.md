@@ -28,6 +28,7 @@ Os resultados dos pesos e bias em sequencia(que eu obtive na geração aleatorio
 (Eu me lembro muito bem desses valores de hoje quando eu estava construindo esse teste)
 
 Eu organizei da seguinte forma:
+```json
 mlp.weights = [
     [
         [
@@ -56,6 +57,7 @@ mlp.biases = [
         -0.02445825279113123
     ]
 ]
+```
 
 esses são os pesos iniciais(que vão ser sempre os mesmos de forma estatica/fixa )
 
