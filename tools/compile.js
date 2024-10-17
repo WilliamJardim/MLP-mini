@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Caminho para o arquivo compile.bat
-const batFilePath = path.join(__dirname, '../repository-scripts', 'compile.bat');
+const batFilePath = path.join(__dirname, './repository-scripts', 'compile.bat');
 
 // Função para rodar o arquivo compile.bat
 function runBatchFile() {
