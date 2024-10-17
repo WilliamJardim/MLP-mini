@@ -1,57 +1,20 @@
 
-// Conteúdo do arquivo: ActivationFunctions.js
-class ActivationFunctions {
-    // Torna a classe um singleton impedindo instanciamento externo
-    constructor() { }
-    // Função de ativação sigmoide
-    static sigmoid(x) {
-        return 1 / (1 + Math.exp(-x));
-    }
-    // Derivada da sigmoide
-    static sigmoidDerivative(x) {
-        return x * (1 - x);
-    }
-    // Função de ativação ReLU
-    static ReLU(x) {
-        return Math.max(0, x);
-    }
-    // Derivada da ReLU
-    static ReLUDerivative(x) {
-        return x > 0 ? 1 : 0;
-    }
-}
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\DoneParameters.js
 
 
-// Conteúdo do arquivo: Enums.js
-var Initialization;
-(function (Initialization) {
-    Initialization["Zeros"] = "Zeros";
-    Initialization["Manual"] = "Manual";
-    Initialization["Random"] = "Random";
-    Initialization["Dev"] = "Dev";
-})(Initialization || (Initialization = {}));
-var Task;
-(function (Task) {
-    Task["BinaryClassification"] = "binary_classification";
-})(Task || (Task = {}));
-var TrainType;
-(function (TrainType) {
-    TrainType["Online"] = "online";
-})(TrainType || (TrainType = {}));
-var LayerType;
-(function (LayerType) {
-    LayerType["Input"] = "input";
-    LayerType["Hidden"] = "hidden";
-    LayerType["Final"] = "final";
-})(LayerType || (LayerType = {}));
-var ActivationFunctionsNames;
-(function (ActivationFunctionsNames) {
-    ActivationFunctionsNames["Sigmoid"] = "sigmoid";
-    ActivationFunctionsNames["ReLU"] = "ReLU";
-})(ActivationFunctionsNames || (ActivationFunctionsNames = {}));
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\HyperParameters.js
 
 
-// Conteúdo do arquivo: mlp.js
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\LayerDeclaration.js
+
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\MLPConfig.js
+
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\mlp.js
+
 
 
 // Função para inicializar pesos de forma aleatória
@@ -63,6 +26,8 @@ class MLP {
     constructor(config) {
         const classContext = this;
         this.config = config;
+        // Aplica uma validação de estrutura 
+        ValidateStructure(this.config);
         // layers é um array onde cada elemento é o número de unidades na respectiva camada
         // Essa informação será extraida do config
         this.layers = [];
@@ -256,6 +221,120 @@ class MLP {
     estimate(input) {
         const output = this.forward(input);
         return output.map((o) => (o > 0.5 ? 1 : 0));
+    }
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\ActivationFunctions.js
+class ActivationFunctions {
+    // Torna a classe um singleton impedindo instanciamento externo
+    constructor() { }
+    // Função de ativação sigmoide
+    static sigmoid(x) {
+        return 1 / (1 + Math.exp(-x));
+    }
+    // Derivada da sigmoide
+    static sigmoidDerivative(x) {
+        return x * (1 - x);
+    }
+    // Função de ativação ReLU
+    static ReLU(x) {
+        return Math.max(0, x);
+    }
+    // Derivada da ReLU
+    static ReLUDerivative(x) {
+        return x > 0 ? 1 : 0;
+    }
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\Enums.js
+var Initialization;
+(function (Initialization) {
+    Initialization["Zeros"] = "Zeros";
+    Initialization["Manual"] = "Manual";
+    Initialization["Random"] = "Random";
+    Initialization["Dev"] = "Dev";
+})(Initialization || (Initialization = {}));
+var Task;
+(function (Task) {
+    Task["BinaryClassification"] = "binary_classification";
+})(Task || (Task = {}));
+var TrainType;
+(function (TrainType) {
+    TrainType["Online"] = "online";
+})(TrainType || (TrainType = {}));
+var LayerType;
+(function (LayerType) {
+    LayerType["Input"] = "Input";
+    LayerType["Hidden"] = "Hidden";
+    LayerType["Final"] = "Final";
+})(LayerType || (LayerType = {}));
+var ActivationFunctionsNames;
+(function (ActivationFunctionsNames) {
+    ActivationFunctionsNames["Sigmoid"] = "sigmoid";
+    ActivationFunctionsNames["ReLU"] = "ReLU";
+})(ActivationFunctionsNames || (ActivationFunctionsNames = {}));
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\isDecimalNumber.js
+function isDecimalNumber(x) {
+    return String(x).indexOf('.') != -1 ? true : false;
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\validators\ValidateStructure.js
+
+
+function ValidateStructure(config) {
+    const initializationType = config.initialization;
+    if (!(initializationType in Initialization)) {
+        throw `O tipo de inicialização não é um tipo valido de Initialization`;
+    }
+    ;
+    if (typeof initializationType != 'string') {
+        throw `O atributo 'initialization' precisa ser do tipo 'string' `;
+    }
+    ;
+    const layers = config.layers;
+    const firstLayer = layers[0];
+    const lastLayer = layers[layers.length - 1];
+    if (firstLayer.type != LayerType.Input) {
+        throw 'A primeira camada camada${ 0 } precisa ser a camada de entrada, do tipo LayerType.Input!';
+    }
+    if (lastLayer.type != LayerType.Final) {
+        throw 'A ultima camada camada${ layers.length-1 } precisa ser a camada de saida final do modelo, do tipo LayerType.Final!';
+    }
+    for (let i = 0; i < layers.length; i++) {
+        const previousLayer = layers[i - 1];
+        const currentLayer = layers[i];
+        if (!currentLayer.type) {
+            throw ` A camada ${i} precisa ter um atributo 'type'! `;
+        }
+        if (!(currentLayer.type in LayerType)) {
+            throw `O atributo 'type' da camada ${i} não é um valor valido de LayerType!`;
+        }
+        ;
+        if (!currentLayer.inputs) {
+            throw ` A camada ${i} precisa ter o atributo 'inputs'! `;
+        }
+        if (!currentLayer.units) {
+            throw ` A camada ${i} precisa ter o atributo 'units'! `;
+        }
+        if (typeof currentLayer.type != 'string') {
+            throw `O atributo 'type' da camada ${i} precisa ser do tipo 'string' `;
+        }
+        ;
+        if (isDecimalNumber(currentLayer.inputs)) {
+            throw ` O atributo 'inputs' da camada ${i} precisa ser um número inteiro! `;
+        }
+        if (isDecimalNumber(currentLayer.units)) {
+            throw ` O atributo 'units' da camada ${i} precisa ser um número inteiro! `;
+        }
+        ;
+        if (previousLayer && currentLayer.inputs != previousLayer.units) {
+            throw ` A camada camada${i - 1} possui ${previousLayer.units} saidas, porém a camada camada${i} possui apenas ${currentLayer.inputs} entradas! `;
+        }
     }
 }
 

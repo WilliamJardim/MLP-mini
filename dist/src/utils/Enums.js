@@ -15,9 +15,9 @@ var TrainType;
 })(TrainType || (TrainType = {}));
 var LayerType;
 (function (LayerType) {
-    LayerType["Input"] = "input";
-    LayerType["Hidden"] = "hidden";
-    LayerType["Final"] = "final";
+    LayerType["Input"] = "Input";
+    LayerType["Hidden"] = "Hidden";
+    LayerType["Final"] = "Final";
 })(LayerType || (LayerType = {}));
 var ActivationFunctionsNames;
 (function (ActivationFunctionsNames) {

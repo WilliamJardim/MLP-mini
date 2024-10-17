@@ -14,9 +14,9 @@ enum TrainType{
 }
 
 enum LayerType{
-    Input = 'input',
-    Hidden = 'hidden',
-    Final = 'final'
+    Input = 'Input',
+    Hidden = 'Hidden',
+    Final = 'Final'
 }
 
 enum ActivationFunctionsNames{

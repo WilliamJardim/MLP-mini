@@ -1,23 +1,45 @@
 /**
-* Junta todos os arquivos JS compilados para um unico arquivo dist/bundle.js
-*/
+ * Junta todos os arquivos JS compilados em um único arquivo dist/bundle.js,
+ * varrendo recursivamente todos os subdiretórios dentro de dist/src/.
+ */
 const fs   = require('fs');
 const path = require('path');
 
 // Diretório onde estão os arquivos .js que serão concatenados
-const distDir = path.join(__dirname, '../dist/src/');
-if( !fs.existsSync(distDir) ){
-   fs.mkdirSync(distDir);
-}
+const srcDir = path.join(__dirname, '../dist/src/');
+const distDir = path.join(__dirname, '../dist/');
 
 // Arquivo de saída final
-const outputFile = path.join(distDir, '../', 'bundle.js');
+const outputFile = path.join(distDir, 'bundle.js');
+
+// Função recursiva para varrer diretórios e subdiretórios
+function getAllJSFiles(dir) {
+  let jsFiles = [];
+  
+  // Lê o conteúdo do diretório atual
+  const files = fs.readdirSync(dir);
+  
+  files.forEach(file => {
+    const filePath = path.join(dir, file);
+    const fileStat = fs.statSync(filePath);
+    
+    // Se for um diretório, chama a função recursivamente
+    if (fileStat.isDirectory()) {
+      jsFiles = jsFiles.concat(getAllJSFiles(filePath));
+    } else if (path.extname(file) === '.js') {
+      // Se for um arquivo .js, adiciona à lista
+      jsFiles.push(filePath);
+    }
+  });
+  
+  return jsFiles;
+}
 
 // Função que une todos os arquivos .js em um só
 function bundleJSFiles() {
   // Verifica se o diretório dist existe
-  if (!fs.existsSync(distDir)) {
-    console.error('Diretório dist não encontrado!');
+  if (!fs.existsSync(srcDir)) {
+    console.error('Diretório src não encontrado!');
     return;
   }
 
@@ -27,14 +49,13 @@ function bundleJSFiles() {
     fs.unlinkSync(outputFile);
   }
 
-  // Lê o conteúdo da pasta dist
-  const files = fs.readdirSync(distDir);
+  // Obtém todos os arquivos .js de src e subdiretórios
+  const jsFiles = getAllJSFiles(srcDir);
 
-  // Filtra apenas arquivos .js
-  const jsFiles = files.filter(file => path.extname(file) === '.js');
+  console.log(jsFiles)
 
   if (jsFiles.length === 0) {
-    console.error('Nenhum arquivo .js encontrado no diretório dist.');
+    console.error('Nenhum arquivo .js encontrado no diretório src.');
     return;
   }
 
@@ -43,8 +64,7 @@ function bundleJSFiles() {
 
   // Itera sobre cada arquivo .js, lê o conteúdo e concatena
   jsFiles.forEach(file => {
-    const filePath = path.join(distDir, file);
-    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const fileContent = fs.readFileSync(file, 'utf8');
     combinedContent += `\n// Conteúdo do arquivo: ${file}\n${fileContent}\n`;
   });
 

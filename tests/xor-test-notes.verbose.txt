@@ -476,3 +476,56 @@ xor-test.js:36 Entrada: 0,1, Estimativa: 1
 xor-test.js:36 Entrada: 1,0, Estimativa: 1
 xor-test.js:36 Entrada: 1,1, Estimativa: 0
 
+(17.10.2024 14:16 PM)
+Erro inicial(ANTES DO TREINAMENTO): 1.096395063961837
+bundle.js:216 Epoch 0, Erro total: 1.0695136414531823
+bundle.js:216 Epoch 1000, Erro total: 0.9613476289018454
+bundle.js:216 Epoch 2000, Erro total: 0.018877302181208436
+bundle.js:216 Epoch 3000, Erro total: 0.0013868399230130522
+bundle.js:216 Epoch 4000, Erro total: 0.0004455675192342627
+bundle.js:216 Epoch 5000, Erro total: 0.00021479664019967296
+bundle.js:216 Epoch 6000, Erro total: 0.00012548057729556955
+bundle.js:216 Epoch 7000, Erro total: 0.00008200468580560757
+bundle.js:216 Epoch 8000, Erro total: 0.00005768107030708049
+bundle.js:216 Epoch 9000, Erro total: 0.000042733927277495246
+xor-test.js:33 Estimativas:
+xor-test.js:36 Entrada: 0,0, Estimativa: 0
+xor-test.js:36 Entrada: 0,1, Estimativa: 1
+xor-test.js:36 Entrada: 1,0, Estimativa: 1
+xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+(17.10.2024 14:17 PM)
+Erro inicial(ANTES DO TREINAMENTO): 1.2795611544974246
+bundle.js:216 Epoch 0, Erro total: 1.2238182464711618
+bundle.js:216 Epoch 1000, Erro total: 0.992611240957366
+bundle.js:216 Epoch 2000, Erro total: 0.010332102439751942
+bundle.js:216 Epoch 3000, Erro total: 0.001155390777833594
+bundle.js:216 Epoch 4000, Erro total: 0.00040048851970291303
+bundle.js:216 Epoch 5000, Erro total: 0.00019913763636178027
+bundle.js:216 Epoch 6000, Erro total: 0.0001182924584359751
+bundle.js:216 Epoch 7000, Erro total: 0.00007811703617800795
+bundle.js:216 Epoch 8000, Erro total: 0.000055338908279000606
+bundle.js:216 Epoch 9000, Erro total: 0.000041210981910225404
+xor-test.js:33 Estimativas:
+xor-test.js:36 Entrada: 0,0, Estimativa: 0
+xor-test.js:36 Entrada: 0,1, Estimativa: 1
+xor-test.js:36 Entrada: 1,0, Estimativa: 1
+xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+(17.10.2024 14:17 PM)
+Erro inicial(ANTES DO TREINAMENTO): 1.0031982194389888
+bundle.js:216 Epoch 0, Erro total: 1.0022818107854252
+bundle.js:216 Epoch 1000, Erro total: 0.7680515242428387
+bundle.js:216 Epoch 2000, Erro total: 0.016829807875170254
+bundle.js:216 Epoch 3000, Erro total: 0.0013842812177663661
+bundle.js:216 Epoch 4000, Erro total: 0.0004512243476462606
+bundle.js:216 Epoch 5000, Erro total: 0.0002185012732790428
+bundle.js:216 Epoch 6000, Erro total: 0.0001278635043308646
+bundle.js:216 Epoch 7000, Erro total: 0.00008361680051242644
+bundle.js:216 Epoch 8000, Erro total: 0.000058825787670607395
+bundle.js:216 Epoch 9000, Erro total: 0.00004357991878944086
+xor-test.js:33 Estimativas:
+xor-test.js:36 Entrada: 0,0, Estimativa: 0
+xor-test.js:36 Entrada: 0,1, Estimativa: 1
+xor-test.js:36 Entrada: 1,0, Estimativa: 1
+xor-test.js:36 Entrada: 1,1, Estimativa: 0

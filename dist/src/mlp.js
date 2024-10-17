@@ -1,5 +1,6 @@
 import ActivationFunctions from './utils/ActivationFunctions';
 import './utils/Enums';
+import ValidateStructure from './validators/ValidateStructure';
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
@@ -9,6 +10,8 @@ class MLP {
     constructor(config) {
         const classContext = this;
         this.config = config;
+        // Aplica uma validação de estrutura 
+        ValidateStructure(this.config);
         // layers é um array onde cada elemento é o número de unidades na respectiva camada
         // Essa informação será extraida do config
         this.layers = [];
