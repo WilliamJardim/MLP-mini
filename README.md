@@ -1,5 +1,5 @@
 
-![Icone](./images/logo/logo256x256.png "Icone")
+![Icone](./images/logo/logo512x512.png "Icone")
 
 # MLP - Implementação de Rede Neural Multicamadas (MLP) em JavaScript
 
