@@ -338,6 +338,11 @@ function ValidateDataset(config, train_inputs, train_targets) {
 
 function ValidateLayerFunctions(config) {
     const layers = config.layers;
+    const firstLayer = layers[0];
+    if (firstLayer.functions != undefined) {
+        throw `A camada de entrada não pode ter o atributo 'functions' !`;
+    }
+    ;
     for (let i = 0; i < layers.length; i++) {
         const currentLayer = layers[i];
         if (currentLayer.functions) {
