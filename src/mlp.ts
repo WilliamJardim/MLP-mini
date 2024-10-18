@@ -36,14 +36,20 @@ class MLP {
         //Esse aqui é um array para armazenar os nomes das funções de ativações das unidades de cada camada, assim: Array de Array<string>
         this.layers_functions = []   as string[][];
 
-        this.config.layers.forEach( function( layerDeclaration:LayerDeclaration, layerIndex: number ){
-            classContext.layers[ layerIndex ] = layerDeclaration.units;
+        for( let layerIndex = 0; layerIndex < this.config.layers.length ; layerIndex++ ){
+            const layerDeclaration:LayerDeclaration = this.config.layers[layerIndex];
 
-            if( layerDeclaration.functions )
-            {
-                classContext.layers_functions[ layerIndex ] = layerDeclaration.functions;
-            }
-        });
+            this.layers[ layerIndex ] = layerDeclaration.units;
+        }
+
+        //Identifica quais as funções que cada unidade de cada camada usa,
+        //Ignora a camada de entrada que não possui funções
+        for( let layerIndex = 1; layerIndex < this.config.layers.length ; layerIndex++ ){
+            const layerDeclaration:LayerDeclaration = this.config.layers[layerIndex];
+
+            //Usei - 1 pra ignorar a camada de entrada, e ordenar corretamente
+            this.layers_functions[ layerIndex-1 ] = layerDeclaration.functions;
+        }
 
         //Adicionar validação aqui para validar as funções das camadas
         if( this.layers_functions.length > 0 ){
@@ -211,7 +217,12 @@ class MLP {
 
                 weightedSum += this.biases[l][j];
 
-                nextActivations.push( ActivationFunctions.sigmoid(weightedSum) );
+                //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+                const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
+                const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid' );
+
+                nextActivations.push( ActivationFunctions[ nomeDaFuncao ]( weightedSum ) );
+
             }
 
             activations = nextActivations;
@@ -266,8 +277,12 @@ class MLP {
                         for (let k = 0; k < this.weights[l].length; k++) {
                             error += layerErrors[0][k] * this.weights[l][k][j];
                         }
+
+                        //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+                        const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
+                        const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid' );
                     
-                        layerError.push(error * ActivationFunctions.sigmoidDerivative(this.layerActivations[l][j]));
+                        layerError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ](this.layerActivations[l][j]));
                     }
 
                     /**

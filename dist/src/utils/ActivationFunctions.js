@@ -2,11 +2,11 @@ export default class ActivationFunctions {
     // Torna a classe um singleton impedindo instanciamento externo
     constructor() { }
     // Função de ativação sigmoide
-    static sigmoid(x) {
+    static Sigmoid(x) {
         return 1 / (1 + Math.exp(-x));
     }
     // Derivada da sigmoide
-    static sigmoidDerivative(x) {
+    static SigmoidDerivative(x) {
         return x * (1 - x);
     }
     // Função de ativação ReLU

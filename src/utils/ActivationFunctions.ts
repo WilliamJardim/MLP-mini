@@ -3,12 +3,12 @@ export default class ActivationFunctions {
     private constructor() {}
 
     // Função de ativação sigmoide
-    public static sigmoid(x: number): number {
+    public static Sigmoid(x: number): number {
         return 1 / (1 + Math.exp(-x));
     }
 
     // Derivada da sigmoide
-    public static sigmoidDerivative(x: number): number {
+    public static SigmoidDerivative(x: number): number {
         return x * (1 - x);
     }
 
