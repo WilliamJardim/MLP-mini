@@ -1,12 +1,12 @@
 
-export default function debugIfSomeNaN( context:any, varToCheck:number[], callback?:(resultV:any)=>void ): any{
+export default function debugIfSomeNaN( title:string, context:any, varToCheck:number[], callback?:(resultV:any)=>void ): any{
     let nanValues:number[] = [];
     let hasNaN:boolean = false;
 
     varToCheck.forEach( (val, valIndex)=>{
         if( isNaN(val) || !isFinite(val) ){
             nanValues.push( valIndex );
-            console.warn( 'NaN', valIndex, 'please insert debugger' );
+            console.warn( title, 'NaN', valIndex, 'please insert debugger' );
             hasNaN = true;
         }
     });
