@@ -289,6 +289,25 @@ class ActivationFunctions {
 }
 
 
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\debugIfSomeNaN.js
+function debugIfSomeNaN(context, varToCheck, callback) {
+    let nanValues = [];
+    let hasNaN = false;
+    varToCheck.forEach((val, valIndex) => {
+        if (isNaN(val) || !isFinite(val)) {
+            nanValues.push(valIndex);
+            console.log('NaN', valIndex);
+            hasNaN = true;
+        }
+    });
+    let result = { hasNaN: hasNaN, values: nanValues };
+    if (hasNaN) {
+        callback.bind(context)(result);
+    }
+    return result;
+}
+
+
 // Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\Enums.js
 var Initialization;
 (function (Initialization) {
