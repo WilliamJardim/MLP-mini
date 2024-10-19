@@ -3,6 +3,7 @@ import './utils/Enums';
 import ValidateStructure from './validators/ValidateStructure';
 import ValidateDataset from './validators/ValidateDataset';
 import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
+import notifyIfhasNaN from './utils/notifyIfhasNaN';
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
@@ -176,6 +177,16 @@ class MLP {
                 const unidadeTemFuncao = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
                 const nomeDaFuncao = (unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid');
                 nextActivations.push(ActivationFunctions[nomeDaFuncao](weightedSum));
+                /** NaN detector */
+                if (notifyIfhasNaN('feedforward/loops', [
+                    weightedSum,
+                    this.biases[l][j],
+                    this.weights[l][j],
+                    ActivationFunctions[nomeDaFuncao](weightedSum)
+                ]).hasNaN) {
+                    debugger;
+                }
+                ;
             }
             activations = nextActivations;
             this.layerActivations.push(activations);

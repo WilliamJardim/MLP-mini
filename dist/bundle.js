@@ -19,6 +19,7 @@
 
 
 
+
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
@@ -192,6 +193,16 @@ class MLP {
                 const unidadeTemFuncao = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
                 const nomeDaFuncao = (unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid');
                 nextActivations.push(ActivationFunctions[nomeDaFuncao](weightedSum));
+                /** NaN detector */
+                if (notifyIfhasNaN('feedforward/loops', [
+                    weightedSum,
+                    this.biases[l][j],
+                    this.weights[l][j],
+                    ActivationFunctions[nomeDaFuncao](weightedSum)
+                ]).hasNaN) {
+                    debugger;
+                }
+                ;
             }
             activations = nextActivations;
             this.layerActivations.push(activations);
@@ -340,6 +351,36 @@ var ActivationFunctionsNames;
 // Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\isDecimalNumber.js
 function isDecimalNumber(x) {
     return String(x).indexOf('.') != -1 ? true : false;
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\notifyIfhasNaN.js
+var jaFoi = {};
+function notifyIfhasNaN(title, varToCheck, callback) {
+    let nanValues = [];
+    let hasNaN = false;
+    varToCheck.forEach((val, valIndex) => {
+        if (val instanceof Array) {
+            let resultSub = notifyIfhasNaN(title + '_array', val);
+            nanValues = [...resultSub.values, nanValues];
+            hasNaN = resultSub.hasNaN;
+        }
+        else {
+            if (isNaN(val)) {
+                nanValues.push(valIndex);
+                if (!jaFoi[title]) {
+                    console.warn(title, 'NaN', valIndex, 'please insert debugger');
+                    jaFoi[title] = true;
+                }
+                hasNaN = true;
+            }
+        }
+    });
+    let result = { hasNaN: hasNaN, values: nanValues };
+    if (hasNaN && callback) {
+        callback(result);
+    }
+    return result;
 }
 
 

@@ -5,6 +5,7 @@ import './utils/Enums';
 import ValidateStructure from './validators/ValidateStructure';
 import ValidateDataset from './validators/ValidateDataset';
 import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
+import notifyIfhasNaN from './utils/notifyIfhasNaN';
 
 // Função para inicializar pesos de forma aleatória
 function randomWeight(): number {
@@ -245,6 +246,17 @@ class MLP {
                 const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid' );
 
                 nextActivations.push( ActivationFunctions[ nomeDaFuncao ]( weightedSum ) );
+
+                /** NaN detector */
+                if(notifyIfhasNaN( 'feedforward/loops', [
+                    weightedSum,
+                    this.biases[l][j],
+                    this.weights[l][j],
+                    ActivationFunctions[ nomeDaFuncao ]( weightedSum )
+
+                ]).hasNaN){
+                    debugger;
+                };
 
             }
 
