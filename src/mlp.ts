@@ -22,8 +22,6 @@ class MLP {
     private initialParameters  : DoneParameters;
 
     public constructor(config: MLPConfig) {
-        const classContext = this;
-
         this.config = config;
 
         // Aplica uma validação de estrutura 
