@@ -1,5 +1,5 @@
 
-export default function debugIfSomeNaN( title:string, context:any, varToCheck:number[], callback?:(resultV:any)=>void ): any{
+export default function debugIfSomeNaN( title:string, varToCheck:number[], callback?:(resultV:any)=>void ): any{
     let nanValues:number[] = [];
     let hasNaN:boolean = false;
 
@@ -14,7 +14,7 @@ export default function debugIfSomeNaN( title:string, context:any, varToCheck:nu
     let result:any = { hasNaN: hasNaN, values: nanValues };
 
     if(hasNaN && callback){
-        callback.bind(context)(result);
+        callback(result);
     }
 
     return result;
