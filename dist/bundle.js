@@ -26,7 +26,6 @@ function randomWeight() {
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
-        const classContext = this;
         this.config = config;
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
@@ -71,7 +70,24 @@ class MLP {
                 this.biases.push(layerBiases);
             }
         }
-        if (config.initialization == Initialization.Manual) {
+        else if (config.initialization == Initialization.Zeros) {
+            for (let i = 1; i < this.layers.length; i++) {
+                // Pesos entre a camada i-1 e a camada i
+                const layerWeights = [];
+                for (let j = 0; j < this.layers[i]; j++) {
+                    const neuronWeights = [];
+                    for (let k = 0; k < this.layers[i - 1]; k++) {
+                        neuronWeights.push(0);
+                    }
+                    layerWeights.push(neuronWeights);
+                }
+                this.weights.push(layerWeights);
+                // Biases para a camada i
+                const layerBiases = Array(this.layers[i]).fill(0).map(() => 0);
+                this.biases.push(layerBiases);
+            }
+        }
+        else if (config.initialization == Initialization.Manual) {
             this.importParameters(config.parameters);
         }
         else if (config.initialization == Initialization.Dev) {
