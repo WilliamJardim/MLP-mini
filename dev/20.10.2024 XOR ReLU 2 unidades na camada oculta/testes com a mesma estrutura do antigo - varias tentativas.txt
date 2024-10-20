@@ -1,0 +1,307 @@
+// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+const config2 = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 2, functions: [ 'ReLU', 'ReLU' ]  }, 
+        { type: LayerType.Final,  inputs: 2, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+
+const mlp2 = new MLP(config2);
+
+// Dados de entrada para o problema XOR
+const inputs2 = [
+    [0, 1],
+    [1, 0], 
+    [0, 0],
+    [1, 1]
+];
+
+// Saídas esperadas para o XOR
+const targets2 = [
+    [1],
+    [1],
+    [0],
+    [0]
+];
+
+// Treinando a rede
+mlp2.train(inputs2, targets2, 0.5, 256, 32);
+
+// Testando a rede
+console.log('Estimativas:');
+inputs2.forEach(input => {
+    const output = mlp2.estimate(input);
+    console.log(`Entrada: ${input}, Estimativa: ${output}`);
+});
+
+
+
+
+RESULTADOS COM PESOS ALEATORIOS
+diversas execuções
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0174413729424419
+bundle.js:268 Epoch 0, Erro total: 1.0249885377196555
+bundle.js:268 Epoch 32, Erro total: 1.0180035493783814
+bundle.js:268 Epoch 64, Erro total: 1.0176130407611879
+bundle.js:268 Epoch 96, Erro total: 1.0174841258571685
+bundle.js:268 Epoch 128, Erro total: 1.015062839398423
+bundle.js:268 Epoch 160, Erro total: 0.9824454212581432
+bundle.js:268 Epoch 192, Erro total: 0.7126376103400032
+bundle.js:268 Epoch 224, Erro total: 0.6791419682351919
+VM145:34 Estimativas:
+VM145:37 Entrada: 0,1, Estimativa: 1
+VM145:37 Entrada: 1,0, Estimativa: 1
+VM145:37 Entrada: 0,0, Estimativa: 0
+VM145:37 Entrada: 1,1, Estimativa: 1
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1160374243107531
+bundle.js:268 Epoch 0, Erro total: 1.0267175160083186
+bundle.js:268 Epoch 32, Erro total: 0.7382090166207003
+bundle.js:268 Epoch 64, Erro total: 0.061770773353520755
+bundle.js:268 Epoch 96, Erro total: 0.018324355908553608
+bundle.js:268 Epoch 128, Erro total: 0.008578467673047057
+bundle.js:268 Epoch 160, Erro total: 0.004932759640847741
+bundle.js:268 Epoch 192, Erro total: 0.0031922339003794473
+bundle.js:268 Epoch 224, Erro total: 0.002230662366102157
+VM147:34 Estimativas:
+VM147:37 Entrada: 0,1, Estimativa: 1
+VM147:37 Entrada: 1,0, Estimativa: 1
+VM147:37 Entrada: 0,0, Estimativa: 0
+VM147:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 0.9662362300635254
+bundle.js:268 Epoch 0, Erro total: 0.9648596310092824
+bundle.js:268 Epoch 32, Erro total: 0.7733613139586348
+bundle.js:268 Epoch 64, Erro total: 0.6865844040448021
+bundle.js:268 Epoch 96, Erro total: 0.6772645477097299
+bundle.js:268 Epoch 128, Erro total: 0.6747516650585045
+bundle.js:268 Epoch 160, Erro total: 0.6736964956013777
+bundle.js:268 Epoch 192, Erro total: 0.6731397428292648
+bundle.js:268 Epoch 224, Erro total: 0.6728026460633285
+VM153:34 Estimativas:
+VM153:37 Entrada: 0,1, Estimativa: 1
+VM153:37 Entrada: 1,0, Estimativa: 1
+VM153:37 Entrada: 0,0, Estimativa: 1
+VM153:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1971135590900541
+bundle.js:268 Epoch 0, Erro total: 1.0249396729939266
+bundle.js:268 Epoch 32, Erro total: 0.689200934474685
+bundle.js:268 Epoch 64, Erro total: 0.6720325307395031
+bundle.js:268 Epoch 96, Erro total: 0.6707559064197763
+bundle.js:268 Epoch 128, Erro total: 0.670541271364698
+bundle.js:268 Epoch 160, Erro total: 0.6705160462195585
+bundle.js:268 Epoch 192, Erro total: 0.6705361676009464
+bundle.js:268 Epoch 224, Erro total: 0.6705668117630692
+VM155:34 Estimativas:
+VM155:37 Entrada: 0,1, Estimativa: 0
+VM155:37 Entrada: 1,0, Estimativa: 1
+VM155:37 Entrada: 0,0, Estimativa: 0
+VM155:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0145344138142993
+bundle.js:268 Epoch 0, Erro total: 1.0066351264051816
+bundle.js:268 Epoch 32, Erro total: 0.552592931974889
+bundle.js:268 Epoch 64, Erro total: 0.5113742532156184
+bundle.js:268 Epoch 96, Erro total: 0.5062743480642232
+bundle.js:268 Epoch 128, Erro total: 0.504588003230984
+bundle.js:268 Epoch 160, Erro total: 0.503801678085519
+bundle.js:268 Epoch 192, Erro total: 0.5033640987728638
+bundle.js:268 Epoch 224, Erro total: 0.50309262560635
+VM161:34 Estimativas:
+VM161:37 Entrada: 0,1, Estimativa: 1
+VM161:37 Entrada: 1,0, Estimativa: 0
+VM161:37 Entrada: 0,0, Estimativa: 0
+VM161:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.107983940104833
+bundle.js:268 Epoch 0, Erro total: 1.0123421632656142
+bundle.js:268 Epoch 32, Erro total: 0.7455355268208633
+bundle.js:268 Epoch 64, Erro total: 0.6738689879929646
+bundle.js:268 Epoch 96, Erro total: 0.6709936641835379
+bundle.js:268 Epoch 128, Erro total: 0.6705851943161016
+bundle.js:268 Epoch 160, Erro total: 0.6705195362876792
+bundle.js:268 Epoch 192, Erro total: 0.6705294682922381
+bundle.js:268 Epoch 224, Erro total: 0.6705578152581502
+VM167:34 Estimativas:
+VM167:37 Entrada: 0,1, Estimativa: 0
+VM167:37 Entrada: 1,0, Estimativa: 1
+VM167:37 Entrada: 0,0, Estimativa: 0
+VM167:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0252604574795714
+bundle.js:268 Epoch 0, Erro total: 1.0073364335174624
+bundle.js:268 Epoch 32, Erro total: 0.6229863910292431
+bundle.js:268 Epoch 64, Erro total: 0.5289767420836986
+bundle.js:268 Epoch 96, Erro total: 0.5132161144875602
+bundle.js:268 Epoch 128, Erro total: 0.5083647906516562
+bundle.js:268 Epoch 160, Erro total: 0.5062096107939539
+bundle.js:268 Epoch 192, Erro total: 0.5050479940095162
+bundle.js:268 Epoch 224, Erro total: 0.5043432227270419
+VM171:34 Estimativas:
+VM171:37 Entrada: 0,1, Estimativa: 1
+VM171:37 Entrada: 1,0, Estimativa: 0
+VM171:37 Entrada: 0,0, Estimativa: 0
+VM171:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0913830314165784
+bundle.js:268 Epoch 0, Erro total: 1.075280089047966
+bundle.js:268 Epoch 32, Erro total: 0.6750535229657517
+bundle.js:268 Epoch 64, Erro total: 0.5664150498372025
+bundle.js:268 Epoch 96, Erro total: 0.5215146004710303
+bundle.js:268 Epoch 128, Erro total: 0.5126853377106498
+bundle.js:268 Epoch 160, Erro total: 0.5088809263372385
+bundle.js:268 Epoch 192, Erro total: 0.506878061329277
+bundle.js:268 Epoch 224, Erro total: 0.5056860495400671
+VM177:34 Estimativas:
+VM177:37 Entrada: 0,1, Estimativa: 1
+VM177:37 Entrada: 1,0, Estimativa: 0
+VM177:37 Entrada: 0,0, Estimativa: 0
+VM177:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0721722776590175
+bundle.js:268 Epoch 0, Erro total: 1.0480008544714687
+bundle.js:268 Epoch 32, Erro total: 0.9416118054056963
+bundle.js:268 Epoch 64, Erro total: 0.7181892169878807
+bundle.js:268 Epoch 96, Erro total: 0.681667516418511
+bundle.js:268 Epoch 128, Erro total: 0.6761114976363748
+bundle.js:268 Epoch 160, Erro total: 0.6743034468252959
+bundle.js:268 Epoch 192, Erro total: 0.6734710459845012
+bundle.js:268 Epoch 224, Erro total: 0.6730076060847955
+VM181:34 Estimativas:
+VM181:37 Entrada: 0,1, Estimativa: 1
+VM181:37 Entrada: 1,0, Estimativa: 1
+VM181:37 Entrada: 0,0, Estimativa: 1
+VM181:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1636277345096349
+bundle.js:268 Epoch 0, Erro total: 0.9459549427187643
+bundle.js:268 Epoch 32, Erro total: 0.5231807676222587
+bundle.js:268 Epoch 64, Erro total: 0.5072639446693525
+bundle.js:268 Epoch 96, Erro total: 0.5045185778351102
+bundle.js:268 Epoch 128, Erro total: 0.5035597503232208
+bundle.js:268 Epoch 160, Erro total: 0.5031082707949013
+bundle.js:268 Epoch 192, Erro total: 0.502857447016469
+bundle.js:268 Epoch 224, Erro total: 0.5027022023502244
+VM187:34 Estimativas:
+VM187:37 Entrada: 0,1, Estimativa: 0
+VM187:37 Entrada: 1,0, Estimativa: 1
+VM187:37 Entrada: 0,0, Estimativa: 0
+VM187:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0160030547259202
+bundle.js:268 Epoch 0, Erro total: 1.016556117255753
+bundle.js:268 Epoch 32, Erro total: 0.8835630453371952
+bundle.js:268 Epoch 64, Erro total: 0.6735477189131882
+bundle.js:268 Epoch 96, Erro total: 0.6704117820336921
+bundle.js:268 Epoch 128, Erro total: 0.6702770959923099
+bundle.js:268 Epoch 160, Erro total: 0.67034482058519
+bundle.js:268 Epoch 192, Erro total: 0.6704237284822577
+bundle.js:268 Epoch 224, Erro total: 0.6704910657296685
+VM193:34 Estimativas:
+VM193:37 Entrada: 0,1, Estimativa: 1
+VM193:37 Entrada: 1,0, Estimativa: 0
+VM193:37 Entrada: 0,0, Estimativa: 0
+VM193:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1850595082440334
+bundle.js:268 Epoch 0, Erro total: 1.0932947976336487
+bundle.js:268 Epoch 32, Erro total: 0.7766014222234852
+bundle.js:268 Epoch 64, Erro total: 0.6746209406515584
+bundle.js:268 Epoch 96, Erro total: 0.6710822387144344
+bundle.js:268 Epoch 128, Erro total: 0.6706007682445834
+bundle.js:268 Epoch 160, Erro total: 0.67052036356776
+bundle.js:268 Epoch 192, Erro total: 0.6705266714869862
+bundle.js:268 Epoch 224, Erro total: 0.6705542506832929
+VM195:34 Estimativas:
+VM195:37 Entrada: 0,1, Estimativa: 0
+VM195:37 Entrada: 1,0, Estimativa: 1
+VM195:37 Entrada: 0,0, Estimativa: 0
+VM195:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1013583944929757
+bundle.js:268 Epoch 0, Erro total: 1.0181317792121976
+bundle.js:268 Epoch 32, Erro total: 0.8900098234119478
+bundle.js:268 Epoch 64, Erro total: 0.6665749096999217
+bundle.js:268 Epoch 96, Erro total: 0.5772111300207766
+bundle.js:268 Epoch 128, Erro total: 0.5267853336186156
+bundle.js:268 Epoch 160, Erro total: 0.517398481722881
+bundle.js:268 Epoch 192, Erro total: 0.512352197436005
+bundle.js:268 Epoch 224, Erro total: 0.509446396512264
+VM197:34 Estimativas:
+VM197:37 Entrada: 0,1, Estimativa: 1
+VM197:37 Entrada: 1,0, Estimativa: 0
+VM197:37 Entrada: 0,0, Estimativa: 0
+VM197:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.2380162256491898
+bundle.js:268 Epoch 0, Erro total: 1.0636756529985458
+bundle.js:268 Epoch 32, Erro total: 1.0018632989576663
+bundle.js:268 Epoch 64, Erro total: 0.7227461640715064
+bundle.js:268 Epoch 96, Erro total: 0.6732317024252844
+bundle.js:268 Epoch 128, Erro total: 0.6709169217953665
+bundle.js:268 Epoch 160, Erro total: 0.6705716633034536
+bundle.js:268 Epoch 192, Erro total: 0.6705188577884242
+bundle.js:268 Epoch 224, Erro total: 0.6705319560398462
+VM199:34 Estimativas:
+VM199:37 Entrada: 0,1, Estimativa: 0
+VM199:37 Entrada: 1,0, Estimativa: 1
+VM199:37 Entrada: 0,0, Estimativa: 0
+VM199:37 Entrada: 1,1, Estimativa: 0
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0662978329345438
+bundle.js:268 Epoch 0, Erro total: 0.9972213436532738
+bundle.js:268 Epoch 32, Erro total: 0.6766207125901275
+bundle.js:268 Epoch 64, Erro total: 0.670394245024785
+bundle.js:268 Epoch 96, Erro total: 0.6707006529041796
+bundle.js:268 Epoch 128, Erro total: 0.6709412715250904
+bundle.js:268 Epoch 160, Erro total: 0.6709131155884613
+bundle.js:268 Epoch 192, Erro total: 0.670903211779698
+bundle.js:268 Epoch 224, Erro total: 0.6708999263071571
+VM207:34 Estimativas:
+VM207:37 Entrada: 0,1, Estimativa: 1
+VM207:37 Entrada: 1,0, Estimativa: 0
+VM207:37 Entrada: 0,0, Estimativa: 0
+VM207:37 Entrada: 1,1, Estimativa: 0
+
+
+Erro inicial(ANTES DO TREINAMENTO): 1.2212999165119949
+bundle.js:268 Epoch 0, Erro total: 1.0803644743127532
+bundle.js:268 Epoch 32, Erro total: 1.011893151219269
+bundle.js:268 Epoch 64, Erro total: 0.9141138320266847
+bundle.js:268 Epoch 96, Erro total: 0.7060226562687513
+bundle.js:268 Epoch 128, Erro total: 0.6626460341682813
+bundle.js:268 Epoch 160, Erro total: 0.5298651983655418
+bundle.js:268 Epoch 192, Erro total: 0.5065218527822164
+bundle.js:268 Epoch 224, Erro total: 0.5031444486497427
+VM256:34 Estimativas:
+VM256:37 Entrada: 0,1, Estimativa: 0
+VM256:37 Entrada: 1,0, Estimativa: 1
+VM256:37 Entrada: 0,0, Estimativa: 0
+VM256:37 Entrada: 1,1, Estimativa: 0
+
+
+
+Erro inicial(ANTES DO TREINAMENTO): 1.129409906070981
+bundle.js:268 Epoch 0, Erro total: 1.0016544768338218
+bundle.js:268 Epoch 32, Erro total: 0.8135873317844512
+bundle.js:268 Epoch 64, Erro total: 0.4421291305292498
+bundle.js:268 Epoch 96, Erro total: 0.036989738504364274
+bundle.js:268 Epoch 128, Erro total: 0.013374585109947087
+bundle.js:268 Epoch 160, Erro total: 0.006853171566783093
+bundle.js:268 Epoch 192, Erro total: 0.004145671187673627
+bundle.js:268 Epoch 224, Erro total: 0.00277075804115063
+VM276:34 Estimativas:
+VM276:37 Entrada: 0,1, Estimativa: 1
+VM276:37 Entrada: 1,0, Estimativa: 1
+VM276:37 Entrada: 0,0, Estimativa: 0
+VM276:37 Entrada: 1,1, Estimativa: 0
+(DEU CERTO)
+
+
+
+

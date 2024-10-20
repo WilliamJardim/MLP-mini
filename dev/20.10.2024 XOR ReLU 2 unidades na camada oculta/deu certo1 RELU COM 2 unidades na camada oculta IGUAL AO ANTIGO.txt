@@ -1,0 +1,231 @@
+// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+const config2 = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 2, functions: [ 'ReLU', 'ReLU' ]  }, 
+        { type: LayerType.Final,  inputs: 2, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+
+const mlp2 = new MLP(config2);
+
+// Dados de entrada para o problema XOR
+const inputs2 = [
+    [0, 1],
+    [1, 0], 
+    [0, 0],
+    [1, 1]
+];
+
+// Saídas esperadas para o XOR
+const targets2 = [
+    [1],
+    [1],
+    [0],
+    [0]
+];
+
+// Treinando a rede
+mlp2.train(inputs2, targets2, 0.5, 256, 32);
+
+// Testando a rede
+console.log('Estimativas:');
+inputs2.forEach(input => {
+    const output = mlp2.estimate(input);
+    console.log(`Entrada: ${input}, Estimativa: ${output}`);
+});
+
+
+
+PESOS INICIAIS
+{
+    "weights": [
+        [
+            [
+                0.3175979468786816,
+                0.07030311136206513
+            ],
+            [
+                0.09499255981101684,
+                0.43038003496515964
+            ]
+        ],
+        [
+            [
+                0.6571967394336509,
+                0.358194422795447
+            ]
+        ]
+    ],
+    "biases": [
+        [
+            0.0664531474451846,
+            0.4152644972210291
+        ],
+        [
+            0.34080846826675804
+        ]
+    ],
+    "layers": [
+        2,
+        2,
+        1
+    ],
+    "generatedAt": 1729431943259
+}
+
+
+
+RESULTADO AS EPOCAS
+Erro inicial(ANTES DO TREINAMENTO): 1.129409906070981
+bundle.js:268 Epoch 0, Erro total: 1.0016544768338218
+bundle.js:268 Epoch 32, Erro total: 0.8135873317844512
+bundle.js:268 Epoch 64, Erro total: 0.4421291305292498
+bundle.js:268 Epoch 96, Erro total: 0.036989738504364274
+bundle.js:268 Epoch 128, Erro total: 0.013374585109947087
+bundle.js:268 Epoch 160, Erro total: 0.006853171566783093
+bundle.js:268 Epoch 192, Erro total: 0.004145671187673627
+bundle.js:268 Epoch 224, Erro total: 0.00277075804115063
+VM276:34 Estimativas:
+VM276:37 Entrada: 0,1, Estimativa: 1
+VM276:37 Entrada: 1,0, Estimativa: 1
+VM276:37 Entrada: 0,0, Estimativa: 0
+VM276:37 Entrada: 1,1, Estimativa: 0
+
+
+PESOS FINAIS
+{
+  weights: [
+    [
+        [
+            0.9999985949119464,
+            -0.9999987995608592
+        ],
+        [
+            -0.9999953211188966,
+            0.9999944996089626
+        ]
+    ],
+    [
+        [
+            7.575928975995877,
+            7.578094077167955
+        ]
+    ]
+],
+
+ biases: [
+    [
+        4.6197982805835673e-7,
+        0.0000018277790695001364
+    ],
+    [
+        -3.684465452512758
+    ]
+]
+
+
+}
+
+
+
+//CODIGO QUE SEMPRE COMEÇA DE FORMA ESTATICA
+
+
+// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+const config2 = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 2, functions: [ 'ReLU', 'ReLU' ]  }, 
+        { type: LayerType.Final,  inputs: 2, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+const parametrosCertos = {
+    "weights": [
+        [
+            [
+                0.3175979468786816,
+                0.07030311136206513
+            ],
+            [
+                0.09499255981101684,
+                0.43038003496515964
+            ]
+        ],
+        [
+            [
+                0.6571967394336509,
+                0.358194422795447
+            ]
+        ]
+    ],
+    "biases": [
+        [
+            0.0664531474451846,
+            0.4152644972210291
+        ],
+        [
+            0.34080846826675804
+        ]
+    ],
+    "layers": [
+        2,
+        2,
+        1
+    ],
+    "generatedAt": 1729431943259
+}
+
+
+const mlp2 = new MLP(config2);
+
+mlp2.weights = parametrosCertos.weights;
+mlp2.biases  = parametrosCertos.biases;
+
+// Dados de entrada para o problema XOR
+const inputs2 = [
+    [0, 1],
+    [1, 0], 
+    [0, 0],
+    [1, 1]
+];
+
+// Saídas esperadas para o XOR
+const targets2 = [
+    [1],
+    [1],
+    [0],
+    [0]
+];
+
+// Treinando a rede
+mlp2.train(inputs2, targets2, 0.5, 256, 32);
+
+// Testando a rede
+console.log('Estimativas:');
+inputs2.forEach(input => {
+    const output = mlp2.estimate(input);
+    console.log(`Entrada: ${input}, Estimativa: ${output}`);
+});
+
+/*
+AO EXECUTAR VAI DAR SEMPRE
+Erro inicial(ANTES DO TREINAMENTO): 1.129409906070981
+bundle.js:268 Epoch 0, Erro total: 1.0016544768338218
+bundle.js:268 Epoch 32, Erro total: 0.8135873317844512
+bundle.js:268 Epoch 64, Erro total: 0.4421291305292498
+bundle.js:268 Epoch 96, Erro total: 0.036989738504364274
+bundle.js:268 Epoch 128, Erro total: 0.013374585109947087
+bundle.js:268 Epoch 160, Erro total: 0.006853171566783093
+bundle.js:268 Epoch 192, Erro total: 0.004145671187673627
+bundle.js:268 Epoch 224, Erro total: 0.00277075804115063
+VM400:76 Estimativas:
+VM400:79 Entrada: 0,1, Estimativa: 1
+VM400:79 Entrada: 1,0, Estimativa: 1
+VM400:79 Entrada: 0,0, Estimativa: 0
+VM400:79 Entrada: 1,1, Estimativa: 0
+*/
