@@ -1,0 +1,392 @@
+//Teste
+
+// Estrutura da rede: 2 neurônios na entrada, 3 na camada oculta, 1 na saída
+const config2 = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU' ]  }, 
+        { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+const mlp2 = new MLP(config2);
+
+// Dados de entrada para o problema XOR
+const inputs2 = [
+    [0, 1],
+    [1, 0],
+    [0, 0],
+    [1, 1]
+];
+
+// Saídas esperadas para o XOR
+const targets2 = [
+    [1],
+    [1],
+    [0],
+    [0]
+];
+
+// Treinando a rede
+mlp2.train(inputs2, targets2, 0.5, 256, 1);
+
+// Testando a rede
+console.log('Estimativas:');
+inputs2.forEach(input => {
+    const output = mlp2.estimate(input);
+    console.log(`Entrada: ${input}, Estimativa: ${output}`);
+});
+
+
+USANDO PESOS ALEATORIOS
+
+
+# PESOS INICIAIS
+const parametrosIniciais = {
+    "weights": [
+        [
+            [
+                -0.9931723896118583,
+                0.6674351720212859
+            ],
+            [
+                -0.40926823190128037,
+                -0.014819988002211293
+            ],
+            [
+                0.6094107122697383,
+                -0.1663408626981644
+            ]
+        ],
+        [
+            [
+                -0.28866373764684505,
+                -0.17054067496540437,
+                0.7279319577298717
+            ]
+        ]
+    ],
+    "biases": [
+        [
+            0.5497413602779861,
+            -0.020443482750258646,
+            0.26362278545933027
+        ],
+        [
+            -0.4396157406823895
+        ]
+    ],
+    "layers": [
+        2,
+        3,
+        1
+    ],
+    "generatedAt": 1729354803948
+}
+
+
+# CUSTO AO LONGO DAS EPOCAS E RESULTADOS
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0683745265936968
+bundle.js:268 Epoch 0, Erro total: 1.0526857348014915
+bundle.js:268 Epoch 1, Erro total: 1.012370299540254
+bundle.js:268 Epoch 2, Erro total: 0.9718519376785606
+bundle.js:268 Epoch 3, Erro total: 0.9299199960262797
+bundle.js:268 Epoch 4, Erro total: 0.8870461062476223
+bundle.js:268 Epoch 5, Erro total: 0.8529823527622581
+bundle.js:268 Epoch 6, Erro total: 0.8206801542692225
+bundle.js:268 Epoch 7, Erro total: 0.7867792268898262
+bundle.js:268 Epoch 8, Erro total: 0.7504461315773717
+bundle.js:268 Epoch 9, Erro total: 0.7116102006681199
+bundle.js:268 Epoch 10, Erro total: 0.6706111527186542
+bundle.js:268 Epoch 11, Erro total: 0.6280124226627823
+bundle.js:268 Epoch 12, Erro total: 0.5844814728575002
+bundle.js:268 Epoch 13, Erro total: 0.5407114996707398
+bundle.js:268 Epoch 14, Erro total: 0.4973782254501286
+bundle.js:268 Epoch 15, Erro total: 0.45512092930911247
+bundle.js:268 Epoch 16, Erro total: 0.4145315350117901
+bundle.js:268 Epoch 17, Erro total: 0.3761377287579366
+bundle.js:268 Epoch 18, Erro total: 0.34037478634460705
+bundle.js:268 Epoch 19, Erro total: 0.3075521821114358
+bundle.js:268 Epoch 20, Erro total: 0.27782899786542375
+bundle.js:268 Epoch 21, Erro total: 0.25121093907817355
+bundle.js:268 Epoch 22, Erro total: 0.22757192918943844
+bundle.js:268 Epoch 23, Erro total: 0.20669225485229464
+bundle.js:268 Epoch 24, Erro total: 0.18830049119168946
+bundle.js:268 Epoch 25, Erro total: 0.17210901105459947
+bundle.js:268 Epoch 26, Erro total: 0.15783864451819757
+bundle.js:268 Epoch 27, Erro total: 0.14523281047659053
+bundle.js:268 Epoch 28, Erro total: 0.13406369477933133
+bundle.js:268 Epoch 29, Erro total: 0.124133353313081
+bundle.js:268 Epoch 30, Erro total: 0.11527202486793842
+bundle.js:268 Epoch 31, Erro total: 0.10733517387014443
+bundle.js:268 Epoch 32, Erro total: 0.10020015785913423
+bundle.js:268 Epoch 33, Erro total: 0.09376299126337394
+bundle.js:268 Epoch 34, Erro total: 0.08793542079184169
+bundle.js:268 Epoch 35, Erro total: 0.08264238518661038
+bundle.js:268 Epoch 36, Erro total: 0.0778198590877049
+bundle.js:268 Epoch 37, Erro total: 0.07341304745103767
+bundle.js:268 Epoch 38, Erro total: 0.0693748849840534
+bundle.js:268 Epoch 39, Erro total: 0.06566479383250369
+bundle.js:268 Epoch 40, Erro total: 0.06224765643109501
+bundle.js:268 Epoch 41, Erro total: 0.05909296594375014
+bundle.js:268 Epoch 42, Erro total: 0.056174122528554436
+bundle.js:268 Epoch 43, Erro total: 0.05346784906298757
+bundle.js:268 Epoch 44, Erro total: 0.050953704686222324
+bundle.js:268 Epoch 45, Erro total: 0.04861367850310208
+bundle.js:268 Epoch 46, Erro total: 0.04643184909467983
+bundle.js:268 Epoch 47, Erro total: 0.0443940981778574
+bundle.js:268 Epoch 48, Erro total: 0.0424878689454971
+bundle.js:268 Epoch 49, Erro total: 0.04070196138705313
+bundle.js:268 Epoch 50, Erro total: 0.03902635831619252
+bundle.js:268 Epoch 51, Erro total: 0.03745207698182568
+bundle.js:268 Epoch 52, Erro total: 0.03597104206667725
+bundle.js:268 Epoch 53, Erro total: 0.03457597662703897
+bundle.js:268 Epoch 54, Erro total: 0.03326030813411293
+bundle.js:268 Epoch 55, Erro total: 0.03201808726974361
+bundle.js:268 Epoch 56, Erro total: 0.03084391752999199
+bundle.js:268 Epoch 57, Erro total: 0.029732894016949667
+bundle.js:268 Epoch 58, Erro total: 0.028680550066799895
+bundle.js:268 Epoch 59, Erro total: 0.027682810581845817
+bundle.js:268 Epoch 60, Erro total: 0.02673595111518912
+bundle.js:268 Epoch 61, Erro total: 0.02583656190625513
+bundle.js:268 Epoch 62, Erro total: 0.024981516189284687
+bundle.js:268 Epoch 63, Erro total: 0.024167942199942272
+bundle.js:268 Epoch 64, Erro total: 0.023393198391120418
+bundle.js:268 Epoch 65, Erro total: 0.02265485144090269
+bundle.js:268 Epoch 66, Erro total: 0.02195065669596141
+bundle.js:268 Epoch 67, Erro total: 0.021278540744422633
+bundle.js:268 Epoch 68, Erro total: 0.02063658585506592
+bundle.js:268 Epoch 69, Erro total: 0.02002301605597942
+bundle.js:268 Epoch 70, Erro total: 0.019436184656557623
+bundle.js:268 Epoch 71, Erro total: 0.018874563042908795
+bundle.js:268 Epoch 72, Erro total: 0.018336730599076846
+bundle.js:268 Epoch 73, Erro total: 0.017821365625585468
+bundle.js:268 Epoch 74, Erro total: 0.017327237143198327
+bundle.js:268 Epoch 75, Erro total: 0.016853197483866742
+bundle.js:268 Epoch 76, Erro total: 0.016398175582972255
+bundle.js:268 Epoch 77, Erro total: 0.01596117089744573
+bundle.js:268 Epoch 78, Erro total: 0.015541247883415196
+bundle.js:268 Epoch 79, Erro total: 0.015137530974896927
+bundle.js:268 Epoch 80, Erro total: 0.01474920001188279
+bundle.js:268 Epoch 81, Erro total: 0.014375486072130662
+bundle.js:268 Epoch 82, Erro total: 0.014015667666160563
+bundle.js:268 Epoch 83, Erro total: 0.013669067259504368
+bundle.js:268 Epoch 84, Erro total: 0.013335048090237544
+bundle.js:268 Epoch 85, Erro total: 0.013013011253315086
+bundle.js:268 Epoch 86, Erro total: 0.012702393026307112
+bundle.js:268 Epoch 87, Erro total: 0.012402662413834791
+bundle.js:268 Epoch 88, Erro total: 0.012113318890395741
+bundle.js:268 Epoch 89, Erro total: 0.01183389032337794
+bundle.js:268 Epoch 90, Erro total: 0.011563931059928959
+bundle.js:268 Epoch 91, Erro total: 0.011303020163003585
+bundle.js:268 Epoch 92, Erro total: 0.011050759783383993
+bundle.js:268 Epoch 93, Erro total: 0.010806773655773273
+bundle.js:268 Epoch 94, Erro total: 0.010570705708228658
+bundle.js:268 Epoch 95, Erro total: 0.010342218775238861
+bundle.js:268 Epoch 96, Erro total: 0.010120993405678225
+bundle.js:268 Epoch 97, Erro total: 0.009906726757698686
+bundle.js:268 Epoch 98, Erro total: 0.009699131573364958
+bundle.js:268 Epoch 99, Erro total: 0.009497935226502392
+bundle.js:268 Epoch 100, Erro total: 0.009302878837826935
+bundle.js:268 Epoch 101, Erro total: 0.009113716451961877
+bundle.js:268 Epoch 102, Erro total: 0.008930214271431256
+bundle.js:268 Epoch 103, Erro total: 0.00875214994315479
+bundle.js:268 Epoch 104, Erro total: 0.008579311893361792
+bundle.js:268 Epoch 105, Erro total: 0.008411498707197457
+bundle.js:268 Epoch 106, Erro total: 0.008248518549614057
+bundle.js:268 Epoch 107, Erro total: 0.008090188624431612
+bundle.js:268 Epoch 108, Erro total: 0.00793633466871438
+bundle.js:268 Epoch 109, Erro total: 0.0077867904798476495
+bundle.js:268 Epoch 110, Erro total: 0.007641397472917258
+bundle.js:268 Epoch 111, Erro total: 0.0075000042661891465
+bundle.js:268 Epoch 112, Erro total: 0.007362466292666179
+bundle.js:268 Epoch 113, Erro total: 0.007228645435861764
+bundle.js:268 Epoch 114, Erro total: 0.007098409688078416
+bundle.js:268 Epoch 115, Erro total: 0.00697163282961426
+bundle.js:268 Epoch 116, Erro total: 0.006848194127444283
+bundle.js:268 Epoch 117, Erro total: 0.006727978052035859
+bundle.js:268 Epoch 118, Erro total: 0.006610874011060786
+bundle.js:268 Epoch 119, Erro total: 0.006496776098861084
+bundle.js:268 Epoch 120, Erro total: 0.006385582860611622
+bundle.js:268 Epoch 121, Erro total: 0.00627719707020215
+bundle.js:268 Epoch 122, Erro total: 0.0061715255209338574
+bundle.js:268 Epoch 123, Erro total: 0.006068478828192246
+bundle.js:268 Epoch 124, Erro total: 0.005967971243319261
+bundle.js:268 Epoch 125, Erro total: 0.005869920477964368
+bundle.js:268 Epoch 126, Erro total: 0.00577424753824526
+bundle.js:268 Epoch 127, Erro total: 0.005680876568097584
+bundle.js:268 Epoch 128, Erro total: 0.0055897347012358305
+bundle.js:268 Epoch 129, Erro total: 0.005500751921189356
+bundle.js:268 Epoch 130, Erro total: 0.0054138609289138
+bundle.js:268 Epoch 131, Erro total: 0.005328997017512897
+bundle.js:268 Epoch 132, Erro total: 0.005246097953638304
+bundle.js:268 Epoch 133, Erro total: 0.005165103865163109
+bundle.js:268 Epoch 134, Erro total: 0.0050859571347534665
+bundle.js:268 Epoch 135, Erro total: 0.005008602298986748
+bundle.js:268 Epoch 136, Erro total: 0.0049329859526887196
+bundle.js:268 Epoch 137, Erro total: 0.0048590566581835845
+bundle.js:268 Epoch 138, Erro total: 0.004786764859170781
+bundle.js:268 Epoch 139, Erro total: 0.00471606279896113
+bundle.js:268 Epoch 140, Erro total: 0.004646904442822196
+bundle.js:268 Epoch 141, Erro total: 0.00457924540419863
+bundle.js:268 Epoch 142, Erro total: 0.0045130428745882075
+bundle.js:268 Epoch 143, Erro total: 0.004448255556868388
+bundle.js:268 Epoch 144, Erro total: 0.0043848436018806575
+bundle.js:268 Epoch 145, Erro total: 0.004322768548092328
+bundle.js:268 Epoch 146, Erro total: 0.004261993264166274
+bundle.js:268 Epoch 147, Erro total: 0.004202481894279947
+bundle.js:268 Epoch 148, Erro total: 0.004144199806044181
+bundle.js:268 Epoch 149, Erro total: 0.004087113540881735
+bundle.js:268 Epoch 150, Erro total: 0.004031190766733927
+bundle.js:268 Epoch 151, Erro total: 0.003976400232971279
+bundle.js:268 Epoch 152, Erro total: 0.003922711727391944
+bundle.js:268 Epoch 153, Erro total: 0.003870096035198052
+bundle.js:268 Epoch 154, Erro total: 0.003818524899846968
+bundle.js:268 Epoch 155, Erro total: 0.0037679709856802885
+bundle.js:268 Epoch 156, Erro total: 0.0037184078422387865
+bundle.js:268 Epoch 157, Erro total: 0.003669809870177479
+bundle.js:268 Epoch 158, Erro total: 0.003622152288698917
+bundle.js:268 Epoch 159, Erro total: 0.003575411104428501
+bundle.js:268 Epoch 160, Erro total: 0.003529563081658988
+bundle.js:268 Epoch 161, Erro total: 0.0034845857138961645
+bundle.js:268 Epoch 162, Erro total: 0.0034404571966410377
+bundle.js:268 Epoch 163, Erro total: 0.0033971564013474936
+bundle.js:268 Epoch 164, Erro total: 0.003354662850498125
+bundle.js:268 Epoch 165, Erro total: 0.0033129566937433177
+bundle.js:268 Epoch 166, Erro total: 0.0032720186850527183
+bundle.js:268 Epoch 167, Erro total: 0.0032318301608298765
+bundle.js:268 Epoch 168, Erro total: 0.0031923730189441276
+bundle.js:268 Epoch 169, Erro total: 0.0031536296986363226
+bundle.js:268 Epoch 170, Erro total: 0.003115583161256782
+bundle.js:268 Epoch 171, Erro total: 0.0030782168717965823
+bundle.js:268 Epoch 172, Erro total: 0.003041514781175033
+bundle.js:268 Epoch 173, Erro total: 0.0030054613092481406
+bundle.js:268 Epoch 174, Erro total: 0.0029700413285049633
+bundle.js:268 Epoch 175, Erro total: 0.0029352401484200575
+bundle.js:268 Epoch 176, Erro total: 0.0029010435004321257
+bundle.js:268 Epoch 177, Erro total: 0.002867437523520505
+bundle.js:268 Epoch 178, Erro total: 0.0028344087503523953
+bundle.js:268 Epoch 179, Erro total: 0.002801944093975204
+bundle.js:268 Epoch 180, Erro total: 0.00277003083502982
+bundle.js:268 Epoch 181, Erro total: 0.002738656609461425
+bundle.js:268 Epoch 182, Erro total: 0.002707809396706122
+bundle.js:268 Epoch 183, Erro total: 0.002677477508332247
+bundle.js:268 Epoch 184, Erro total: 0.0026476495771167426
+bundle.js:268 Epoch 185, Erro total: 0.0026183145465374577
+bundle.js:268 Epoch 186, Erro total: 0.0025894616606635407
+bundle.js:268 Epoch 187, Erro total: 0.0025610804544267517
+bundle.js:268 Epoch 188, Erro total: 0.0025331607442574487
+bundle.js:268 Epoch 189, Erro total: 0.00250569261906968
+bundle.js:268 Epoch 190, Erro total: 0.0024786664315805916
+bundle.js:268 Epoch 191, Erro total: 0.002452072789950236
+bundle.js:268 Epoch 192, Erro total: 0.0024259025497281083
+bundle.js:268 Epoch 193, Erro total: 0.0024001468060938624
+bundle.js:268 Epoch 194, Erro total: 0.002374796886379839
+bundle.js:268 Epoch 195, Erro total: 0.0023498443428639736
+bundle.js:268 Epoch 196, Erro total: 0.0023252809458217645
+bundle.js:268 Epoch 197, Erro total: 0.0023010986768268724
+bundle.js:268 Epoch 198, Erro total: 0.0022772897222902745
+bundle.js:268 Epoch 199, Erro total: 0.0022538464672281705
+bundle.js:268 Epoch 200, Erro total: 0.002230761489249712
+bundle.js:268 Epoch 201, Erro total: 0.0022080275527553567
+bundle.js:268 Epoch 202, Erro total: 0.002185637603337938
+bundle.js:268 Epoch 203, Erro total: 0.002163584762377996
+bundle.js:268 Epoch 204, Erro total: 0.0021418623218260333
+bundle.js:268 Epoch 205, Erro total: 0.0021204637391640706
+bundle.js:268 Epoch 206, Erro total: 0.0020993826325397978
+bundle.js:268 Epoch 207, Erro total: 0.0020786127760663397
+bundle.js:268 Epoch 208, Erro total: 0.0020581480952813914
+bundle.js:268 Epoch 209, Erro total: 0.0020379826627596347
+bundle.js:268 Epoch 210, Erro total: 0.002018110693872325
+bundle.js:268 Epoch 211, Erro total: 0.0019985265426887165
+bundle.js:268 Epoch 212, Erro total: 0.00197922469801375
+bundle.js:268 Epoch 213, Erro total: 0.001960199779556981
+bundle.js:268 Epoch 214, Erro total: 0.0019414465342276763
+bundle.js:268 Epoch 215, Erro total: 0.001922959832551492
+bundle.js:268 Epoch 216, Erro total: 0.001904734665204163
+bundle.js:268 Epoch 217, Erro total: 0.0018867661396577517
+bundle.js:268 Epoch 218, Erro total: 0.001869049476935572
+bundle.js:268 Epoch 219, Erro total: 0.0018515800084714065
+bundle.js:268 Epoch 220, Erro total: 0.0018343531730696354
+bundle.js:268 Epoch 221, Erro total: 0.0018173645139621648
+bundle.js:268 Epoch 222, Erro total: 0.0018006096759590586
+bundle.js:268 Epoch 223, Erro total: 0.0017840844026891997
+bundle.js:268 Epoch 224, Erro total: 0.0017677845339278324
+bundle.js:268 Epoch 225, Erro total: 0.001751706003007914
+bundle.js:268 Epoch 226, Erro total: 0.0017358448343123226
+bundle.js:268 Epoch 227, Erro total: 0.0017201971408438773
+bundle.js:268 Epoch 228, Erro total: 0.0017047591218706225
+bundle.js:268 Epoch 229, Erro total: 0.0016895270606436701
+bundle.js:268 Epoch 230, Erro total: 0.0016744973221850105
+bundle.js:268 Epoch 231, Erro total: 0.001659666351142799
+bundle.js:268 Epoch 232, Erro total: 0.0016450306697120725
+bundle.js:268 Epoch 233, Erro total: 0.0016305868756182093
+bundle.js:268 Epoch 234, Erro total: 0.0016163316401613453
+bundle.js:268 Epoch 235, Erro total: 0.0016022617063193943
+bundle.js:268 Epoch 236, Erro total: 0.0015883738869078355
+bundle.js:268 Epoch 237, Erro total: 0.0015746650627943004
+bundle.js:268 Epoch 238, Erro total: 0.0015611321811660793
+bundle.js:268 Epoch 239, Erro total: 0.001547772253848719
+bundle.js:268 Epoch 240, Erro total: 0.0015345823556741414
+bundle.js:268 Epoch 241, Erro total: 0.0015215596228965302
+bundle.js:268 Epoch 242, Erro total: 0.0015087012516542906
+bundle.js:268 Epoch 243, Erro total: 0.00149600449647685
+bundle.js:268 Epoch 244, Erro total: 0.0014834666688345434
+bundle.js:268 Epoch 245, Erro total: 0.0014710851357302515
+bundle.js:268 Epoch 246, Erro total: 0.001458857318331485
+bundle.js:268 Epoch 247, Erro total: 0.0014467806906415576
+bundle.js:268 Epoch 248, Erro total: 0.0014348527782085201
+bundle.js:268 Epoch 249, Erro total: 0.0014230711568707132
+bundle.js:268 Epoch 250, Erro total: 0.0014114334515377763
+bundle.js:268 Epoch 251, Erro total: 0.0013999373350058802
+bundle.js:268 Epoch 252, Erro total: 0.0013885805268061082
+bundle.js:268 Epoch 253, Erro total: 0.0013773607920850722
+bundle.js:268 Epoch 254, Erro total: 0.001366275940516526
+bundle.js:268 Epoch 255, Erro total: 0.0013553238252431647
+VM38:84 Estimativas:
+VM38:87 Entrada: 0,1, Estimativa: 1
+VM38:87 Entrada: 1,0, Estimativa: 1
+VM38:87 Entrada: 0,0, Estimativa: 0
+VM38:87 Entrada: 1,1, Estimativa: 0
+
+
+# PESOS FINAIS APÒS O TREINAMENTO
+
+{
+    weights: [
+        [
+            [
+                -1.0215524767705966,
+                0.9999999866448293
+            ],
+            [
+                -0.40926823190128037,
+                -0.014819988002211293
+            ],
+            [
+                0.9999990107061283,
+                -0.9999991566637183
+            ]
+        ],
+        [
+            [
+                7.982669484367463,
+                -0.17054067496540437,
+                7.966057139670521
+            ]
+        ]
+    ],
+
+    biases: [
+        [
+            7.144333988064258e-9,
+            -0.020443482750258646,
+            3.34330331431269e-7
+        ],
+        [
+            -3.881792422098687
+        ]
+    ]
+}

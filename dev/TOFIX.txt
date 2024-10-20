@@ -1,0 +1,6 @@
+(16.10.2024) ao dar console.log no this.weights e this.biases após a inicialização aleatória, os valores exibidos serão os mesmos valores exibidos se voce der mlp.weights e mlp.biases quando o treinamento terminar
+ou seja, não é possivel obter os pesos finais após o treinamento ter sido concluido
+
+ POSSIVEIS CAUSAS: problema de referencia, ou então, talves eu esteja acessando uma propriedade que não mudou que só foi usada para inicializar o modelo
+
+ 

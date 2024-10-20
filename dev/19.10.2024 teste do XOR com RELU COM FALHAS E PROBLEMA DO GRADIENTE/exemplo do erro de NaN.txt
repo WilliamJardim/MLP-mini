@@ -1,0 +1,266 @@
+(19.10.2024 14:00 - FEITO COM PESOS ALEATORIOS QUE NÂO ANOTEI)
+//Teste
+
+// Estrutura da rede: 2 neurônios na entrada, 3 na camada oculta, 1 na saída
+const config2 = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU' ]  }, 
+        { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+const mlp2 = new MLP(config2);
+
+// Dados de entrada para o problema XOR
+const inputs2 = [
+    [0, 1],
+    [1, 0],
+    [0, 0],
+    [1, 1]
+];
+
+// Saídas esperadas para o XOR
+const targets2 = [
+    [1],
+    [1],
+    [0],
+    [0]
+];
+
+// Treinando a rede
+mlp2.train(inputs2, targets2, 0.5, 256, 1);
+
+// Testando a rede
+console.log('Estimativas:');
+inputs2.forEach(input => {
+    const output = mlp2.estimate(input);
+    console.log(`Entrada: ${input}, Estimativa: ${output}`);
+});
+
+RESULTADOS DO CÒDIGO:
+
+CUSTO ANTES DO Treinamento começar: 1.0241055605156153
+bundle.js:268 Epoch 0, Erro total: 1.055265003614895
+bundle.js:268 Epoch 1, Erro total: 1.0708511353758468
+bundle.js:268 Epoch 2, Erro total: 1.076612976507259
+bundle.js:268 Epoch 3, Erro total: 1.07773498861718
+bundle.js:268 Epoch 4, Erro total: 1.0818285477475937
+bundle.js:268 Epoch 5, Erro total: 1.0880176283767506
+bundle.js:268 Epoch 6, Erro total: 1.098153438671617
+bundle.js:268 Epoch 7, Erro total: 1.1247171264024254
+bundle.js:268 Epoch 8, Erro total: 1.1930541321844619
+bundle.js:268 Epoch 9, Erro total: 1.3814438341760515
+bundle.js:268 Epoch 10, Erro total: 1.947908394980675
+bundle.js:268 Epoch 11, Erro total: 2
+bundle.js:268 Epoch 12, Erro total: 2
+bundle.js:268 Epoch 13, Erro total: 2
+bundle.js:268 Epoch 14, Erro total: NaN
+bundle.js:268 Epoch 15, Erro total: NaN
+bundle.js:268 Epoch 16, Erro total: NaN
+bundle.js:268 Epoch 17, Erro total: NaN
+
+ele começa bem, mais a partir da epoca 6, o erro começa a subir lentamente
+até que se torna 2, e A PARTIR DA EPOCA 14 o CUSTO SE TORNA NaN
+
+
+
+(OUTRA EXECUÇÂO)
+Erro inicial(ANTES DO TREINAMENTO): 1.4724624941327518
+bundle.js:268 Epoch 0, Erro total: 1.0258313340178902
+bundle.js:268 Epoch 1, Erro total: 1.0200205525817476
+bundle.js:268 Epoch 2, Erro total: 1.0540848465738277
+bundle.js:268 Epoch 3, Erro total: 1.0644080035647674
+bundle.js:268 Epoch 4, Erro total: 1.0632154125207263
+bundle.js:268 Epoch 5, Erro total: 1.0576434819686484
+bundle.js:268 Epoch 6, Erro total: 1.0502193574315872
+bundle.js:268 Epoch 7, Erro total: 1.0424931958683372
+bundle.js:268 Epoch 8, Erro total: 1.034812236658447
+bundle.js:268 Epoch 9, Erro total: 1.0275425988151803
+bundle.js:268 Epoch 10, Erro total: 1.0214095057009
+bundle.js:268 Epoch 11, Erro total: 1.0179136902430046
+bundle.js:268 Epoch 12, Erro total: 1.0208838855278746
+bundle.js:268 Epoch 13, Erro total: 1.0435670192306756
+bundle.js:268 Epoch 14, Erro total: 1.1599460980155774
+bundle.js:268 Epoch 15, Erro total: 1.8660234594804945
+bundle.js:268 Epoch 16, Erro total: 2
+bundle.js:268 Epoch 17, Erro total: 2
+bundle.js:268 Epoch 18, Erro total: 2
+bundle.js:268 Epoch 19, Erro total: NaN
+
+
+(OUTRA EXECUÇÂO)
+Erro inicial(ANTES DO TREINAMENTO): 1.1207541714879525
+bundle.js:268 Epoch 0, Erro total: 1.1543634857622362
+bundle.js:268 Epoch 1, Erro total: 1.865313340312919
+bundle.js:268 Epoch 2, Erro total: 2
+bundle.js:268 Epoch 3, Erro total: 2
+bundle.js:268 Epoch 4, Erro total: 2
+bundle.js:268 Epoch 5, Erro total: NaN
+bundle.js:268 Epoch 6, Erro total: NaN
+bundle.js:268 Epoch 7, Erro total: NaN
+(NESSE EXEMPLO EM ESPECIFICO O ERRO SÒ ESTAVA SUBINDO AO INVEZ DE DIMINUIR)
+
+
+(OUTRA EXECUÇÂO)
+Erro inicial(ANTES DO TREINAMENTO): 1.1592214738387046
+bundle.js:268 Epoch 0, Erro total: 1.1449834488006898
+bundle.js:268 Epoch 1, Erro total: 1.1554177614529104
+bundle.js:268 Epoch 2, Erro total: 1.2020142991081981
+bundle.js:268 Epoch 3, Erro total: 1.3794069862143679
+bundle.js:268 Epoch 4, Erro total: 1.8706924007425978
+bundle.js:268 Epoch 5, Erro total: 2
+bundle.js:268 Epoch 6, Erro total: 2
+bundle.js:268 Epoch 7, Erro total: 2
+bundle.js:268 Epoch 8, Erro total: NaN
+bundle.js:268 Epoch 9, Erro total: NaN
+bundle.js:268 Epoch 10, Erro total: NaN
+bundle.js:268 Epoch 11, Erro total: NaN
+(Nesse exemplo desceu um pouquinho na epoca 0, mais começou a subir a partir da epoca 1)
+
+
+
+(OUTRA EXECUÇÂO as 19.10.2024 as 14:14)
+Erro inicial(ANTES DO TREINAMENTO): 1.253863244984344
+bundle.js:268 Epoch 0, Erro total: 1.1945076560382877
+bundle.js:268 Epoch 1, Erro total: 1.1749657113217742
+bundle.js:268 Epoch 2, Erro total: 1.246041266915703
+bundle.js:268 Epoch 3, Erro total: 1.7447704626169669
+bundle.js:268 Epoch 4, Erro total: 2
+bundle.js:268 Epoch 5, Erro total: 2
+bundle.js:268 Epoch 6, Erro total: 2
+bundle.js:268 Epoch 7, Erro total: NaN
+bundle.js:268 Epoch 8, Erro total: NaN
+
+
+(OUTRA EXECUÇÂO 19.10.2024 as 14:16)
+Erro inicial(ANTES DO TREINAMENTO): 0.9331624773397895
+bundle.js:268 Epoch 0, Erro total: 0.9341804307990136
+bundle.js:268 Epoch 1, Erro total: 0.9326340560989924
+bundle.js:268 Epoch 2, Erro total: 0.9180862500489316
+bundle.js:268 Epoch 3, Erro total: 0.8994091285785215
+bundle.js:268 Epoch 4, Erro total: 0.8800878516712074
+bundle.js:268 Epoch 5, Erro total: 0.8611551733149305
+bundle.js:268 Epoch 6, Erro total: 0.8429367320583372
+bundle.js:268 Epoch 7, Erro total: 0.8256070051484314
+bundle.js:268 Epoch 8, Erro total: 0.8093087231782295
+bundle.js:268 Epoch 9, Erro total: 0.7941570311478814
+bundle.js:268 Epoch 10, Erro total: 0.7802278775980855
+bundle.js:268 Epoch 11, Erro total: 0.7677763076793385
+bundle.js:268 Epoch 12, Erro total: 0.7566916607795803
+bundle.js:268 Epoch 13, Erro total: 0.7467182970113511
+bundle.js:268 Epoch 14, Erro total: 0.7377943842444832
+bundle.js:268 Epoch 15, Erro total: 0.7298389420114626
+bundle.js:268 Epoch 16, Erro total: 0.7227593276078847
+bundle.js:268 Epoch 17, Erro total: 0.7164574552067114
+bundle.js:268 Epoch 18, Erro total: 0.7108344924927228
+bundle.js:268 Epoch 19, Erro total: 0.7057940882248932
+bundle.js:268 Epoch 20, Erro total: 0.7012507636634752
+bundle.js:268 Epoch 21, Erro total: 0.6971550217815504
+bundle.js:268 Epoch 22, Erro total: 0.6933724598948002
+bundle.js:268 Epoch 23, Erro total: 0.6898292300452835
+bundle.js:268 Epoch 24, Erro total: 0.6864567096063316
+bundle.js:268 Epoch 25, Erro total: 0.6831908948763177
+bundle.js:268 Epoch 26, Erro total: 0.6799718542246347
+bundle.js:268 Epoch 27, Erro total: 0.6767433110117423
+bundle.js:268 Epoch 28, Erro total: 0.6734523895587967
+bundle.js:268 Epoch 29, Erro total: 0.6700495166366257
+bundle.js:268 Epoch 30, Erro total: 0.6664884232746379
+bundle.js:268 Epoch 31, Erro total: 0.6627261380928999
+bundle.js:268 Epoch 32, Erro total: 0.6587228114750161
+bundle.js:268 Epoch 33, Erro total: 0.6544411759950612
+bundle.js:268 Epoch 34, Erro total: 0.6498454561541075
+bundle.js:268 Epoch 35, Erro total: 0.6448996129670689
+bundle.js:268 Epoch 36, Erro total: 0.6395649542902796
+bundle.js:268 Epoch 37, Erro total: 0.63379733439434
+bundle.js:268 Epoch 38, Erro total: 0.627544336624904
+bundle.js:268 Epoch 39, Erro total: 0.6207428798394324
+bundle.js:268 Epoch 40, Erro total: 0.6133175209798035
+bundle.js:268 Epoch 41, Erro total: 0.6051793177120833
+bundle.js:268 Epoch 42, Erro total: 0.59622455178139
+bundle.js:268 Epoch 43, Erro total: 0.5863320927602405
+bundle.js:268 Epoch 44, Erro total: 0.5753579607749958
+bundle.js:268 Epoch 45, Erro total: 0.5631259305333675
+bundle.js:268 Epoch 46, Erro total: 0.549413772365662
+bundle.js:268 Epoch 47, Erro total: 0.5339354938554883
+bundle.js:268 Epoch 48, Erro total: 0.5163201605345495
+bundle.js:268 Epoch 49, Erro total: 0.49608915921724245
+bundle.js:268 Epoch 50, Erro total: 0.4726490137053252
+bundle.js:268 Epoch 51, Erro total: 0.4454057710297939
+bundle.js:268 Epoch 52, Erro total: 0.4145321755689575
+bundle.js:268 Epoch 53, Erro total: 0.3849805427360684
+bundle.js:268 Epoch 54, Erro total: 0.3879630084949003
+bundle.js:268 Epoch 55, Erro total: 0.6199843070907715
+bundle.js:268 Epoch 56, Erro total: 1.4277328764188897
+bundle.js:268 Epoch 57, Erro total: 1.975529031578436
+bundle.js:268 Epoch 58, Erro total: 2
+bundle.js:268 Epoch 59, Erro total: 2
+bundle.js:268 Epoch 60, Erro total: 2
+bundle.js:268 Epoch 61, Erro total: NaN
+bundle.js:268 Epoch 62, Erro total: NaN
+bundle.js:268 Epoch 63, Erro total: NaN
+bundle.js:268 Epoch 64, Erro total: NaN
+bundle.js:268 Epoch 65, Erro total: NaN
+bundle.js:268 Epoch 66, Erro total: NaN
+bundle.js:268 Epoch 67, Erro total: NaN
+
+outro exemplo desse problema, como pode ver ele desceu de forma consistente até a epoca 54, depois disso começou a subir lentamente, e ai a partir da epoca 61, ficou NaN
+
+
+(OUTRA EXECUÇÂO as 14:18)
+Erro inicial(ANTES DO TREINAMENTO): 1.121957027935057
+bundle.js:268 Epoch 0, Erro total: 1.0426834819889685
+bundle.js:268 Epoch 1, Erro total: 1.2939335772807654
+bundle.js:268 Epoch 2, Erro total: 2
+bundle.js:268 Epoch 3, Erro total: 2
+bundle.js:268 Epoch 4, Erro total: 2
+bundle.js:268 Epoch 5, Erro total: NaN
+bundle.js:268 Epoch 6, Erro total: NaN
+bundle.js:268 Epoch 7, Erro total: NaN
+bundle.js:268 Epoch 8, Erro total: NaN
+
+
+(OUTRA EXECUÇÂO as 14:19)
+Erro inicial(ANTES DO TREINAMENTO): 1.4706622666184037
+bundle.js:268 Epoch 0, Erro total: 1.2049739599597316
+bundle.js:268 Epoch 1, Erro total: 1.1852581564332105
+bundle.js:268 Epoch 2, Erro total: 1.6956400051018776
+bundle.js:268 Epoch 3, Erro total: 1.9860329454353258
+bundle.js:268 Epoch 4, Erro total: 2
+bundle.js:268 Epoch 5, Erro total: 2
+bundle.js:268 Epoch 6, Erro total: 2
+bundle.js:268 Epoch 7, Erro total: NaN
+bundle.js:268 Epoch 8, Erro total: NaN
+bundle.js:268 Epoch 9, Erro total: NaN
+
+
+(OUTRA EXECUÇÂO 14:20)
+Erro inicial(ANTES DO TREINAMENTO): 1.2007680292920848
+bundle.js:268 Epoch 0, Erro total: 1.1218186184976318
+bundle.js:268 Epoch 1, Erro total: 1.2381550126859524
+bundle.js:268 Epoch 2, Erro total: 1.4868511300541025
+bundle.js:268 Epoch 3, Erro total: 1.9648467262398468
+bundle.js:268 Epoch 4, Erro total: 2
+bundle.js:268 Epoch 5, Erro total: 2
+bundle.js:268 Epoch 6, Erro total: 2
+bundle.js:268 Epoch 7, Erro total: NaN
+bundle.js:268 Epoch 8, Erro total: NaN
+bundle.js:268 Epoch 9, Erro total: NaN
+bundle.js:268 Epoch 10, Erro total: NaN
+
+
+(OUTRA EXECUÇÂO as 14:30)
+Erro inicial(ANTES DO TREINAMENTO): 1.026313093135336
+bundle.js:268 Epoch 0, Erro total: 1.0552015238241719
+bundle.js:268 Epoch 1, Erro total: 1.0814321302620242
+bundle.js:268 Epoch 2, Erro total: 1.1481229632100745
+bundle.js:268 Epoch 3, Erro total: 1.9772475634738744
+bundle.js:268 Epoch 4, Erro total: 2
+bundle.js:268 Epoch 5, Erro total: 2
+bundle.js:268 Epoch 6, Erro total: 2
+bundle.js:268 Epoch 7, Erro total: NaN
+bundle.js:268 Epoch 8, Erro total: NaN
+bundle.js:268 Epoch 9, Erro total: NaN
+
+

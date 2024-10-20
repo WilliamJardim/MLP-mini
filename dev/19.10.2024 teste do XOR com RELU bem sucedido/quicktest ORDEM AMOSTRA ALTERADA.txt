@@ -1,0 +1,90 @@
+//Teste, notei que ao alterar a ordem das amostras do XOR, isso parece ter tornado o treinamento um pouco melhor
+
+// Estrutura da rede: 2 neurônios na entrada, 3 na camada oculta, 1 na saída
+const config2 = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU' ]  }, 
+        { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+/*
+const parametrosSuspeitos = {
+    "weights": [
+        [
+            [
+                -0.6334694877339744,
+                -0.33519894840648234
+            ],
+            [
+                0.16500447590322498,
+                0.32577238390658536
+            ],
+            [
+                -0.9500447590322498,
+                0.2577238390658536
+            ]
+        ],
+        [
+            [
+                -0.6398751710566382,
+                0.8899150592909009,
+                0.1915059290900900
+            ]
+        ]
+    ],
+    "biases": [
+        [
+            0.450611953629227,
+            0.1642960357453509,
+            0.1642960357453509
+        ],
+        [
+            -0.8513160227145877
+        ]
+    ],
+    "layers": [
+        2,
+        2,
+        1
+    ],
+    "generatedAt": 1729342004654
+}
+*/
+
+const mlp2 = new MLP(config2);
+
+/*
+mlp2.weights = parametrosSuspeitos.weights;
+mlp2.biases  = parametrosSuspeitos.biases;
+*/
+
+// Dados de entrada para o problema XOR
+const inputs2 = [
+    [0, 1],
+    [1, 0],
+    [0, 0],
+    [1, 1]
+];
+
+// Saídas esperadas para o XOR
+const targets2 = [
+    [1],
+    [1],
+    [0],
+    [0]
+];
+
+// Treinando a rede
+mlp2.train(inputs2, targets2, 0.5, 256, 1);
+
+// Testando a rede
+console.log('Estimativas:');
+inputs2.forEach(input => {
+    const output = mlp2.estimate(input);
+    console.log(`Entrada: ${input}, Estimativa: ${output}`);
+});
+
+

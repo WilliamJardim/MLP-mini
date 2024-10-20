@@ -1,0 +1,500 @@
+IDEIAS 
+  detectar quais paremetros dão NaN no feedforward e no backpropagation que causam NaN no custo ao longo das epocas
+
+  capturar uma configuração exata com os pesos e bias que eu sei que vai dar o problema pra eu conseguir analisar o por que ele ocorre com facilidade e reproducividade
+  
+  testar qual o ponto X que faz a função Sigmoid e a derivada da Sigmoid produzir NaN, pois eu vi que no Python e no JavaScript tem um velor que fez a função produzir NaN, e isso era o o motivo do primeiro teste da MLP ter dado NaN no custo ao longo das epocas QUANDO EU ESTAVA USANDO RELU na camada oculta e sigmoid na camada de saida, eu vi que por algum motivo, o valor da derivada da sigmoid foi NaN,
+  porém como falei esse não é o unico motivo, pois quando eu usei apenas a ReLU esse problema tambem ocorreu
+  mais quando usei só a Sigmoid nunca ocorreu 
+
+  AO INDENTIFICAR ISSO, CRIAR UMA VERSÂO CORRIGIDA DA SIGMOID E DA SUA DERIVADA QUE USA UM VALOR APROXIMADO AO ATUAL SOMANDO OU SUBTRAINDO ALGUM PEQUENO VALOR, PARA PODER SAIR DA INDETERMINAÇÂO DO NAN
+
+
+  Em resumo acontece as vezes quando eu uso ReLu ou Relu com sigmoid, mais nunca acontece quando eu uso apenas Sigmoid
+  tambem, quando eu usei apenas relu, parou de acontecer quando eu mudei a arquitetura pra ter 2 unidades de saida
+
+
+usando a função debugIfSomeNaN que criei, eu descobri que por algum motivo na propagação, o valor this.weights[l][j][k] fica NaN, provavelmente undefined
+o mesmo deve ocorrer com outros parametros da propagação e tambem no backpropagation
+
+(19.10.2024)
+Descobri tambem que: o problema muito provavelmente ocorre logo de primeira na propagação
+pois, o valor do this.weights[l][j] no debug IF notifyIfhasNaN, mostou que os pesos do this.weights[l][j] ficou um array de NaN, e por isso a propagação deu NaN, e por sua vez passou esses NaN para frente
+na inicialização(dos valores estaticos do quicktest) não existe nenhum valor NAN, então isso indica que o NaN nos pesos foi inserido posteriormente por outra parte do código
+
+Porém isso não ocorreu logo de primeira
+Pois antes do debug do IF NOTIFY, o console imprimiu duas coisas:
+    Erro inicial(ANTES DO TREINAMENTO): 1.0495985872557807
+    bundle.js:268 Epoch 0, Erro total: 1.031029474260718
+
+    o que indica fortemente que ele conseguiu rodar o feedforward sem NaN na fase do ERRO INICIAL pra medir o erro antes do treinamento
+    e até conseguiu executar com sucesso o feedforward e backpropagation na epoca 0, como mostrado logo abaixo, onde o erro foi 1.031029474260718, houve uma atualização de parametros pois o erro diminiu
+    porém, tudo indica que na epoca 1, os pesos se tornaram NaN, muito provavelmente na hora do de atualizar os pesos 
+
+  valores do debug:
+     this.weights[l][j] = [NaN, NaN]
+     IN: feedforward:
+     WHERE INDEXES:
+       l=0
+       j=1
+
+  PRECISO TESTAR SE ANTES DO feedforward ESSES VALORES NÂO ERAM NAN pra descobrir onde que eles ficam NaN
+
+
+(19.10.2024 12:22 PM)
+Debugando o feedforward após a epoca 0, logo apos ele fazer a atualização dos pesos e bias, estranhamente
+os pesos finais foram
+String(mlp2.weights) = '-0.6334694877339744,-0.33519894840648234,0.16500447590322498,0.32577238390658536,-0.6520521828265409,0.8854752419604763'
+estranhamente apenas os dois pesos finais(da ultima camada ) é que mudaram: -0.6520521828265409,0.8854752419604763',
+mais os outros pesos das camadas ocultas não mudaram!
+SENDO QUE OS BIASES MUDARAM TODOS PARA 
+  String(mlp2.biases) = '0.45489265754790775,0.16099411898725374,-0.8783392999974674'
+
+os pesos não atualizarem faria sentido se a derivada da ativação ou do erro fossem sempre zero para aqueles pesos
+mais não é o caso, NENHUM ERRO È ZERO
+existem zeros apenas nas ativações, mais não no erro
+
+EU SEI QUE NENHUM ERRO FOI ZERO
+porém eu sei que this.layerActivations[l][k] na posição l=0, todos os valores k são zero APENAS AS ATIVAÇÔES DA PRIMEIRA CAMADA
+veja:
+[
+    [
+        0,
+        0
+    ],
+    [
+        0.450611953629227,
+        0.1642960357453509
+    ],
+    [
+        0.2702327728287965
+    ]
+]
+
+portanto, as ativações não estavam todos zero
+
+PORÈM ISSO NAO RESPONDE A PERGUNTA POIS EU ESPERAVA QUE ALGUMA COISA NA ATUALIZAÇÂO DOS PESOS CAUSASSE VALORES NAN NOS PESOS
+NÂO SEI QUE ESTA CAUSANDO O NAN
+
+
+
+o problema só acontece de vez enquando, quando se usa ReLU ou ReLU com sigmoid,
+SE EU USO SÒ SIGMOID NÂO ACONTECE
+mais o problema parece estar relacionado com o calculo das derivadas como o outro arquivo TXT que escrevi diz em C:\....\Deep Learning
+
+COMO NESSE EXEMPLO
+
+// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+const config2 = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 2, functions: [ 'ReLU', 'ReLU' ]  }, 
+        { type: LayerType.Final,  inputs: 2, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+const mlp2 = new MLP(config2);
+
+// Dados de entrada para o problema XOR
+const inputs2 = [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+];
+
+// Saídas esperadas para o XOR
+const targets2 = [
+    [0],
+    [1],
+    [1],
+    [0]
+];
+
+// Treinando a rede
+mlp2.train(inputs2, targets2, 0.1, 10000);
+
+// Testando a rede
+console.log('Estimativas:');
+inputs2.forEach(input => {
+    const output = mlp2.estimate(input);
+    console.log(`Entrada: ${input}, Estimativa: ${output}`);
+});
+
+
+
+PARA RETOMAR OS TESTES COLE ESSE CÒDIGO NO ARQUIVO MLP.TS
+
+import ActivationFunctions from './utils/ActivationFunctions';
+import LayerDeclaration from './interfaces/LayerDeclaration';
+import MLPConfig from './interfaces/MLPConfig';
+import './utils/Enums';
+import ValidateStructure from './validators/ValidateStructure';
+import ValidateDataset from './validators/ValidateDataset';
+import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
+import debugIfSomeNaN from './utils/debugIfSomeNaN';
+
+// Função para inicializar pesos de forma aleatória
+function randomWeight(): number {
+    return Math.random() * 2 - 1; // Gera valores entre -1 e 1
+}
+
+// Rede Neural MLP com suporte a múltiplas camadas
+class MLP {
+    private config             : MLPConfig;
+    private layers             : number[];
+    private layers_functions   : string[][];
+    private weights            : number[][][];
+    private biases             : number[][];
+    private layerActivations   : number[][];
+    private initialParameters  : DoneParameters;
+
+    public constructor(config: MLPConfig) {
+        this.config = config;
+
+        // Aplica uma validação de estrutura 
+        ValidateStructure( this.config );
+
+        // layers é um array onde cada elemento é o número de unidades na respectiva camada
+        // Essa informação será extraida do config
+        this.layers = []             as number[];
+
+        //Esse aqui é um array para armazenar os nomes das funções de ativações das unidades de cada camada, assim: Array de Array<string>
+        this.layers_functions = []   as string[][];
+
+        for( let layerIndex = 0; layerIndex < this.config.layers.length ; layerIndex++ ){
+            const layerDeclaration:LayerDeclaration = this.config.layers[layerIndex];
+
+            this.layers[ layerIndex ] = layerDeclaration.units;
+        }
+
+        //Identifica quais as funções que cada unidade de cada camada usa,
+        //Ignora a camada de entrada que não possui funções
+        for( let layerIndex = 1; layerIndex < this.config.layers.length ; layerIndex++ ){
+            const layerDeclaration:LayerDeclaration = this.config.layers[layerIndex];
+
+            //Usei - 1 pra ignorar a camada de entrada, e ordenar corretamente
+            this.layers_functions[ layerIndex-1 ] = layerDeclaration.functions;
+        }
+
+        //Adicionar validação aqui para validar as funções das camadas
+        if( this.layers_functions.length > 0 ){
+            //Se tiver this.layers_functions, então ele precisa validar
+            ValidateLayerFunctions( this.config );
+        }
+
+        // Inicializando pesos e biases para todas as camadas
+        this.weights = [];
+        this.biases  = [];
+
+        if( config.initialization == Initialization.Random )
+        {
+            for (let i = 1; i < this.layers.length; i++) {
+                // Pesos entre a camada i-1 e a camada i
+                const layerWeights: number[][] = [];
+
+                for (let j = 0; j < this.layers[i]; j++) {
+                    const neuronWeights: number[] = [];
+
+                    for (let k = 0; k < this.layers[i - 1]; k++) {
+                        neuronWeights.push( randomWeight() );
+                    }
+                    
+                    layerWeights.push(neuronWeights);
+                }
+
+                this.weights.push(layerWeights);
+
+                // Biases para a camada i
+                const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight()) as number[];
+                this.biases.push(layerBiases);
+            }
+
+
+        }else if( config.initialization == Initialization.Zeros ){
+
+            for (let i = 1; i < this.layers.length; i++) {
+                // Pesos entre a camada i-1 e a camada i
+                const layerWeights: number[][] = [];
+
+                for (let j = 0; j < this.layers[i]; j++) {
+                    const neuronWeights: number[] = [];
+
+                    for (let k = 0; k < this.layers[i - 1]; k++) {
+                        neuronWeights.push( 0 );
+                    }
+                    
+                    layerWeights.push(neuronWeights);
+                }
+
+                this.weights.push(layerWeights);
+
+                // Biases para a camada i
+                const layerBiases = Array(this.layers[i]).fill(0).map(() => 0) as number[];
+                this.biases.push(layerBiases);
+            }
+    
+
+        }else if( config.initialization == Initialization.Manual ){
+            this.importParameters( config.parameters! );
+
+            
+        }else if( config.initialization == Initialization.Dev )
+        {
+            //Aqui fica por conta do programador definir os parametros antes de tentar usar o modelo
+        }
+
+        //Faz a exportação dos parametros iniciais
+        this.initialParameters = this.exportParameters();
+    }
+
+    /**
+    * Calcula o custo de todas as amostras de uma só vez
+    * 
+    * @param {Array} train_samples - Todas as amostras de treinamento
+    * @returns {Number} - o custo
+    */
+    public static compute_train_cost( inputs: number[][], mytargets:number[][], estimatedValues:number[][] ): number{
+
+        let cost = 0;
+        
+        inputs.forEach((input: number[], i: number) => {
+            const targets                = mytargets[i];
+            const estimations: number[]  = estimatedValues[i];
+
+            for( let S = 0 ; S < estimations.length ; S++ )
+            {
+                cost = cost + Math.pow( (estimations[S] - targets[S]), 2 );
+            }
+
+        });
+
+        return cost;
+    }
+
+    /**
+    * Retorna os parametros iniciais que foram usados para inicializar a rede
+    */
+    public getInitialParameters(): DoneParameters{
+        return this.initialParameters;
+    }
+    
+    /**
+    * Log the current network parameters values in a string
+    * 
+    * @param parameterShow - The show type
+    */
+    public logParameters( parameterShow:string = 'verbose'): void{
+        let netStr:string = '-=-=- WEIGHS OF THE NETWORK: -=-=- \n\n';
+        let identSimbol = '--->';
+
+        for( let l = 0 ; l < this.weights.length ; l++ )
+        {
+            netStr += `LAYER ${ l }:\n `;
+
+            for (let j = 0; j < this.weights[l].length; j++) {
+                if( parameterShow == 'verbose' ){
+                    netStr += `     ${identSimbol} UNIT OF NUMBER ${ j }:\n `;
+
+                }else if( parameterShow == 'short' ){
+                    netStr += `     ${identSimbol} UNIT ${ j }:\n `;
+                }
+
+                for( let k = 0 ; k < this.weights[l][j].length ; k++ ){
+                    if( parameterShow == 'verbose' ){
+                        netStr += `          ${identSimbol} WEIGHT OF INPUT X${ k }: ${this.weights[l][j][k]}\n `;
+
+                    }else if( parameterShow == 'short' ){
+                        netStr += `          ${identSimbol} W${ j }${ k }: ${this.weights[l][j][k]}\n `;
+                    }
+                }
+
+                netStr += `          ${identSimbol} BIAS: ${this.biases[l][j]}\n `;
+                
+                netStr += '\n';
+            }
+
+            netStr += '\n';
+        }
+
+        console.log(netStr);
+    }
+
+    /**
+    * Export the current network parameters values into a JSON object
+    * @returns {DoneParameters}
+    */
+    public exportParameters(): DoneParameters{
+        return ( JSON.parse( JSON.stringify( {
+            weights: [... this.weights ],
+            biases: [... this.biases  ],
+
+            layers: this.layers,
+
+            //Other info
+            generatedAt: new Date().getTime()
+        } ) ) );
+    }
+
+    /**
+    * Import the parameters intro this network
+    * @param {parameters} - The JSON object that contain the weights and biases 
+    */
+    public importParameters( parameters:DoneParameters ): void{
+        console.log(`Loading parameters from JSON, from date: ${ parameters.generatedAt! }`);
+        this.layers  = parameters!.layers;
+        this.weights = parameters!.weights;
+        this.biases  = parameters!.biases;
+        console.log(`Success from import JSON, from date: ${ parameters.generatedAt! }`);
+    }
+
+    // Forward pass (passagem direta)
+    public forward(input: number[]) {
+        let activations = input as number[];
+
+        // Passar pelos neurônios de cada camada
+        this.layerActivations = [activations]; // Para armazenar as ativações de cada camada
+
+        for (let l = 0; l < this.weights.length; l++) {
+            const nextActivations:number[] = [];
+
+            for (let j = 0; j < this.weights[l].length; j++) {
+
+                let weightedSum:number = 0;
+
+                for (let k = 0; k < activations.length; k++) {
+                    weightedSum += activations[k] * this.weights[l][j][k];
+
+                    //Debug if have some wrong
+                    debugIfSomeNaN(this, [ 
+                        activations[k] ,
+                        this.weights[l][j][k],
+                        
+                    ], (vals:any)=>{
+                        debugger;
+                    });
+                }
+
+                weightedSum += this.biases[l][j];
+
+                //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+                const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
+                const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid' );
+
+                nextActivations.push( ActivationFunctions[ nomeDaFuncao ]( weightedSum ) );
+
+                //Debug if have some wrong
+                debugIfSomeNaN(this, [ 
+                    weightedSum,
+                    ActivationFunctions[ nomeDaFuncao ]( weightedSum ),
+                    this.biases[l][j],
+
+                ], (vals:any)=>{
+                    debugger;
+                });
+
+            }
+
+            activations = nextActivations;
+            this.layerActivations.push( activations );
+        }
+
+        return activations;
+    }
+
+    // Função de treinamento com retropropagação
+    public train(
+          inputs: number[][], 
+          targets: number[][], 
+          learningRate: number = 0.1, 
+          epochs: number = 10000, 
+          printEpochs:number = 1000
+
+    ): void {
+
+        // Valida os dados de treinamento
+        ValidateDataset( this.config, 
+                         inputs, 
+                         targets );
+
+        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${ MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
+
+        for (let epoch = 0; epoch < epochs; epoch++) {
+        
+            inputs.forEach((input, i) => {
+                const target = targets[i];
+
+                // Passagem direta
+                const output = this.forward(input);
+
+                // Cálculo do erro da saída
+                const outputError = [];
+                for (let j = 0; j < output.length; j++) {
+                    const error = target[j] - output[j];
+                    outputError.push(error);
+                }
+
+                // Backpropagation (retropropagação)
+                const layerErrors = [outputError];
+
+                // Cálculo dos erros das camadas ocultas, começando da última camada
+                for (let l = this.weights.length - 1; l >= 1; l--) {
+                    const layerError = [];
+                    
+                    for (let j = 0; j < this.weights[l - 1].length; j++) {
+                    
+                        let error = 0;
+                        for (let k = 0; k < this.weights[l].length; k++) {
+                            error += layerErrors[0][k] * this.weights[l][k][j];
+                        }
+
+                        //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+                        const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
+                        const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid' );
+                    
+                        layerError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ](this.layerActivations[l][j]));
+                    }
+
+                    /**
+                    * Adiciona os erros das camada oculta atual como sendo o primeiro elemento do array "layerErrors", e os demais elementos que já existem no array ficam atráz dele, sequencialmente.
+                    * Isso por que layerErrors[0] sempre vai retornar os erros da ultima camada calculada pelo Backpropagation
+                    * 
+                    * E é por isso que layerErrors[0] começa sendo os erros da camada de saida(ou seja da última camada da rede)
+                    * e na segunda interação, do for "for (let l = this.weights.length - 1; l >= 1; l--) {", ao chegar nesse unshift, layerErrors[0] passa a ser os erros da penultima camada oculta
+                    * e assim por diante
+                    */
+                    layerErrors.unshift(layerError);
+                }
+
+                // Atualização dos pesos e biases
+                for (let l = this.weights.length - 1; l >= 0; l--) {
+                    for (let j = 0; j < this.weights[l].length; j++) {
+                        for (let k = 0; k < this.weights[l][j].length; k++) {
+                            // Atualiza os pesos usando a retropropagação
+                            this.weights[l][j][k] += learningRate * layerErrors[l][j] * this.layerActivations[l][k];
+                        }
+
+                        // Atualiza os biases
+                        this.biases[l][j] += learningRate * layerErrors[l][j];
+                    }
+                }
+            });
+
+            let totalError:number = MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) );
+
+            // Log do erro para monitoramento
+            if (epoch % printEpochs === 0) {
+                console.log(`Epoch ${epoch}, Erro total: ${totalError}`);
+            }
+        }
+    }
+
+    // Função para prever a saída para um novo conjunto de entradas
+    public estimate(input: number[]): number[] {
+        const output = this.forward(input) as number[];
+        return output.map( (o: number) => (o > 0.5 ? 1 : 0) );
+    }
+}
+
+
