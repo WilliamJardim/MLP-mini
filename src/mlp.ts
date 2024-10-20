@@ -198,15 +198,15 @@ class MLP {
     * @returns {DoneParameters}
     */
     public exportParameters(): DoneParameters{
-        return ( JSON.parse( JSON.stringify( {
-            weights: [... this.weights ],
-            biases: [... this.biases  ],
+        return {
+            weights: JSON.parse(JSON.stringify([... this.weights ])),
+            biases:  JSON.parse(JSON.stringify([... this.biases  ])),
 
             layers: this.layers,
 
             //Other info
             generatedAt: new Date().getTime()
-        } ) ) );
+        };
     }
 
     /**
@@ -215,9 +215,9 @@ class MLP {
     */
     public importParameters( parameters:DoneParameters ): void{
         console.log(`Loading parameters from JSON, from date: ${ parameters.generatedAt! }`);
-        this.layers  = parameters!.layers;
-        this.weights = parameters!.weights;
-        this.biases  = parameters!.biases;
+        this.layers  = [... JSON.parse(JSON.stringify(parameters!.layers)) ];
+        this.weights = [... JSON.parse(JSON.stringify(parameters!.weights)) ];
+        this.biases  = [... JSON.parse(JSON.stringify(parameters!.biases)) ];
         console.log(`Success from import JSON, from date: ${ parameters.generatedAt! }`);
     }
 
@@ -276,6 +276,9 @@ class MLP {
           printEpochs:number = 1000
 
     ): void {
+
+        // Garante que os parametros iniciais sejam arquivados ANTES DO TREINAMENTO COMEÇAR
+        this.initialParameters = this.exportParameters();
 
         // Valida os dados de treinamento
         ValidateDataset( this.config, 

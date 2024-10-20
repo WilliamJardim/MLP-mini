@@ -141,13 +141,13 @@ class MLP {
     * @returns {DoneParameters}
     */
     exportParameters() {
-        return (JSON.parse(JSON.stringify({
-            weights: [...this.weights],
-            biases: [...this.biases],
+        return {
+            weights: JSON.parse(JSON.stringify([...this.weights])),
+            biases: JSON.parse(JSON.stringify([...this.biases])),
             layers: this.layers,
             //Other info
             generatedAt: new Date().getTime()
-        })));
+        };
     }
     /**
     * Import the parameters intro this network
@@ -155,9 +155,9 @@ class MLP {
     */
     importParameters(parameters) {
         console.log(`Loading parameters from JSON, from date: ${parameters.generatedAt}`);
-        this.layers = parameters.layers;
-        this.weights = parameters.weights;
-        this.biases = parameters.biases;
+        this.layers = [...JSON.parse(JSON.stringify(parameters.layers))];
+        this.weights = [...JSON.parse(JSON.stringify(parameters.weights))];
+        this.biases = [...JSON.parse(JSON.stringify(parameters.biases))];
         console.log(`Success from import JSON, from date: ${parameters.generatedAt}`);
     }
     // Forward pass (passagem direta)
@@ -195,6 +195,8 @@ class MLP {
     }
     // Função de treinamento com retropropagação
     train(inputs, targets, learningRate = 0.1, epochs = 10000, printEpochs = 1000) {
+        // Garante que os parametros iniciais sejam arquivados ANTES DO TREINAMENTO COMEÇAR
+        this.initialParameters = this.exportParameters();
         // Valida os dados de treinamento
         ValidateDataset(this.config, inputs, targets);
         console.log(`Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
