@@ -72,6 +72,7 @@ VM147:37 Entrada: 0,1, Estimativa: 1
 VM147:37 Entrada: 1,0, Estimativa: 1
 VM147:37 Entrada: 0,0, Estimativa: 0
 VM147:37 Entrada: 1,1, Estimativa: 0
+(DEU CERTO)
 
 Erro inicial(ANTES DO TREINAMENTO): 0.9662362300635254
 bundle.js:268 Epoch 0, Erro total: 0.9648596310092824

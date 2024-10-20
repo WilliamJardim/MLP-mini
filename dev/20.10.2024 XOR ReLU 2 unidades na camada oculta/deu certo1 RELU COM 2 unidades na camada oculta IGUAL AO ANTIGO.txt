@@ -1,4 +1,19 @@
-// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+20.10.2024 as ~10:40 AM:
+NOME DO TESTE: RELU COM 2 unidades na camada oculta IGUAL AO ANTIGO
+
+DESCRIÇÂO TESTE: Eu achava que esse modelo não era capaz de resolver o problema do XOR, se na camada oculta tivesse apenas 2 unidades usando função ReLU, e na camada de saida 1 unidade usando Sigmoid,
+pois eu achava usando ReLU só iria funcionar se eu usasse 3 unidades na camada oculta, como nos testes do dia 19.10.2024
+Porém, eu fiz esse teste denovo, justamente com a estrutura que eu achava que não funcionava.
+
+eu fiz isso, como voce pode ver abaixo:
+
+RESUMO: Bem sucedido!, as vezes que deu problema de NaN, ou que o modelo não conseguiu convergir bem usando essas configurações era por causa da inicialização de pesos
+A inicialização de pesos é algo crítico, com uma inicialização correta, o modelo deve funcionar corretamente.
+
+Segue abaixo os passos para replicar esse teste:
+
+
+// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta(usando ReLU), 1 na saída(usando Sigmoid)
 const config2 = {
     layers: [
         { type: LayerType.Input,  inputs: 2, units: 2 }, 
