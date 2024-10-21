@@ -21,8 +21,11 @@ class MLP {
     private biases             : number[][];
     private layerActivations   : number[][];
     private initialParameters  : DoneParameters;
+    private lastTrainLogs      : string;
 
     public constructor(config: MLPConfig) {
+        this.lastTrainLogs = '';
+
         this.config = config;
 
         // Aplica uma validação de estrutura 
@@ -119,6 +122,11 @@ class MLP {
 
         //Faz a exportação dos parametros iniciais
         this.initialParameters = this.exportParameters();
+    }
+
+    // Obtem os logs
+    public getLastLogs(): string{
+        return this.lastTrainLogs;
     }
 
     /**
@@ -277,6 +285,8 @@ class MLP {
 
     ): void {
 
+        this.lastTrainLogs = '';
+
         // Garante que os parametros iniciais sejam arquivados ANTES DO TREINAMENTO COMEÇAR
         this.initialParameters = this.exportParameters();
 
@@ -286,6 +296,7 @@ class MLP {
                          targets );
 
         console.log(`Erro inicial(ANTES DO TREINAMENTO): ${ MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
+        this.lastTrainLogs += `Erro inicial(ANTES DO TREINAMENTO): ${ MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`;
 
         for (let epoch = 0; epoch < epochs; epoch++) {
         
@@ -353,6 +364,7 @@ class MLP {
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
                 console.log(`Epoch ${epoch}, Erro total: ${totalError}`);
+                this.lastTrainLogs += `Epoch ${epoch}, Erro total: ${totalError}`;
             }
         }
     }
