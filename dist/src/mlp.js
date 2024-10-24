@@ -5,10 +5,13 @@ import ValidateDataset from './validators/ValidateDataset';
 import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
 import notifyIfhasNaN from './utils/notifyIfhasNaN';
 import randomWeight from './utils/randomWeight';
+import ConsoleMonitor from './utils/ConsoleMonitor';
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
-        this.lastTrainLogs = '';
+        this.geralMonitor = new ConsoleMonitor({
+            name: 'GeralConsole'
+        });
         this.config = config;
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
@@ -78,10 +81,6 @@ class MLP {
         }
         //Faz a exportação dos parametros iniciais
         this.initialParameters = this.exportParameters();
-    }
-    // Obtem os logs
-    getLastLogs() {
-        return this.lastTrainLogs;
     }
     /**
     * Calcula o custo de todas as amostras de uma só vez
@@ -197,13 +196,14 @@ class MLP {
     }
     // Função de treinamento com retropropagação
     train(inputs, targets, learningRate = 0.1, epochs = 10000, printEpochs = 1000) {
-        this.lastTrainLogs = '';
+        let trainMonitor = new ConsoleMonitor({
+            name: 'TrainConsole'
+        });
         // Garante que os parametros iniciais sejam arquivados ANTES DO TREINAMENTO COMEÇAR
         this.initialParameters = this.exportParameters();
         // Valida os dados de treinamento
         ValidateDataset(this.config, inputs, targets);
-        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
-        this.lastTrainLogs += `Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`;
+        trainMonitor.log(`Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
         for (let epoch = 0; epoch < epochs; epoch++) {
             inputs.forEach((input, i) => {
                 const target = targets[i];
@@ -255,10 +255,13 @@ class MLP {
             let totalError = MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
-                console.log(`Epoch ${epoch}, Erro total: ${totalError}`);
-                this.lastTrainLogs += `Epoch ${epoch}, Erro total: ${totalError}`;
+                trainMonitor.log(`Epoch ${epoch}, Erro total: ${totalError}`);
             }
         }
+        //Integra os logs atuais do treinamento no geral
+        this.geralMonitor.integrate([
+            trainMonitor
+        ]);
     }
     // Função para prever a saída para um novo conjunto de entradas
     estimate(input) {

@@ -529,3 +529,80 @@ xor-test.js:36 Entrada: 0,0, Estimativa: 0
 xor-test.js:36 Entrada: 0,1, Estimativa: 1
 xor-test.js:36 Entrada: 1,0, Estimativa: 1
 xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+(24.10.2024 15:58 PM)
+Erro inicial(ANTES DO TREINAMENTO): 1.317444184592944
+bundle.js:347 Epoch 0, Erro total: 1.2505344605926394
+bundle.js:347 Epoch 1000, Erro total: 0.8996517874966146
+bundle.js:347 Epoch 2000, Erro total: 0.005345124954648501
+bundle.js:347 Epoch 3000, Erro total: 0.0008949011337680041
+bundle.js:347 Epoch 4000, Erro total: 0.0003446631166404988
+bundle.js:347 Epoch 5000, Erro total: 0.00017978158658524224
+bundle.js:347 Epoch 6000, Erro total: 0.00010974661002821783
+bundle.js:347 Epoch 7000, Erro total: 0.00007376007276160035
+bundle.js:347 Epoch 8000, Erro total: 0.00005289850940304011
+bundle.js:347 Epoch 9000, Erro total: 0.00003975245142605689
+bundle.js:347 CONSOLE: TrainConsole
+xor-test.js:33 Estimativas:
+xor-test.js:36 Entrada: 0,0, Estimativa: 0
+xor-test.js:36 Entrada: 0,1, Estimativa: 1
+xor-test.js:36 Entrada: 1,0, Estimativa: 1
+xor-test.js:36 Entrada: 1,1, Estimativa: 0
+(outras 3 vezes seguidos deu certo com resultados similares)
+
+(24.10.2024 15:58 PM)
+Erro inicial(ANTES DO TREINAMENTO): 1.2736291678638905
+bundle.js:347 Epoch 0, Erro total: 1.2032177761505387
+bundle.js:347 Epoch 1000, Erro total: 0.7756235152760262
+bundle.js:347 Epoch 2000, Erro total: 0.030432551118452767
+bundle.js:347 Epoch 3000, Erro total: 0.003915686035067213
+bundle.js:347 Epoch 4000, Erro total: 0.0013917731517641679
+bundle.js:347 Epoch 5000, Erro total: 0.0006988569637081055
+bundle.js:347 Epoch 6000, Erro total: 0.0004172852016948431
+bundle.js:347 Epoch 7000, Erro total: 0.00027644353307028585
+bundle.js:347 Epoch 8000, Erro total: 0.0001962622906334781
+bundle.js:347 Epoch 9000, Erro total: 0.00014638967518918833
+bundle.js:347 CONSOLE: TrainConsole
+xor-test.js:33 Estimativas:
+xor-test.js:36 Entrada: 0,0, Estimativa: 0
+xor-test.js:36 Entrada: 0,1, Estimativa: 1
+xor-test.js:36 Entrada: 1,0, Estimativa: 1
+xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+(24.10.2024 15:59 PM)
+Erro inicial(ANTES DO TREINAMENTO): 1.037478324231847
+bundle.js:347 Epoch 0, Erro total: 1.0285550991444992
+bundle.js:347 Epoch 1000, Erro total: 0.9795926600896461
+bundle.js:347 Epoch 2000, Erro total: 0.016929335404052143
+bundle.js:347 Epoch 3000, Erro total: 0.0014331876402888695
+bundle.js:347 Epoch 4000, Erro total: 0.0004639362793275276
+bundle.js:347 Epoch 5000, Erro total: 0.00022354094780723427
+bundle.js:347 Epoch 6000, Erro total: 0.00013036759998249638
+bundle.js:347 Epoch 7000, Erro total: 0.00008504551092878968
+bundle.js:347 Epoch 8000, Erro total: 0.00005972037386413632
+bundle.js:347 Epoch 9000, Erro total: 0.00004417870912328876
+bundle.js:347 CONSOLE: TrainConsole
+xor-test.js:33 Estimativas:
+xor-test.js:36 Entrada: 0,0, Estimativa: 0
+xor-test.js:36 Entrada: 0,1, Estimativa: 1
+xor-test.js:36 Entrada: 1,0, Estimativa: 1
+xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+(24.10.2024 16:00 PM)
+Erro inicial(ANTES DO TREINAMENTO): 1.0377254609550686
+bundle.js:347 Epoch 0, Erro total: 1.0285098737327922
+bundle.js:347 Epoch 1000, Erro total: 0.8126517903789283
+bundle.js:347 Epoch 2000, Erro total: 0.01344822336442219
+bundle.js:347 Epoch 3000, Erro total: 0.0012994422473273843
+bundle.js:347 Epoch 4000, Erro total: 0.00043586745799181043
+bundle.js:347 Epoch 5000, Erro total: 0.000213466444545189
+bundle.js:347 Epoch 6000, Erro total: 0.00012566352066375327
+bundle.js:347 Epoch 7000, Erro total: 0.00008247791992931164
+bundle.js:347 Epoch 8000, Erro total: 0.00005816641568140726
+bundle.js:347 Epoch 9000, Erro total: 0.00004316662476390125
+xor-test.js:33 Estimativas:
+xor-test.js:36 Entrada: 0,0, Estimativa: 0
+xor-test.js:36 Entrada: 0,1, Estimativa: 1
+xor-test.js:36 Entrada: 1,0, Estimativa: 1
+xor-test.js:36 Entrada: 1,1, Estimativa: 0
+

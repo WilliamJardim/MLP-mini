@@ -18,8 +18,13 @@ class MLP {
     private biases             : number[][];
     private layerActivations   : number[][];
     private initialParameters  : DoneParameters;
+    private geralMonitor       : ConsoleMonitor;
 
     public constructor(config: MLPConfig) {
+
+        this.geralMonitor = new ConsoleMonitor({ 
+            name:  'GeralConsole'
+        });
 
         this.config = config;
 
@@ -275,7 +280,9 @@ class MLP {
 
     ): void {
 
-        let trainMonitor = new ConsoleMonitor();
+        let trainMonitor = new ConsoleMonitor({
+            name: 'TrainConsole'
+        });
 
         // Garante que os parametros iniciais sejam arquivados ANTES DO TREINAMENTO COMEÇAR
         this.initialParameters = this.exportParameters();
@@ -355,6 +362,11 @@ class MLP {
                 trainMonitor.log(`Epoch ${epoch}, Erro total: ${totalError}`);
             }
         }
+
+        //Integra os logs atuais do treinamento no geral
+        this.geralMonitor.integrate([
+            trainMonitor
+        ]);
     }
 
     // Função para prever a saída para um novo conjunto de entradas

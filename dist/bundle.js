@@ -21,10 +21,13 @@
 
 
 
+
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
-        this.lastTrainLogs = '';
+        this.geralMonitor = new ConsoleMonitor({
+            name: 'GeralConsole'
+        });
         this.config = config;
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
@@ -94,10 +97,6 @@ class MLP {
         }
         //Faz a exportação dos parametros iniciais
         this.initialParameters = this.exportParameters();
-    }
-    // Obtem os logs
-    getLastLogs() {
-        return this.lastTrainLogs;
     }
     /**
     * Calcula o custo de todas as amostras de uma só vez
@@ -213,13 +212,14 @@ class MLP {
     }
     // Função de treinamento com retropropagação
     train(inputs, targets, learningRate = 0.1, epochs = 10000, printEpochs = 1000) {
-        this.lastTrainLogs = '';
+        let trainMonitor = new ConsoleMonitor({
+            name: 'TrainConsole'
+        });
         // Garante que os parametros iniciais sejam arquivados ANTES DO TREINAMENTO COMEÇAR
         this.initialParameters = this.exportParameters();
         // Valida os dados de treinamento
         ValidateDataset(this.config, inputs, targets);
-        console.log(`Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
-        this.lastTrainLogs += `Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`;
+        trainMonitor.log(`Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
         for (let epoch = 0; epoch < epochs; epoch++) {
             inputs.forEach((input, i) => {
                 const target = targets[i];
@@ -271,10 +271,13 @@ class MLP {
             let totalError = MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
-                console.log(`Epoch ${epoch}, Erro total: ${totalError}`);
-                this.lastTrainLogs += `Epoch ${epoch}, Erro total: ${totalError}`;
+                trainMonitor.log(`Epoch ${epoch}, Erro total: ${totalError}`);
             }
         }
+        //Integra os logs atuais do treinamento no geral
+        this.geralMonitor.integrate([
+            trainMonitor
+        ]);
     }
     // Função para prever a saída para um novo conjunto de entradas
     estimate(input) {
@@ -303,6 +306,55 @@ class ActivationFunctions {
     // Derivada da ReLU
     static ReLUDerivative(x) {
         return x > 0 ? 1 : 0;
+    }
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\ConsoleMonitor.js
+class ConsoleMonitor {
+    constructor(config) {
+        this.lines = '';
+        this.history = [];
+        this.config = config;
+        this.name = config.name;
+    }
+    getConsoleName() {
+        return this.name;
+    }
+    asString() {
+        return this.lines;
+    }
+    getHistory() {
+        return this.history;
+    }
+    push(info) {
+        this.getHistory().push(info);
+    }
+    integrate(from) {
+        this.isIntegrator = true;
+        //Para cada console vinculado
+        for (let i = 0; i < from.length; i++) {
+            //Extrai as informações e acrescenta elas na lista
+            let currentLogs = from[i].getHistory();
+            let consoleName = from[i].getConsoleName();
+            //this.log(`CONSOLE: ${consoleName}`);
+            currentLogs.forEach((info) => {
+                this.push(Object.assign({}, info));
+            });
+        }
+    }
+    log(message, aparence = 'white', classes = []) {
+        console.log(message);
+        this.lines = this.lines + message + '\n';
+        this.history.push({
+            aparence: aparence,
+            message: message,
+            classes: classes
+        });
+    }
+    reset() {
+        this.lines = '';
+        this.history = [];
     }
 }
 
