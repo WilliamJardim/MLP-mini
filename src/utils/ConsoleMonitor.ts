@@ -1,7 +1,9 @@
 type HistoryLog = {
     message: string,
     aparence: string,
-    classes: string[]
+    classes: string[],
+    timestamp: number,
+    date:Date
 }
 
 type ConsoleMonitorConfig = {
@@ -75,7 +77,9 @@ export default class ConsoleMonitor{
         this.history.push({
             aparence: aparence,
             message:  message,
-            classes:  classes
+            classes:  classes,
+            timestamp: new Date().getTime(),
+            date: new Date()
         });
     }
 
