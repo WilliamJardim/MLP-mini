@@ -38,6 +38,17 @@ export default class ConsoleMonitor{
         this.getHistory().push( info );
     }
 
+    public updateString(): void{
+        let currentHistory = this.getHistory();
+        this.lines = '';
+
+        //Para cada console vinculado
+        for( let i = 0 ; i < currentHistory.length ; i++ )
+        {
+            this.lines += currentHistory[i].message + '\n';
+        }
+    }
+
     public integrate( from:ConsoleMonitor[] ): void{
         this.isIntegrator = true;
 
@@ -48,12 +59,12 @@ export default class ConsoleMonitor{
             let currentLogs:HistoryLog[] = from[ i ].getHistory();
             let consoleName:string       = from[ i ].getConsoleName();
 
-            //this.log(`CONSOLE: ${consoleName}`);
-
             currentLogs.forEach(( info:HistoryLog )=>{
                 this.push( {...info} );
             });
         }   
+
+        this.updateString();
     }
 
     public log( message:string, aparence:string='white', classes:string[]=[] ): void{

@@ -82,6 +82,14 @@ class MLP {
         //Faz a exportação dos parametros iniciais
         this.initialParameters = this.exportParameters();
     }
+    //Obtem logs
+    getLogs() {
+        return this.geralMonitor.getHistory();
+    }
+    //Obtem o console geral
+    getMonitor() {
+        return this.geralMonitor;
+    }
     /**
     * Calcula o custo de todas as amostras de uma só vez
     *

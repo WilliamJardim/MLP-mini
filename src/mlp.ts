@@ -124,6 +124,16 @@ class MLP {
         this.initialParameters = this.exportParameters();
     }
 
+    //Obtem logs
+    public getLogs(): Object{
+        return this.geralMonitor.getHistory();
+    }
+
+    //Obtem o console geral
+    public getMonitor(): ConsoleMonitor{
+        return this.geralMonitor;
+    }
+
     /**
     * Calcula o custo de todas as amostras de uma só vez
     * 

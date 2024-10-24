@@ -98,6 +98,14 @@ class MLP {
         //Faz a exportação dos parametros iniciais
         this.initialParameters = this.exportParameters();
     }
+    //Obtem logs
+    getLogs() {
+        return this.geralMonitor.getHistory();
+    }
+    //Obtem o console geral
+    getMonitor() {
+        return this.geralMonitor;
+    }
     /**
     * Calcula o custo de todas as amostras de uma só vez
     *
@@ -330,6 +338,14 @@ class ConsoleMonitor {
     push(info) {
         this.getHistory().push(info);
     }
+    updateString() {
+        let currentHistory = this.getHistory();
+        this.lines = '';
+        //Para cada console vinculado
+        for (let i = 0; i < currentHistory.length; i++) {
+            this.lines += currentHistory[i].message + '\n';
+        }
+    }
     integrate(from) {
         this.isIntegrator = true;
         //Para cada console vinculado
@@ -337,11 +353,11 @@ class ConsoleMonitor {
             //Extrai as informações e acrescenta elas na lista
             let currentLogs = from[i].getHistory();
             let consoleName = from[i].getConsoleName();
-            //this.log(`CONSOLE: ${consoleName}`);
             currentLogs.forEach((info) => {
                 this.push(Object.assign({}, info));
             });
         }
+        this.updateString();
     }
     log(message, aparence = 'white', classes = []) {
         console.log(message);
