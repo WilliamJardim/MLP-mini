@@ -4,13 +4,11 @@ import ValidateStructure from './validators/ValidateStructure';
 import ValidateDataset from './validators/ValidateDataset';
 import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
 import notifyIfhasNaN from './utils/notifyIfhasNaN';
-// Função para inicializar pesos de forma aleatória
-function randomWeight() {
-    return Math.random() * 2 - 1; // Gera valores entre -1 e 1
-}
+import randomWeight from './utils/randomWeight';
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
+        this.lastTrainLogs = '';
         this.config = config;
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
@@ -80,6 +78,10 @@ class MLP {
         }
         //Faz a exportação dos parametros iniciais
         this.initialParameters = this.exportParameters();
+    }
+    // Obtem os logs
+    getLastLogs() {
+        return this.lastTrainLogs;
     }
     /**
     * Calcula o custo de todas as amostras de uma só vez
@@ -195,11 +197,13 @@ class MLP {
     }
     // Função de treinamento com retropropagação
     train(inputs, targets, learningRate = 0.1, epochs = 10000, printEpochs = 1000) {
+        this.lastTrainLogs = '';
         // Garante que os parametros iniciais sejam arquivados ANTES DO TREINAMENTO COMEÇAR
         this.initialParameters = this.exportParameters();
         // Valida os dados de treinamento
         ValidateDataset(this.config, inputs, targets);
         console.log(`Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`);
+        this.lastTrainLogs += `Erro inicial(ANTES DO TREINAMENTO): ${MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)))}`;
         for (let epoch = 0; epoch < epochs; epoch++) {
             inputs.forEach((input, i) => {
                 const target = targets[i];
@@ -252,6 +256,7 @@ class MLP {
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
                 console.log(`Epoch ${epoch}, Erro total: ${totalError}`);
+                this.lastTrainLogs += `Epoch ${epoch}, Erro total: ${totalError}`;
             }
         }
     }

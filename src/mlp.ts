@@ -6,11 +6,7 @@ import ValidateStructure from './validators/ValidateStructure';
 import ValidateDataset from './validators/ValidateDataset';
 import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
 import notifyIfhasNaN from './utils/notifyIfhasNaN';
-
-// Função para inicializar pesos de forma aleatória
-function randomWeight(): number {
-    return Math.random() * 2 - 1; // Gera valores entre -1 e 1
-}
+import randomWeight from './utils/randomWeight';
 
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
