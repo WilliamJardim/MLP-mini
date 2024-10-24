@@ -21,7 +21,7 @@ export default class ConsoleMonitor{
         return this.history;
     }
 
-    public log( message:string, aparence:'white', classes=[] ): void{
+    public log( message:string, aparence:string='white', classes:string[]=[] ): void{
         console.log(message);
 
         this.lines = this.lines + message + '\n';
