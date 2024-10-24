@@ -51,6 +51,9 @@ export default class ConsoleMonitor{
         }
     }
 
+    /**
+    * Integra o conteudo de outros ConsoleMonitor(es) a esse
+    */
     public integrate( from:ConsoleMonitor[] ): void{
         this.isIntegrator = true;
 
