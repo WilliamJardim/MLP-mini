@@ -346,6 +346,9 @@ class ConsoleMonitor {
             this.lines += currentHistory[i].message + '\n';
         }
     }
+    /**
+    * Integra o conteudo de outros ConsoleMonitor(es) a esse
+    */
     integrate(from) {
         this.isIntegrator = true;
         //Para cada console vinculado
@@ -374,25 +377,6 @@ class ConsoleMonitor {
         this.lines = '';
         this.history = [];
     }
-}
-
-
-// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\debugIfSomeNaN.js
-function debugIfSomeNaN(context, varToCheck, callback) {
-    let nanValues = [];
-    let hasNaN = false;
-    varToCheck.forEach((val, valIndex) => {
-        if (isNaN(val) || !isFinite(val)) {
-            nanValues.push(valIndex);
-            console.log('NaN', valIndex);
-            hasNaN = true;
-        }
-    });
-    let result = { hasNaN: hasNaN, values: nanValues };
-    if (hasNaN) {
-        callback.bind(context)(result);
-    }
-    return result;
 }
 
 

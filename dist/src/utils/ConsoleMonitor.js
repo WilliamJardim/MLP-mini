@@ -25,6 +25,9 @@ export default class ConsoleMonitor {
             this.lines += currentHistory[i].message + '\n';
         }
     }
+    /**
+    * Integra o conteudo de outros ConsoleMonitor(es) a esse
+    */
     integrate(from) {
         this.isIntegrator = true;
         //Para cada console vinculado
