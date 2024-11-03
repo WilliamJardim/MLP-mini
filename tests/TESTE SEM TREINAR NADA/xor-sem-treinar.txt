@@ -1,0 +1,445 @@
+03.11.2024
+
+CODIGO: // Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+const config = {
+    layers: [
+        { type: LayerType.Input,  inputs: 2, units: 2 }, 
+        { type: LayerType.Hidden, inputs: 2, units: 2, functions: [ 'Sigmoid', 'Sigmoid' ]  }, 
+        { type: LayerType.Final,  inputs: 2, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+const mlp = new MLP(config);
+
+// Dados de entrada para o problema XOR
+const inputs = [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+];
+
+// Saídas esperadas para o XOR
+const targets = [
+    [0],
+    [1],
+    [1],
+    [0]
+];
+
+// Treinando a rede
+mlp.train(inputs, targets, 0.0, 1);
+
+// Testando a rede
+console.log('Estimativas:');
+inputs.forEach(input => {
+    const output = mlp.forward(input);
+    console.log(`Entrada: ${input}, Estimativa: ${output}`);
+});
+
+RESULTADOS DO TREINAMENTO DAS TENTATIVAS:
+
+NOTA: Cada tentativa foi separada por espaços
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0684273664658857
+bundle.js:366 Epoch 0, Erro total: 1.0684273664658857
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6058284749102483
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.5787078980614966
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.6544362732722887
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.6360014945486383
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0008954605209535
+bundle.js:366 Epoch 0, Erro total: 1.0008954605209535
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.5177215961339856
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.4782983289599393
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.525961089299215
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.48577184664516454
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0825376189082234
+bundle.js:366 Epoch 0, Erro total: 1.0825376189082234
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.3578509153131316
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.3632060292940865
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.35081149253732036
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.3571107138812163
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1726679447652413
+bundle.js:366 Epoch 0, Erro total: 1.1726679447652413
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.2832095460427252
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.2908505759361442
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.2937376936017503
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.3012655750437496
+
+Erro inicial(ANTES DO TREINAMENTO): 1.137094541136484
+bundle.js:366 Epoch 0, Erro total: 1.137094541136484
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6806394868310636
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.695140381221394
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.674646699910685
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.68922439964208
+
+Erro inicial(ANTES DO TREINAMENTO): 1.14028841107402
+bundle.js:366 Epoch 0, Erro total: 1.14028841107402
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.3230047025140992
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.2825111636336176
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.33951436116753575
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.29141870875680653
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1763277674386268
+bundle.js:366 Epoch 0, Erro total: 1.1763277674386268
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.7326194275631825
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.693551579550109
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.7082033699377565
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.6786314420093624
+
+Erro inicial(ANTES DO TREINAMENTO): 1.3511940456962837
+bundle.js:366 Epoch 0, Erro total: 1.3511940456962837
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.7810755193864043
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.8174687198376935
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.7715056224137636
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.8096837221318769
+
+Erro inicial(ANTES DO TREINAMENTO): 1.180939956585968
+bundle.js:366 Epoch 0, Erro total: 1.180939956585968
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.29402283069638535
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.2999782846430955
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.27672641118973895
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.2851936979906031
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0438844306931032
+bundle.js:366 Epoch 0, Erro total: 1.0438844306931032
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6074376683894815
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.5899663128397605
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.6162281036255199
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.5995793664408138
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0805125265082387
+bundle.js:366 Epoch 0, Erro total: 1.0805125265082387
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6357691924148388
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.6380777580697008
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.6452194979401646
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.6476520258894738
+
+Erro inicial(ANTES DO TREINAMENTO): 1.001497688433147
+bundle.js:366 Epoch 0, Erro total: 1.001497688433147
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.5127672880955667
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.5210918613370024
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.5264756791304142
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.5338437121102071
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0244180343817642
+bundle.js:366 Epoch 0, Erro total: 1.0244180343817642
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.42794895606229616
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.4156737205032828
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.43024028198827735
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.4185861777551689
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1838512924129716
+bundle.js:366 Epoch 0, Erro total: 1.1838512924129716
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6994420829637331
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.7029490577591423
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.7245601694821037
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.7283719533798766
+
+Erro inicial(ANTES DO TREINAMENTO): 1.123965417774563
+bundle.js:366 Epoch 0, Erro total: 1.123965417774563
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.673502081135445
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.6577742694986071
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.6935041259930113
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.6777183729841384
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0105150375945051
+bundle.js:366 Epoch 0, Erro total: 1.0105150375945051
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.43083610114655857
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.4352540167482876
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.46990026188192807
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.4742905581935464
+
+Erro inicial(ANTES DO TREINAMENTO): 1.164734405610818
+bundle.js:366 Epoch 0, Erro total: 1.164734405610818
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.3151854323996885
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.2812024853756764
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.31474913381718606
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.2813430862478017
+
+Erro inicial(ANTES DO TREINAMENTO): 0.9964092786473127
+bundle.js:366 Epoch 0, Erro total: 0.9964092786473127
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.44396647005677864
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.5163783013609325
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.45613241417515155
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.5192505693854849
+
+Erro inicial(ANTES DO TREINAMENTO): 1.178431376639824
+bundle.js:366 Epoch 0, Erro total: 1.178431376639824
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.2928499587378797
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.28155796348354406
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.2967403353356157
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.2862466812545977
+
+Erro inicial(ANTES DO TREINAMENTO): 1.215560926067588
+bundle.js:366 Epoch 0, Erro total: 1.215560926067588
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.2699712563719929
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.2598306991356922
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.27578667691450615
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.26521861835856
+
+Erro inicial(ANTES DO TREINAMENTO): 1.2547332473373738
+bundle.js:366 Epoch 0, Erro total: 1.2547332473373738
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.7531230112792849
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.7493747716523179
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.7569690917339584
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.7521050124564063
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1344188030637057
+bundle.js:366 Epoch 0, Erro total: 1.1344188030637057
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6892439394905702
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.6852821397919372
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.6782983964756866
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.6758863378521337
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0281780034605228
+bundle.js:366 Epoch 0, Erro total: 1.0281780034605228
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.42053163109351527
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.4060511325242147
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.4277535702722508
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.41363016959407906
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0857572938686735
+bundle.js:366 Epoch 0, Erro total: 1.0857572938686735
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6479565505429153
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.643064685181256
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.6523226958357101
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.6462408805402949
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1903718351327832
+bundle.js:366 Epoch 0, Erro total: 1.1903718351327832
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.2892238386821054
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.26560700877876275
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.29935204699555423
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.2765515985608729
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0563309152520313
+bundle.js:366 Epoch 0, Erro total: 1.0563309152520313
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6284675094628155
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.5772888472460347
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.6462510368090132
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.5979435234036345
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0023288940625719
+bundle.js:366 Epoch 0, Erro total: 1.0023288940625719
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.47917377744037054
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.4907561311101134
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.4577862851847098
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.46839764574596376
+
+Erro inicial(ANTES DO TREINAMENTO): 1.03485332644353
+bundle.js:366 Epoch 0, Erro total: 1.03485332644353
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.4264850706012745
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.4165617144920837
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.40085988070219986
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.39191159136871284
+
+Erro inicial(ANTES DO TREINAMENTO): 1.2696382667135624
+bundle.js:366 Epoch 0, Erro total: 1.2696382667135624
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.2392115941297977
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.2460288628715023
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.23511857132639505
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.24269323104451918
+
+Erro inicial(ANTES DO TREINAMENTO): 1.1830379298141107
+bundle.js:366 Epoch 0, Erro total: 1.1830379298141107
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.2837431052795553
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.28422259921997894
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.28803731993455667
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.2886167610293176
+
+Erro inicial(ANTES DO TREINAMENTO): 1.2605735602485182
+bundle.js:366 Epoch 0, Erro total: 1.2605735602485182
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.7507269706667389
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.7613899434795728
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.7533170004918871
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.7610488252688249
+
+Erro inicial(ANTES DO TREINAMENTO): 1.4703574816756255
+bundle.js:366 Epoch 0, Erro total: 1.4703574816756255
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.15516768726145647
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.1488403354378874
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.1653839490679455
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.15881984590929063
+
+Erro inicial(ANTES DO TREINAMENTO): 1.2043742154360968
+bundle.js:366 Epoch 0, Erro total: 1.2043742154360968
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.2731073431669436
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.2576880256418674
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.29121786427240703
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.2763827262011018
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0133003845191029
+bundle.js:366 Epoch 0, Erro total: 1.0133003845191029
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.45877252287050185
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.449188219966339
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.4473676811204499
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.44049070351608893
+
+Erro inicial(ANTES DO TREINAMENTO): 1.063334309386011
+bundle.js:366 Epoch 0, Erro total: 1.063334309386011
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6028981151435072
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.6155247516499145
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.633862316624455
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.6465061116191761
+
+Erro inicial(ANTES DO TREINAMENTO): 1.00202370571244
+bundle.js:366 Epoch 0, Erro total: 1.00202370571244
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.5267679274370616
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.5120988486730662
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.5308299062711913
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.516111563540729
+
+Erro inicial(ANTES DO TREINAMENTO): 1.263495020360402
+bundle.js:366 Epoch 0, Erro total: 1.263495020360402
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.7365318249548842
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.7592497735780342
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.7548229408733094
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.7764943202269992
+
+Erro inicial(ANTES DO TREINAMENTO): 1.3006909972738296
+bundle.js:366 Epoch 0, Erro total: 1.3006909972738296
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.7859854066393636
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.7705013918478824
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.7752268071881963
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.7613969651063841
+
+Erro inicial(ANTES DO TREINAMENTO): 1.053391606903875
+bundle.js:366 Epoch 0, Erro total: 1.053391606903875
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.6320034563616861
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.6215591420800186
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.5960096129025988
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.5895231312174593
+
+Erro inicial(ANTES DO TREINAMENTO): 0.9988794317988869
+bundle.js:366 Epoch 0, Erro total: 0.9988794317988869
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.4944420442446686
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.5066824687429738
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.4852093833282421
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.49601908332565625
+
+Erro inicial(ANTES DO TREINAMENTO): 1.0426591849704074
+bundle.js:366 Epoch 0, Erro total: 1.0426591849704074
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.5926282014419575
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.6181389083645109
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.58647948796496
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.6120734372992418
+
+Erro inicial(ANTES DO TREINAMENTO): 1.2819066307112585
+bundle.js:366 Epoch 0, Erro total: 1.2819066307112585
+xor-sem-treinar.js:33 Estimativas:
+xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.27185959553626504
+xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.2442908637307809
+xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.22996893542587382
+xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.20965412463432698
+
+
+NOTA: Como voce pode ver, não houve nenhum ajuste de pesos, pois eu propositalmente configurei o modelo para não fazer o treinamento(mudando a taxa de aprendizado para 0, evitando qualquer atualização de parametros) e ir direto para a fase de teste, para testar como ele se sairia SEM SER TREINADO.
+Como pode ver isso fica bem nitido pois o custo inicial antes do treinamento foi de "1.0133003845191029" e o custo final após a primeira época continuou exatatamente "1.0133003845191029"
+Ou seja, nenhum parametro foi atualizado, e nenhum treinamento foi feito. 
+Rodei esse teste mais de 20 vezes seguidas, usando inicialização de pesos aleatória, como voce pode ver aqui nesse arquivo, e nenhuma tentativa deu certo, o modelo não conseguiu acertar nenhuma!. 
+Isso é algo totalmente esperado, visto que NENHUM TREINAMENTO FOI FEITO! POIS NENHUM PARAMETRO FOI ATUALIZADO!.
+
+Como podemos ver, quando não treinamos o modelo, os resultados tendem a ser quase sempre os mesmos, com pouca ou quase nenhuma variação, independende da classe.
+Ele erra tudo!
+
+Lembrando que teve pesos aleatórios que fizeram o custo ser um pouco melhor ou pior, mais em todas as tentativas falharam!
+Mais também vale lembrar que O FATO DO CUSTO TER SIDO MENOR PARA ALGUMAS TENTATIVAS NÂO SIGNIFICA QUE O MODELO ESTIMOU MELHOR,
+pois isso foi apenas uma diferença de distancia númerica dos valores. 
+Por exemplo, teve uma tentativa que o custo foi de "1.4703574816756255" e isso foi um dos piores custos desses testes sem treinamento, 
+Em contrapartida, em uma das outras tentativas o custo foi bem MENOR "0.9964092786473127", NO ENTANDO, OS RESULTADOS FORAM OS MESMOS EM SENTIDO DE PADRÂO
+
+COMPARE:
+    TESTE ALEATORIO RUIM
+        Erro inicial(ANTES DO TREINAMENTO): 1.4703574816756255
+        bundle.js:366 Epoch 0, Erro total: 1.4703574816756255
+        xor-sem-treinar.js:33 Estimativas:
+        xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.15516768726145647
+        xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.1488403354378874
+        xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.1653839490679455
+        xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.15881984590929063
+
+        aqui os numeros foram 0.15, 0.14, 0.16, 0.15 para as classes, respectivamente.
+
+        As diferenças entre as estimativas foram
+            0.15516768726145647 - 0.1488403354378874    = 0.006327351823569055
+            0.1653839490679455  - 0.15881984590929063   = 0.006564103158654883
+            0.15516768726145647 - 0.15881984590929063   = -0.003652158647834164
+            0.15516768726145647 - 0.1653839490679455    = -0.010216261806489046
+            0.1488403354378874  - 0.15881984590929063   = -0.009979510471403219
+
+
+
+    TESTE ALEATORIO "BOM"
+        Erro inicial(ANTES DO TREINAMENTO): 0.9964092786473127
+        bundle.js:366 Epoch 0, Erro total: 0.9964092786473127
+        xor-sem-treinar.js:33 Estimativas:
+        xor-sem-treinar.js:36 Entrada: 0,0, Estimativa: 0.44396647005677864
+        xor-sem-treinar.js:36 Entrada: 0,1, Estimativa: 0.5163783013609325
+        xor-sem-treinar.js:36 Entrada: 1,0, Estimativa: 0.45613241417515155
+        xor-sem-treinar.js:36 Entrada: 1,1, Estimativa: 0.5192505693854849
+
+        As diferenças entre as estimativas foram:
+            0.44396647005677864 - 0.5163783013609325   = -0.0724118313041539
+            0.45613241417515155 - 0.5192505693854849   = -0.06311815521033332
+            0.44396647005677864 - 0.45613241417515155  = -0.012165944118372907
+            0.44396647005677864 - 0.5192505693854849   = -0.07528409932870622
+            0.5163783013609325 - 0.5192505693854849    = -0.0028722680245523158
+
+    
+    Ao calcular as diferenças entre as estimativas para os PROPIOS DADOS DE TREINAMENTO, vimos que além de errar tudo absurdamente, 
+    além disso, um padrão de erro se mantem, os resultados das estimativas tendem a ser extremamente próximos uns dos outros, tão proximo que a diferença entre cada saida é baixissima 
+    em ambos os dois testes que comparei esse padrão de erro foi mantido.
+    E ISSO ESTÀ PRESENTE EM TODOS ESSAS TENTATIVAS QUE FIZ SEM TREINAR, OS RESULTADOS NÂO FAZEM SENTIDO, ESTÂO TODOS INCORRETOS E EXTREMAMENTE LONGE DOS VALORES REAIS.
+    E ALÈM DISSO OS RESULTADOS TENDEM A SER OS MESMOS PARA TODAS AS AMOSTRAS.
+
+
+
+
+
+
