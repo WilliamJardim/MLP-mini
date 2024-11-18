@@ -466,6 +466,10 @@ function ValidateDataset(config, train_inputs, train_targets) {
     for (let i = 0; i < train_inputs.length; i++) {
         let trainInputs = train_inputs[i];
         let targetTrainInputs = train_targets[i];
+        const targetsIsArray = targetTrainInputs instanceof Array;
+        if (!targetsIsArray) {
+            throw `A variavel targets precisa ser um Array com ${lastLayer.units} elementos!`;
+        }
         if (trainInputs.length != firstLayer.inputs) {
             throw `O seu modelo de rede possui ${firstLayer.inputs} entradas, porém, seu dataset possui ${trainInputs.length} features na linha ${i}!. Dados precisam bater!`;
         }
