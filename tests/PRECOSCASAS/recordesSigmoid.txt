@@ -1,0 +1,99 @@
+19.11.2024 15:31 PM
+
+// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+const config = {
+    layers: [
+        { type: LayerType.Input,  inputs: 11, units: 11 }, 
+        { type: LayerType.Hidden, inputs: 11, units: 4, functions: [ 'Sigmoid', 'Sigmoid', 'Sigmoid', 'Sigmoid']  }, 
+        { type: LayerType.Final,  inputs: 4, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+const mlp = new MLP(config);
+
+...
+
+let datasetTratado = [];
+
+for( let l = 0 ; l < 500 ; l++ )
+{
+    const linha = normalizedData[l];
+    const novaLinha = [];
+
+    //Ignora a ultiam coluna que vai ser a variavel que vamos estimar
+    for( let c = 0 ; c < linha.length-1 ; c++ ){
+        novaLinha.push( linha[c] / 10 )
+    }
+
+    datasetTratado.push(novaLinha);
+}
+
+...
+
+// Treinando a rede
+mlp.train(inputs, targets, 0.1, 1000, 1);
+
+RESULTADOS:
+------------------------------------------------------
+Erro inicial(ANTES DO TREINAMENTO): 136.1138493967976
+Epoch 999, Erro total: 49.98304254858875
+------------------------------------------------------
+
+
+...
+
+// Treinando a rede
+mlp.train(inputs, targets, 0.4, 5000, 1);
+
+RESULTADOS:
+------------------------------------------------------
+Erro inicial(ANTES DO TREINAMENTO): 126.79266969682773
+Epoch 4999, Erro total: 40.78668362118753
+------------------------------------------------------
+
+
+....
+
+// Treinando a rede
+mlp.train(inputs, targets, 0.4, 9000, 100);
+
+RESULTADOS:
+------------------------------------------------------
+Erro inicial(ANTES DO TREINAMENTO): 131.16637101834286
+Epoch 8900, Erro total: 47.25954796697958
+------------------------------------------------------
+
+
+
+
+....
+
+let datasetTratado = [];
+
+for( let l = 0 ; l < 500 ; l++ )
+{
+    const linha = normalizedData[l];
+    const novaLinha = [];
+
+    //Ignora a ultiam coluna que vai ser a variavel que vamos estimar
+    for( let c = 0 ; c < linha.length-1 ; c++ ){
+        novaLinha.push( linha[c] / 10 )
+    }
+
+    datasetTratado.push(novaLinha);
+}
+
+...
+
+// Treinando a rede
+mlp.train(inputs, targets, 0.4, 9000, 100);
+
+RESULTADOS:
+------------------------------------------------------
+Erro inicial(ANTES DO TREINAMENTO): 152.85344828256723
+Epoch 8900, Erro total: 38.34591244066964
+------------------------------------------------------
+
+
+
