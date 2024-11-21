@@ -1,6 +1,6 @@
 19.11.2024 15:31 PM
 
-// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+// Estrutura da rede: 11 neurônios na entrada, 4 na camada oculta, 1 na saída
 const config = {
     layers: [
         { type: LayerType.Input,  inputs: 11, units: 11 }, 
