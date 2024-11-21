@@ -1,0 +1,176 @@
+21.11.2024 20:41 PM
+
+MESMO DATASET USADAS NOS TRESTES DO "PRECOCASAS"
+
+CÒDIGO DE TREINAMENTO:
+// Função para calcular o Min-Max Scaling
+function normalizeData(dataset) {
+    // Transpor os dados para acessar colunas
+    const transposed = dataset[0].map((_, colIndex) => dataset.map(row => row[colIndex]));
+  
+    // Encontrar os valores mínimos e máximos de cada coluna
+    const minValues = transposed.map(col => Math.min(...col));
+    const maxValues = transposed.map(col => Math.max(...col));
+  
+    // Normalizar os dados
+    const normalized = dataset.map(row =>
+      row.map((value, index) => {
+        const min = minValues[index];
+        const max = maxValues[index];
+        return max === min ? 0 : (value - min) / (max - min); // Evitar divisão por zero
+      })
+    );
+  
+    return normalized;
+  }
+  
+// Aplicar a normalização
+const normalizedData = normalizeData(dataset);
+  
+// Estrutura da rede: 11 neurônios na entrada, 4 na camada oculta, 1 na saída
+const config = {
+    layers: [
+        { type: LayerType.Input,  inputs: 11, units: 11 }, 
+        { type: LayerType.Hidden, inputs: 11, units: 4, functions: [ 'Sigmoid', 'Sigmoid', 'Sigmoid', 'Sigmoid']  }, 
+        { type: LayerType.Final,  inputs: 4, units: 1, functions: [ 'Sigmoid' ]  }
+    ],
+    initialization: Initialization.Random
+};
+
+const mlp = new MLP(config);
+
+let datasetTratado = [];
+
+for( let l = 0 ; l < 5 ; l++ )
+{
+    const linha = normalizedData[l];
+    const novaLinha = [];
+
+    //Ignora a ultiam coluna que vai ser a variavel que vamos estimar
+    for( let c = 0 ; c < linha.length-1 ; c++ ){
+        novaLinha.push( linha[c] )
+    }
+
+    datasetTratado.push(novaLinha);
+}
+
+// Dados de entrada para o problema
+const inputs = datasetTratado;
+
+// Saídas esperadas para o XOR
+const targets = [];
+
+for( let l = 0 ; l < 5 ; l++ )
+{   
+    const linha = normalizedData[l];
+    
+    //Pega somente a variavel que vamos estimar
+    targets.push( [linha[ linha.length-1 ]] );
+
+}
+
+// Treinando a rede
+mlp.train(inputs, targets, 0.4, 9000, 100);
+
+
+
+RESULTADOS DO TREINAMENTO:
+
+Erro inicial(ANTES DO TREINAMENTO): 1.4442534646479694
+bundle.js:366 Epoch 0, Erro total: 1.3150694082102663
+bundle.js:366 Epoch 100, Erro total: 0.0007993427012011666
+bundle.js:366 Epoch 200, Erro total: 0.0001313841860796818
+bundle.js:366 Epoch 300, Erro total: 0.00004958364547595627
+bundle.js:366 Epoch 400, Erro total: 0.00002540879520341734
+bundle.js:366 Epoch 500, Erro total: 0.0000152766409949542
+bundle.js:366 Epoch 600, Erro total: 0.000010133017081104375
+bundle.js:366 Epoch 700, Erro total: 0.000007183480047203924
+bundle.js:366 Epoch 800, Erro total: 0.0000053429400393759244
+bundle.js:366 Epoch 900, Erro total: 0.0000041207921373033845
+bundle.js:366 Epoch 1000, Erro total: 0.0000032696715440161575
+bundle.js:366 Epoch 1100, Erro total: 0.000002654170634617315
+bundle.js:366 Epoch 1200, Erro total: 0.0000021952423353001666
+bundle.js:366 Epoch 1300, Erro total: 0.000001844289075263945
+bundle.js:366 Epoch 1400, Erro total: 0.0000015701329992368041
+bundle.js:366 Epoch 1500, Erro total: 0.0000013520451221331374
+bundle.js:366 Epoch 1600, Erro total: 0.0000011758189112390466
+bundle.js:366 Epoch 1700, Erro total: 0.0000010314602859213817
+bundle.js:366 Epoch 1800, Erro total: 9.117769361734056e-7
+bundle.js:366 Epoch 1900, Erro total: 8.11488523233898e-7
+bundle.js:366 Epoch 2000, Erro total: 7.266493099036863e-7
+bundle.js:366 Epoch 2100, Erro total: 6.542640315132221e-7
+bundle.js:366 Epoch 2200, Erro total: 5.920265809478407e-7
+bundle.js:366 Epoch 2300, Erro total: 5.38138662931321e-7
+bundle.js:366 Epoch 2400, Erro total: 4.911816645705774e-7
+bundle.js:366 Epoch 2500, Erro total: 4.5002464128581973e-7
+bundle.js:366 Epoch 2600, Erro total: 4.1375725305710183e-7
+bundle.js:366 Epoch 2700, Erro total: 3.816402197478861e-7
+bundle.js:366 Epoch 2800, Erro total: 3.5306826177426357e-7
+bundle.js:366 Epoch 2900, Erro total: 3.275420610659886e-7
+bundle.js:366 Epoch 3000, Erro total: 3.0464682148692793e-7
+bundle.js:366 Epoch 3100, Erro total: 2.8403571415264207e-7
+bundle.js:366 Epoch 3200, Erro total: 2.6541697780687495e-7
+bundle.js:366 Epoch 3300, Erro total: 2.485437816920648e-7
+bundle.js:366 Epoch 3400, Erro total: 2.3320619597322288e-7
+bundle.js:366 Epoch 3500, Erro total: 2.1922478421919346e-7
+bundle.js:366 Epoch 3600, Erro total: 2.0644545457351134e-7
+bundle.js:366 Epoch 3700, Erro total: 1.9473529521692491e-7
+bundle.js:366 Epoch 3800, Erro total: 1.8397918514558476e-7
+bundle.js:366 Epoch 3900, Erro total: 1.7407701985017295e-7
+bundle.js:366 Epoch 4000, Erro total: 1.649414278308813e-7
+bundle.js:366 Epoch 4100, Erro total: 1.564958813132643e-7
+bundle.js:366 Epoch 4200, Erro total: 1.4867312539406419e-7
+bundle.js:366 Epoch 4300, Erro total: 1.4141386582361128e-7
+bundle.js:366 Epoch 4400, Erro total: 1.3466566795725653e-7
+bundle.js:366 Epoch 4500, Erro total: 1.2838202897688793e-7
+bundle.js:366 Epoch 4600, Erro total: 1.2252159295601474e-7
+bundle.js:366 Epoch 4700, Erro total: 1.1704748421849621e-7
+bundle.js:366 Epoch 4800, Erro total: 1.1192673907897023e-7
+bundle.js:366 Epoch 4900, Erro total: 1.0712981974337867e-7
+bundle.js:366 Epoch 5000, Erro total: 1.0263019709063086e-7
+bundle.js:366 Epoch 5100, Erro total: 9.840399142017497e-8
+bundle.js:366 Epoch 5200, Erro total: 9.442966215750371e-8
+bundle.js:366 Epoch 5300, Erro total: 9.06877390498934e-8
+bundle.js:366 Epoch 5400, Erro total: 8.716058864198706e-8
+bundle.js:366 Epoch 5500, Erro total: 8.383221084585322e-8
+bundle.js:366 Epoch 5600, Erro total: 8.068806126100898e-8
+bundle.js:366 Epoch 5700, Erro total: 7.771489559054624e-8
+bundle.js:366 Epoch 5800, Erro total: 7.49006330756282e-8
+bundle.js:366 Epoch 5900, Erro total: 7.223423633874769e-8
+bundle.js:366 Epoch 6000, Erro total: 6.970560542591074e-8
+bundle.js:366 Epoch 6100, Erro total: 6.730548416591545e-8
+bundle.js:366 Epoch 6200, Erro total: 6.502537723796253e-8
+bundle.js:366 Epoch 6300, Erro total: 6.285747657438421e-8
+bundle.js:366 Epoch 6400, Erro total: 6.079459591877064e-8
+bundle.js:366 Epoch 6500, Erro total: 5.883011252315802e-8
+bundle.js:366 Epoch 6600, Erro total: 5.6957915111432686e-8
+bundle.js:366 Epoch 6700, Erro total: 5.51723573497446e-8
+bundle.js:366 Epoch 6800, Erro total: 5.3468216171795635e-8
+bundle.js:366 Epoch 6900, Erro total: 5.1840654386553924e-8
+bundle.js:366 Epoch 7000, Erro total: 5.028518707663539e-8
+bundle.js:366 Epoch 7100, Erro total: 4.8797651352267784e-8
+bundle.js:366 Epoch 7200, Erro total: 4.737417908623601e-8
+bundle.js:366 Epoch 7300, Erro total: 4.6011172298165315e-8
+bundle.js:366 Epoch 7400, Erro total: 4.4705280898457865e-8
+bundle.js:366 Epoch 7500, Erro total: 4.3453382537741886e-8
+bundle.js:366 Epoch 7600, Erro total: 4.225256433725217e-8
+bundle.js:366 Epoch 7700, Erro total: 4.110010630270382e-8
+bundle.js:366 Epoch 7800, Erro total: 3.9993466246878846e-8
+bundle.js:366 Epoch 7900, Erro total: 3.893026606625718e-8
+bundle.js:366 Epoch 8000, Erro total: 3.790827923484687e-8
+bundle.js:366 Epoch 8100, Erro total: 3.692541939404581e-8
+bundle.js:366 Epoch 8200, Erro total: 3.597972992873457e-8
+bundle.js:366 Epoch 8300, Erro total: 3.50693744361712e-8
+bundle.js:366 Epoch 8400, Erro total: 3.419262799836834e-8
+bundle.js:366 Epoch 8500, Erro total: 3.334786918446863e-8
+bundle.js:366 Epoch 8600, Erro total: 3.2533572712210575e-8
+bundle.js:366 Epoch 8700, Erro total: 3.174830270847031e-8
+bundle.js:366 Epoch 8800, Erro total: 3.099070651306334e-8
+bundle.js:366 Epoch 8900, Erro total: 3.025950897679806e-8
+
+
+CONCLUSÃO Quando tem menas amostras, o "Erro total" é minimizado bem mais facilmente,
+o que faz sentido usando o Erro Quadrático Médio para medir o erro geral, pois, são menas amostras para treinar e reduzir o erro, então isso foi muito mais facil para o modelo.
+
+OBJETIVO: Repetir o teste do dia 19.11.2024 de nome "script teste inicial.txt", e consegui replicar o mesmo ocorrido daquele dia, cujo o erro diminui extremamente muito.
+
