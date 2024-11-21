@@ -29,7 +29,7 @@ function normalizeData(dataset) {
 // Aplicar a normalização
 const normalizedData = normalizeData(dataset);
   
-// Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+// Estrutura da rede: 11 neurônios na entrada, 4 na camada oculta, 1 na saída
 const config = {
     layers: [
         { type: LayerType.Input,  inputs: 11, units: 11 }, 
@@ -56,7 +56,7 @@ for( let l = 0 ; l < 500 ; l++ )
     datasetTratado.push(novaLinha);
 }
 
-// Dados de entrada para o problema XOR
+// Dados de entrada para o problema
 const inputs = datasetTratado;
 
 // Saídas esperadas para o XOR
