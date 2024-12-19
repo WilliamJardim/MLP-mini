@@ -1,0 +1,1472 @@
+(19/12/2024 20:09)
+DATASET: dataset.js, o mesmo que o outro teste do "PRECOSCASAS"
+PESOS INICIAIS: descritos no arquivo precocasas-test.js
+
+ESTRUTURA USADA:
+// Aplicar a normalização
+const normalizedData = normalizeData(dataset);
+  
+// Estrutura da rede: 11 neurônios na entrada, 3 na camada oculta, 1 na saída, todas usando ReLU
+const config = {
+    layers: [
+        { type: LayerType.Input,  inputs: 11, units: 11 }, 
+        { type: LayerType.Hidden, inputs: 11, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU']  }, 
+        { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'ReLU' ]  }
+    ],
+    initialization: Initialization.Zeros
+};
+
+const mlp = new MLP(config);
+
+
+
+PESOS INICIAS:
+//Carrega pesos iniciais que sei que vai funcionar pra esse problema
+mlp.importParameters({
+    "weights": [
+        [
+            [
+                -0.02453568699326114,
+                0.789170420894993,
+                0.5701559345656122,
+                0.7248060565878056,
+                0.43603054056979085,
+                0.20875285723725634,
+                0.8751427805511227,
+                0.7893549350170037,
+                0.6319248135545701,
+                0.9578649545445583,
+                -0.02404991670386325
+            ],
+            [
+                0.6111889558798751,
+                -0.2805481117458055,
+                0.5768812559362142,
+                0.21499658959705847,
+                0.223493291798039,
+                -0.7068488275559957,
+                -0.40135789872683336,
+                0.44357510086619145,
+                -0.03651367201878086,
+                0.7909906270646605,
+                0.7756861421704944
+            ],
+            [
+                -0.22433343040925324,
+                0.5472350772876187,
+                -0.5014198770952891,
+                -0.8674938891227195,
+                -0.26105774781462454,
+                0.1426245832189985,
+                0.3853286481688927,
+                0.022601040049062604,
+                -0.6921627327618238,
+                0.470772528794293,
+                -0.7213779161215994
+            ]
+        ],
+        [
+            [
+                0.6129199597665016,
+                0.4582438548356986,
+                -0.13517353462138537
+            ]
+        ]
+    ],
+    "biases": [
+        [
+            0.2825339397021591,
+            -0.8618110211550665,
+            -0.028659394190896137
+        ],
+        [
+            -0.8159161177264354
+        ]
+    ],
+    "layers": [
+        11,
+        3,
+        1
+    ],
+    "generatedAt": 1734647094720
+});
+
+
+
+
+PARAMETROS DE TREINO: 
+//Treino e Teste
+const numColunaPreco = 10; //O numero da coluna que queremos estimar, que no caso é o preco
+const numeroAmostrasTreino = 300;
+const numeroAmostrasTeste  = 50;
+
+//Hyperparametros
+const taxa_aprendizado = 0.01;
+
+//Epocas
+const numero_epocas = 12000;
+const exibirACada = 10;
+
+
+
+RESULTADOS OBTIDOS:
+Loading parameters from JSON, from date: 1734647094720
+bundle.js:186 Success from import JSON, from date: 1734647094720
+bundle.js:366 Erro inicial(ANTES DO TREINAMENTO): 352.38477806448697
+bundle.js:366 Epoch 0, Erro total: 29.413664350414866
+bundle.js:366 Epoch 10, Erro total: 10.82564332723371
+bundle.js:366 Epoch 20, Erro total: 8.302745956642992
+bundle.js:366 Epoch 30, Erro total: 6.124038795239575
+bundle.js:366 Epoch 40, Erro total: 4.425570109336538
+bundle.js:366 Epoch 50, Erro total: 3.322234596505459
+bundle.js:366 Epoch 60, Erro total: 2.588751614103338
+bundle.js:366 Epoch 70, Erro total: 2.0686919495746245
+bundle.js:366 Epoch 80, Erro total: 1.6828851683482915
+bundle.js:366 Epoch 90, Erro total: 1.3911814142843624
+bundle.js:366 Epoch 100, Erro total: 1.164645920741253
+bundle.js:366 Epoch 110, Erro total: 0.9864151588670733
+bundle.js:366 Epoch 120, Erro total: 0.8451349987441539
+bundle.js:366 Epoch 130, Erro total: 0.728153392718404
+bundle.js:366 Epoch 140, Erro total: 0.6346329481448179
+bundle.js:366 Epoch 150, Erro total: 0.562076719367976
+bundle.js:366 Epoch 160, Erro total: 0.5052183820928521
+bundle.js:366 Epoch 170, Erro total: 0.4611601970106554
+bundle.js:366 Epoch 180, Erro total: 0.42731469408554756
+bundle.js:366 Epoch 190, Erro total: 0.4019060533518285
+bundle.js:366 Epoch 200, Erro total: 0.3824786813469992
+bundle.js:366 Epoch 210, Erro total: 0.3665666127125713
+bundle.js:366 Epoch 220, Erro total: 0.3517893833105484
+bundle.js:366 Epoch 230, Erro total: 0.340845576168981
+bundle.js:366 Epoch 240, Erro total: 0.3323598446831241
+bundle.js:366 Epoch 250, Erro total: 0.32565519894419837
+bundle.js:366 Epoch 260, Erro total: 0.3205906362693624
+bundle.js:366 Epoch 270, Erro total: 0.3167306600538024
+bundle.js:366 Epoch 280, Erro total: 0.3137599284726613
+bundle.js:366 Epoch 290, Erro total: 0.3114538360254323
+bundle.js:366 Epoch 300, Erro total: 0.3096490877527099
+bundle.js:366 Epoch 310, Erro total: 0.3082269791007924
+bundle.js:366 Epoch 320, Erro total: 0.30709480693936647
+bundle.js:366 Epoch 330, Erro total: 0.3061859338318349
+bundle.js:366 Epoch 340, Erro total: 0.30545046969870276
+bundle.js:366 Epoch 350, Erro total: 0.30485071653602586
+bundle.js:366 Epoch 360, Erro total: 0.3043580177575495
+bundle.js:366 Epoch 370, Erro total: 0.3039504476201273
+bundle.js:366 Epoch 380, Erro total: 0.3036111046035131
+bundle.js:366 Epoch 390, Erro total: 0.30332685264034454
+bundle.js:366 Epoch 400, Erro total: 0.30308739382003325
+bundle.js:366 Epoch 410, Erro total: 0.3028845847284592
+bundle.js:366 Epoch 420, Erro total: 0.30266223794949676
+bundle.js:366 Epoch 430, Erro total: 0.3024292652191057
+bundle.js:366 Epoch 440, Erro total: 0.30223347220109875
+bundle.js:366 Epoch 450, Erro total: 0.30206267540464105
+bundle.js:366 Epoch 460, Erro total: 0.30192258857720794
+bundle.js:366 Epoch 470, Erro total: 0.30097262481273435
+bundle.js:366 Epoch 480, Erro total: 0.30063804913477415
+bundle.js:366 Epoch 490, Erro total: 0.3003812676504413
+bundle.js:366 Epoch 500, Erro total: 0.3001748842963722
+bundle.js:366 Epoch 510, Erro total: 0.3000043023376985
+bundle.js:366 Epoch 520, Erro total: 0.2998606567918214
+bundle.js:366 Epoch 530, Erro total: 0.29973809056023887
+bundle.js:366 Epoch 540, Erro total: 0.2996324574255351
+bundle.js:366 Epoch 550, Erro total: 0.29954066435136384
+bundle.js:366 Epoch 560, Erro total: 0.2994603168130311
+bundle.js:366 Epoch 570, Erro total: 0.29938951329419144
+bundle.js:366 Epoch 580, Erro total: 0.2993267171076206
+bundle.js:366 Epoch 590, Erro total: 0.2992706709607977
+bundle.js:366 Epoch 600, Erro total: 0.2992203368393155
+bundle.js:366 Epoch 610, Erro total: 0.2991748519018084
+bundle.js:366 Epoch 620, Erro total: 0.2991334950914169
+bundle.js:366 Epoch 630, Erro total: 0.2990956612582758
+bundle.js:366 Epoch 640, Erro total: 0.2990608407411309
+bundle.js:366 Epoch 650, Erro total: 0.2990286030312312
+bundle.js:366 Epoch 660, Erro total: 0.29899858355810494
+bundle.js:366 Epoch 670, Erro total: 0.2989704729060452
+bundle.js:366 Epoch 680, Erro total: 0.2989440079509449
+bundle.js:366 Epoch 690, Erro total: 0.2989189645325611
+bundle.js:366 Epoch 700, Erro total: 0.29889515136673606
+bundle.js:366 Epoch 710, Erro total: 0.2988724049672634
+bundle.js:366 Epoch 720, Erro total: 0.29885058539562176
+bundle.js:366 Epoch 730, Erro total: 0.2988295726934552
+bundle.js:366 Epoch 740, Erro total: 0.2988092638808593
+bundle.js:366 Epoch 750, Erro total: 0.29878957042552384
+bundle.js:366 Epoch 760, Erro total: 0.298770416105004
+bundle.js:366 Epoch 770, Erro total: 0.2987517351982442
+bundle.js:366 Epoch 780, Erro total: 0.2987334709534824
+bundle.js:366 Epoch 790, Erro total: 0.29871557428865353
+bundle.js:366 Epoch 800, Erro total: 0.29869800268776364
+bundle.js:366 Epoch 810, Erro total: 0.2986807192626339
+bundle.js:366 Epoch 820, Erro total: 0.29866371668239855
+bundle.js:366 Epoch 830, Erro total: 0.29864697260345097
+bundle.js:366 Epoch 840, Erro total: 0.2986304299773979
+bundle.js:366 Epoch 850, Erro total: 0.29861406861595924
+bundle.js:366 Epoch 860, Erro total: 0.29859787045720415
+bundle.js:366 Epoch 870, Erro total: 0.29858181948681073
+bundle.js:366 Epoch 880, Erro total: 0.29856590041038256
+bundle.js:366 Epoch 890, Erro total: 0.2985501106379858
+bundle.js:366 Epoch 900, Erro total: 0.2985344302699429
+bundle.js:366 Epoch 910, Erro total: 0.2985188495319829
+bundle.js:366 Epoch 920, Erro total: 0.2985033597470059
+bundle.js:366 Epoch 930, Erro total: 0.29848795322130434
+bundle.js:366 Epoch 940, Erro total: 0.2984726231151571
+bundle.js:366 Epoch 950, Erro total: 0.29845736332977085
+bundle.js:366 Epoch 960, Erro total: 0.2984421684129543
+bundle.js:366 Epoch 970, Erro total: 0.2984270334797585
+bundle.js:366 Epoch 980, Erro total: 0.29841195414468263
+bundle.js:366 Epoch 990, Erro total: 0.29839692646314564
+bundle.js:366 Epoch 1000, Erro total: 0.29838194688063135
+bundle.js:366 Epoch 1010, Erro total: 0.2983670121883278
+bundle.js:366 Epoch 1020, Erro total: 0.2983521194843389
+bundle.js:366 Epoch 1030, Erro total: 0.2983372661397317
+bundle.js:366 Epoch 1040, Erro total: 0.2983224497687605
+bundle.js:366 Epoch 1050, Erro total: 0.29830766820272975
+bundle.js:366 Epoch 1060, Erro total: 0.29829291946702174
+bundle.js:366 Epoch 1070, Erro total: 0.2982782017608701
+bundle.js:366 Epoch 1080, Erro total: 0.29826351343953145
+bundle.js:366 Epoch 1090, Erro total: 0.2982488529985476
+bundle.js:366 Epoch 1100, Erro total: 0.2982342190598125
+bundle.js:366 Epoch 1110, Erro total: 0.2982196103592452
+bundle.js:366 Epoch 1120, Erro total: 0.2982050257358314
+bundle.js:366 Epoch 1130, Erro total: 0.2981904641218902
+bundle.js:366 Epoch 1140, Erro total: 0.2981759245343941
+bundle.js:366 Epoch 1150, Erro total: 0.29816140606722846
+bundle.js:366 Epoch 1160, Erro total: 0.2981469078842602
+bundle.js:366 Epoch 1170, Erro total: 0.29813242921313743
+bundle.js:366 Epoch 1180, Erro total: 0.2981179693397168
+bundle.js:366 Epoch 1190, Erro total: 0.29810352760305076
+bundle.js:366 Epoch 1200, Erro total: 0.2980891033908805
+bundle.js:366 Epoch 1210, Erro total: 0.2980746961355526
+bundle.js:366 Epoch 1220, Erro total: 0.29806030531034267
+bundle.js:366 Epoch 1230, Erro total: 0.2980459304261157
+bundle.js:366 Epoch 1240, Erro total: 0.29803157102830147
+bundle.js:366 Epoch 1250, Erro total: 0.2980172266941383
+bundle.js:366 Epoch 1260, Erro total: 0.2980028970301742
+bundle.js:366 Epoch 1270, Erro total: 0.2979885816699873
+bundle.js:366 Epoch 1280, Erro total: 0.2979742802720984
+bundle.js:366 Epoch 1290, Erro total: 0.2979599925180698
+bundle.js:366 Epoch 1300, Erro total: 0.2979457181107628
+bundle.js:366 Epoch 1310, Erro total: 0.29793145677274235
+bundle.js:366 Epoch 1320, Erro total: 0.2979172082448092
+bundle.js:366 Epoch 1330, Erro total: 0.29790297228465906
+bundle.js:366 Epoch 1340, Erro total: 0.2978887486656421
+bundle.js:366 Epoch 1350, Erro total: 0.2978745371756253
+bundle.js:366 Epoch 1360, Erro total: 0.29786033761594677
+bundle.js:366 Epoch 1370, Erro total: 0.2978461498004416
+bundle.js:366 Epoch 1380, Erro total: 0.2978319735545561
+bundle.js:366 Epoch 1390, Erro total: 0.2978178087145192
+bundle.js:366 Epoch 1400, Erro total: 0.29780365512658447
+bundle.js:366 Epoch 1410, Erro total: 0.2977895126463167
+bundle.js:366 Epoch 1420, Erro total: 0.297775381137952
+bundle.js:366 Epoch 1430, Erro total: 0.2977612604737835
+bundle.js:366 Epoch 1440, Erro total: 0.29774715053360545
+bundle.js:366 Epoch 1450, Erro total: 0.2977330512041914
+bundle.js:366 Epoch 1460, Erro total: 0.29771896237882006
+bundle.js:366 Epoch 1470, Erro total: 0.29770488395681827
+bundle.js:366 Epoch 1480, Erro total: 0.2976908158431539
+bundle.js:366 Epoch 1490, Erro total: 0.2976767579480484
+bundle.js:366 Epoch 1500, Erro total: 0.2976627101866155
+bundle.js:366 Epoch 1510, Erro total: 0.29764867247853566
+bundle.js:366 Epoch 1520, Erro total: 0.2976346447477387
+bundle.js:366 Epoch 1530, Erro total: 0.29762062692212166
+bundle.js:366 Epoch 1540, Erro total: 0.2976066189332815
+bundle.js:366 Epoch 1550, Erro total: 0.2975926207162604
+bundle.js:366 Epoch 1560, Erro total: 0.2975786322093241
+bundle.js:366 Epoch 1570, Erro total: 0.2975646533537341
+bundle.js:366 Epoch 1580, Erro total: 0.29755068409355895
+bundle.js:366 Epoch 1590, Erro total: 0.2975367243754788
+bundle.js:366 Epoch 1600, Erro total: 0.2975227741486149
+bundle.js:366 Epoch 1610, Erro total: 0.29750883336436673
+bundle.js:366 Epoch 1620, Erro total: 0.2974949019762621
+bundle.js:366 Epoch 1630, Erro total: 0.29748097993981615
+bundle.js:366 Epoch 1640, Erro total: 0.2974670672123999
+bundle.js:366 Epoch 1650, Erro total: 0.2974531637531181
+bundle.js:366 Epoch 1660, Erro total: 0.2974392695226948
+bundle.js:366 Epoch 1670, Erro total: 0.29742538448336764
+bundle.js:366 Epoch 1680, Erro total: 0.29741150859879556
+bundle.js:366 Epoch 1690, Erro total: 0.2973976418339537
+bundle.js:366 Epoch 1700, Erro total: 0.29738378415505745
+bundle.js:366 Epoch 1710, Erro total: 0.29736993552948043
+bundle.js:366 Epoch 1720, Erro total: 0.29735609592567885
+bundle.js:366 Epoch 1730, Erro total: 0.297342265313123
+bundle.js:366 Epoch 1740, Erro total: 0.29732844366223143
+bundle.js:366 Epoch 1750, Erro total: 0.29731463094431104
+bundle.js:366 Epoch 1760, Erro total: 0.29730082713150185
+bundle.js:366 Epoch 1770, Erro total: 0.29728703219672137
+bundle.js:366 Epoch 1780, Erro total: 0.29727324611362166
+bundle.js:366 Epoch 1790, Erro total: 0.29725946885653687
+bundle.js:366 Epoch 1800, Erro total: 0.2972457004004439
+bundle.js:366 Epoch 1810, Erro total: 0.2972319407209243
+bundle.js:366 Epoch 1820, Erro total: 0.2972181897941266
+bundle.js:366 Epoch 1830, Erro total: 0.2972044475967291
+bundle.js:366 Epoch 1840, Erro total: 0.29719071410590947
+bundle.js:366 Epoch 1850, Erro total: 0.29717698929931735
+bundle.js:366 Epoch 1860, Erro total: 0.2971632731550427
+bundle.js:366 Epoch 1870, Erro total: 0.2971495656515916
+bundle.js:366 Epoch 1880, Erro total: 0.29713586676786224
+bundle.js:366 Epoch 1890, Erro total: 0.2971221764831229
+bundle.js:366 Epoch 1900, Erro total: 0.29710849477698786
+bundle.js:366 Epoch 1910, Erro total: 0.2970948216294004
+bundle.js:366 Epoch 1920, Erro total: 0.2970812625843377
+bundle.js:366 Epoch 1930, Erro total: 0.29706778208888296
+bundle.js:366 Epoch 1940, Erro total: 0.2970543060433687
+bundle.js:366 Epoch 1950, Erro total: 0.2970408359665203
+bundle.js:366 Epoch 1960, Erro total: 0.2970273727297508
+bundle.js:366 Epoch 1970, Erro total: 0.2970139168411069
+bundle.js:366 Epoch 1980, Erro total: 0.2970004686092512
+bundle.js:366 Epoch 1990, Erro total: 0.29698702823337453
+bundle.js:366 Epoch 2000, Erro total: 0.2969735958491771
+bundle.js:366 Epoch 2010, Erro total: 0.29696017155270105
+bundle.js:366 Epoch 2020, Erro total: 0.2969467554134199
+bundle.js:366 Epoch 2030, Erro total: 0.2969333474819897
+bundle.js:366 Epoch 2040, Erro total: 0.2969199477951855
+bundle.js:366 Epoch 2050, Erro total: 0.29690655637926067
+bundle.js:366 Epoch 2060, Erro total: 0.2968931732523065
+bundle.js:366 Epoch 2070, Erro total: 0.2968797984260088
+bundle.js:366 Epoch 2080, Erro total: 0.29686643190695045
+bundle.js:366 Epoch 2090, Erro total: 0.2968530736976233
+bundle.js:366 Epoch 2100, Erro total: 0.29683972379721757
+bundle.js:366 Epoch 2110, Erro total: 0.2968263822022375
+bundle.js:366 Epoch 2120, Erro total: 0.2968130489070059
+bundle.js:366 Epoch 2130, Erro total: 0.2967997239040579
+bundle.js:366 Epoch 2140, Erro total: 0.2967864071844739
+bundle.js:366 Epoch 2150, Erro total: 0.29677309873814517
+bundle.js:366 Epoch 2160, Erro total: 0.29675979855398826
+bundle.js:366 Epoch 2170, Erro total: 0.2967465066201313
+bundle.js:366 Epoch 2180, Erro total: 0.29673322292406307
+bundle.js:366 Epoch 2190, Erro total: 0.29671994745275637
+bundle.js:366 Epoch 2200, Erro total: 0.2967066801927701
+bundle.js:366 Epoch 2210, Erro total: 0.2966934211303364
+bundle.js:366 Epoch 2220, Erro total: 0.29668017025143323
+bundle.js:366 Epoch 2230, Erro total: 0.29666677318502294
+bundle.js:366 Epoch 2240, Erro total: 0.29665332480353324
+bundle.js:366 Epoch 2250, Erro total: 0.2966398954230367
+bundle.js:366 Epoch 2260, Erro total: 0.2966264807523963
+bundle.js:366 Epoch 2270, Erro total: 0.2966127443900286
+bundle.js:366 Epoch 2280, Erro total: 0.2965989261092339
+bundle.js:366 Epoch 2290, Erro total: 0.29658512054596675
+bundle.js:366 Epoch 2300, Erro total: 0.2965713265695502
+bundle.js:366 Epoch 2310, Erro total: 0.2965575434249746
+bundle.js:366 Epoch 2320, Erro total: 0.29654377053746933
+bundle.js:366 Epoch 2330, Erro total: 0.2965300074367545
+bundle.js:366 Epoch 2340, Erro total: 0.29651625372299684
+bundle.js:366 Epoch 2350, Erro total: 0.2965025090490319
+bundle.js:366 Epoch 2360, Erro total: 0.296488773109577
+bundle.js:366 Epoch 2370, Erro total: 0.2964750456338538
+bundle.js:366 Epoch 2380, Erro total: 0.29646132638012235
+bundle.js:366 Epoch 2390, Erro total: 0.29644761513141393
+bundle.js:366 Epoch 2400, Erro total: 0.29643391169212235
+bundle.js:366 Epoch 2410, Erro total: 0.29642021588519885
+bundle.js:366 Epoch 2420, Erro total: 0.29640652754983027
+bundle.js:366 Epoch 2430, Erro total: 0.29639284653948367
+bundle.js:366 Epoch 2440, Erro total: 0.29637917272024367
+bundle.js:366 Epoch 2450, Erro total: 0.2963655059693965
+bundle.js:366 Epoch 2460, Erro total: 0.29635184617419413
+bundle.js:366 Epoch 2470, Erro total: 0.29633812906521434
+bundle.js:366 Epoch 2480, Erro total: 0.2963243918029168
+bundle.js:366 Epoch 2490, Erro total: 0.2963106640241404
+bundle.js:366 Epoch 2500, Erro total: 0.2962969442131081
+bundle.js:366 Epoch 2510, Erro total: 0.2962832316794896
+bundle.js:366 Epoch 2520, Erro total: 0.29626952605016493
+bundle.js:366 Epoch 2530, Erro total: 0.29625582709409876
+bundle.js:366 Epoch 2540, Erro total: 0.2962421346490678
+bundle.js:366 Epoch 2550, Erro total: 0.29622844858978786
+bundle.js:366 Epoch 2560, Erro total: 0.29621476881326
+bundle.js:366 Epoch 2570, Erro total: 0.2962011182437707
+bundle.js:366 Epoch 2580, Erro total: 0.2961874959510646
+bundle.js:366 Epoch 2590, Erro total: 0.29617388239372094
+bundle.js:366 Epoch 2600, Erro total: 0.29616027570085474
+bundle.js:366 Epoch 2610, Erro total: 0.29614667515193216
+bundle.js:366 Epoch 2620, Erro total: 0.29613308049390735
+bundle.js:366 Epoch 2630, Erro total: 0.29611949163757134
+bundle.js:366 Epoch 2640, Erro total: 0.2961059085472011
+bundle.js:366 Epoch 2650, Erro total: 0.2960923312021764
+bundle.js:366 Epoch 2660, Erro total: 0.2960787595845487
+bundle.js:366 Epoch 2670, Erro total: 0.29606519367565676
+bundle.js:366 Epoch 2680, Erro total: 0.29605163345566066
+bundle.js:366 Epoch 2690, Erro total: 0.2960380755569126
+bundle.js:366 Epoch 2700, Erro total: 0.29602449311977896
+bundle.js:366 Epoch 2710, Erro total: 0.29601092076753394
+bundle.js:366 Epoch 2720, Erro total: 0.2959973543655394
+bundle.js:366 Epoch 2730, Erro total: 0.2959837934562026
+bundle.js:366 Epoch 2740, Erro total: 0.2959702379179974
+bundle.js:366 Epoch 2750, Erro total: 0.29595668773090933
+bundle.js:366 Epoch 2760, Erro total: 0.2959431429006437
+bundle.js:366 Epoch 2770, Erro total: 0.29592960343520686
+bundle.js:366 Epoch 2780, Erro total: 0.29591606933913756
+bundle.js:366 Epoch 2790, Erro total: 0.2959025406130713
+bundle.js:366 Epoch 2800, Erro total: 0.29588901725454514
+bundle.js:366 Epoch 2810, Erro total: 0.2958754992588589
+bundle.js:366 Epoch 2820, Erro total: 0.29586198661972213
+bundle.js:366 Epoch 2830, Erro total: 0.2958484793296989
+bundle.js:366 Epoch 2840, Erro total: 0.29583497738050923
+bundle.js:366 Epoch 2850, Erro total: 0.29582148076322956
+bundle.js:366 Epoch 2860, Erro total: 0.2958079894684381
+bundle.js:366 Epoch 2870, Erro total: 0.2957945034863157
+bundle.js:366 Epoch 2880, Erro total: 0.2957810228067298
+bundle.js:366 Epoch 2890, Erro total: 0.2957675474192965
+bundle.js:366 Epoch 2900, Erro total: 0.2957540773134309
+bundle.js:366 Epoch 2910, Erro total: 0.2957405177351599
+bundle.js:366 Epoch 2920, Erro total: 0.2957269692256182
+bundle.js:366 Epoch 2930, Erro total: 0.29571342645763665
+bundle.js:366 Epoch 2940, Erro total: 0.2956998898163737
+bundle.js:366 Epoch 2950, Erro total: 0.29568635921923686
+bundle.js:366 Epoch 2960, Erro total: 0.29567283446490317
+bundle.js:366 Epoch 2970, Erro total: 0.29565931535763945
+bundle.js:366 Epoch 2980, Erro total: 0.29564580173721705
+bundle.js:366 Epoch 2990, Erro total: 0.29563229347953546
+bundle.js:366 Epoch 3000, Erro total: 0.29561856460371666
+bundle.js:366 Epoch 3010, Erro total: 0.2956048172188983
+bundle.js:366 Epoch 3020, Erro total: 0.29559107713500404
+bundle.js:366 Epoch 3030, Erro total: 0.2955773436096416
+bundle.js:366 Epoch 3040, Erro total: 0.2955636162223338
+bundle.js:366 Epoch 3050, Erro total: 0.2955498946576229
+bundle.js:366 Epoch 3060, Erro total: 0.29553664797168105
+bundle.js:366 Epoch 3070, Erro total: 0.295523424257802
+bundle.js:366 Epoch 3080, Erro total: 0.2955102039196612
+bundle.js:366 Epoch 3090, Erro total: 0.29549690982174004
+bundle.js:366 Epoch 3100, Erro total: 0.29548358478282055
+bundle.js:366 Epoch 3110, Erro total: 0.29547026565558754
+bundle.js:366 Epoch 3120, Erro total: 0.2954569511932536
+bundle.js:366 Epoch 3130, Erro total: 0.2954436411995802
+bundle.js:366 Epoch 3140, Erro total: 0.2954303354446925
+bundle.js:366 Epoch 3150, Erro total: 0.2954170337447816
+bundle.js:366 Epoch 3160, Erro total: 0.2954037359733741
+bundle.js:366 Epoch 3170, Erro total: 0.295390442050893
+bundle.js:366 Epoch 3180, Erro total: 0.2953771519320768
+bundle.js:366 Epoch 3190, Erro total: 0.295363865595773
+bundle.js:366 Epoch 3200, Erro total: 0.2953505830374651
+bundle.js:366 Epoch 3210, Erro total: 0.29533730426399835
+bundle.js:366 Epoch 3220, Erro total: 0.2953240292898852
+bundle.js:366 Epoch 3230, Erro total: 0.2953107581347078
+bundle.js:366 Epoch 3240, Erro total: 0.2952974908212819
+bundle.js:366 Epoch 3250, Erro total: 0.2952842273743348
+bundle.js:366 Epoch 3260, Erro total: 0.29527096781955436
+bundle.js:366 Epoch 3270, Erro total: 0.2952577121829008
+bundle.js:366 Epoch 3280, Erro total: 0.2952442973949005
+bundle.js:366 Epoch 3290, Erro total: 0.29523081778613935
+bundle.js:366 Epoch 3300, Erro total: 0.2952173449302864
+bundle.js:366 Epoch 3310, Erro total: 0.2952038778508575
+bundle.js:366 Epoch 3320, Erro total: 0.2951904159914633
+bundle.js:366 Epoch 3330, Erro total: 0.29517695890869994
+bundle.js:366 Epoch 3340, Erro total: 0.29516350626690796
+bundle.js:366 Epoch 3350, Erro total: 0.29514984778780784
+bundle.js:366 Epoch 3360, Erro total: 0.29513611464670314
+bundle.js:366 Epoch 3370, Erro total: 0.29512238981205646
+bundle.js:366 Epoch 3380, Erro total: 0.2951086742369628
+bundle.js:366 Epoch 3390, Erro total: 0.29509499526190064
+bundle.js:366 Epoch 3400, Erro total: 0.2950813175525836
+bundle.js:366 Epoch 3410, Erro total: 0.29506764293150606
+bundle.js:366 Epoch 3420, Erro total: 0.29505397184739346
+bundle.js:366 Epoch 3430, Erro total: 0.29504030426310474
+bundle.js:366 Epoch 3440, Erro total: 0.29502663999905704
+bundle.js:366 Epoch 3450, Erro total: 0.2950129788519111
+bundle.js:366 Epoch 3460, Erro total: 0.29499932063285417
+bundle.js:366 Epoch 3470, Erro total: 0.2949856651774436
+bundle.js:366 Epoch 3480, Erro total: 0.2949719908962105
+bundle.js:366 Epoch 3490, Erro total: 0.29495832747439926
+bundle.js:366 Epoch 3500, Erro total: 0.2949446668989216
+bundle.js:366 Epoch 3510, Erro total: 0.29493100860548155
+bundle.js:366 Epoch 3520, Erro total: 0.29491735241163386
+bundle.js:366 Epoch 3530, Erro total: 0.2949036982195938
+bundle.js:366 Epoch 3540, Erro total: 0.2948900459643134
+bundle.js:366 Epoch 3550, Erro total: 0.29487639559900714
+bundle.js:366 Epoch 3560, Erro total: 0.29486274708916865
+bundle.js:366 Epoch 3570, Erro total: 0.294849100409138
+bundle.js:366 Epoch 3580, Erro total: 0.29483545553980234
+bundle.js:366 Epoch 3590, Erro total: 0.2948218124669582
+bundle.js:366 Epoch 3600, Erro total: 0.2948081711801088
+bundle.js:366 Epoch 3610, Erro total: 0.2947945316715767
+bundle.js:366 Epoch 3620, Erro total: 0.29478089393582013
+bundle.js:366 Epoch 3630, Erro total: 0.2947672579689078
+bundle.js:366 Epoch 3640, Erro total: 0.2947536237681019
+bundle.js:366 Epoch 3650, Erro total: 0.29473999133154327
+bundle.js:366 Epoch 3660, Erro total: 0.2947263606579798
+bundle.js:366 Epoch 3670, Erro total: 0.2947127317465721
+bundle.js:366 Epoch 3680, Erro total: 0.2946991045967289
+bundle.js:366 Epoch 3690, Erro total: 0.2946854792079774
+bundle.js:366 Epoch 3700, Erro total: 0.2946718555798638
+bundle.js:366 Epoch 3710, Erro total: 0.2946582337118852
+bundle.js:366 Epoch 3720, Erro total: 0.2946446136034197
+bundle.js:366 Epoch 3730, Erro total: 0.294630995253695
+bundle.js:366 Epoch 3740, Erro total: 0.2946173786617531
+bundle.js:366 Epoch 3750, Erro total: 0.29460391348656073
+bundle.js:366 Epoch 3760, Erro total: 0.2945905928354647
+bundle.js:366 Epoch 3770, Erro total: 0.29457725994207007
+bundle.js:366 Epoch 3780, Erro total: 0.2945639220896057
+bundle.js:366 Epoch 3790, Erro total: 0.2945505824835402
+bundle.js:366 Epoch 3800, Erro total: 0.2945372427447652
+bundle.js:366 Epoch 3810, Erro total: 0.2945239037776942
+bundle.js:366 Epoch 3820, Erro total: 0.29451056613436755
+bundle.js:366 Epoch 3830, Erro total: 0.2944972301776565
+bundle.js:366 Epoch 3840, Erro total: 0.2944838961598529
+bundle.js:366 Epoch 3850, Erro total: 0.29447056426364315
+bundle.js:366 Epoch 3860, Erro total: 0.29445723462524476
+bundle.js:366 Epoch 3870, Erro total: 0.294443907348436
+bundle.js:366 Epoch 3880, Erro total: 0.2944305825135689
+bundle.js:366 Epoch 3890, Erro total: 0.29441726018363035
+bundle.js:366 Epoch 3900, Erro total: 0.2944039404084643
+bundle.js:366 Epoch 3910, Erro total: 0.2943906232277858
+bundle.js:366 Epoch 3920, Erro total: 0.29437730867339923
+bundle.js:366 Epoch 3930, Erro total: 0.29436399677084546
+bundle.js:366 Epoch 3940, Erro total: 0.2943506875406593
+bundle.js:366 Epoch 3950, Erro total: 0.29433728767457146
+bundle.js:366 Epoch 3960, Erro total: 0.2943238951297022
+bundle.js:366 Epoch 3970, Erro total: 0.29431050877887194
+bundle.js:366 Epoch 3980, Erro total: 0.29429712700023647
+bundle.js:366 Epoch 3990, Erro total: 0.2942837488916786
+bundle.js:366 Epoch 4000, Erro total: 0.29427037394191896
+bundle.js:366 Epoch 4010, Erro total: 0.2942570018560114
+bundle.js:366 Epoch 4020, Erro total: 0.2942436324596502
+bundle.js:366 Epoch 4030, Erro total: 0.2942302656471893
+bundle.js:366 Epoch 4040, Erro total: 0.29421690135297257
+bundle.js:366 Epoch 4050, Erro total: 0.2942035395351228
+bundle.js:366 Epoch 4060, Erro total: 0.2941901801661613
+bundle.js:366 Epoch 4070, Erro total: 0.29417682322744804
+bundle.js:366 Epoch 4080, Erro total: 0.294163468705859
+bundle.js:366 Epoch 4090, Erro total: 0.2941501165917475
+bundle.js:366 Epoch 4100, Erro total: 0.29413673367956944
+bundle.js:366 Epoch 4110, Erro total: 0.29412322574942984
+bundle.js:366 Epoch 4120, Erro total: 0.2941097284116921
+bundle.js:366 Epoch 4130, Erro total: 0.29409623795400913
+bundle.js:366 Epoch 4140, Erro total: 0.2940827526048999
+bundle.js:366 Epoch 4150, Erro total: 0.29406927133167315
+bundle.js:366 Epoch 4160, Erro total: 0.29405579349278527
+bundle.js:366 Epoch 4170, Erro total: 0.2940423186657594
+bundle.js:366 Epoch 4180, Erro total: 0.29402936291937454
+bundle.js:366 Epoch 4190, Erro total: 0.29401650563192516
+bundle.js:366 Epoch 4200, Erro total: 0.2940036429142405
+bundle.js:366 Epoch 4210, Erro total: 0.2939907777922083
+bundle.js:366 Epoch 4220, Erro total: 0.293977911618527
+bundle.js:366 Epoch 4230, Erro total: 0.29396504510849375
+bundle.js:366 Epoch 4240, Erro total: 0.2939521787146531
+bundle.js:366 Epoch 4250, Erro total: 0.2939393127700628
+bundle.js:366 Epoch 4260, Erro total: 0.293926447546206
+bundle.js:366 Epoch 4270, Erro total: 0.2939135832782404
+bundle.js:366 Epoch 4280, Erro total: 0.2939005903876106
+bundle.js:366 Epoch 4290, Erro total: 0.29388749108362483
+bundle.js:366 Epoch 4300, Erro total: 0.29387440263020737
+bundle.js:366 Epoch 4310, Erro total: 0.29386131985560493
+bundle.js:366 Epoch 4320, Erro total: 0.2938482409657326
+bundle.js:366 Epoch 4330, Erro total: 0.2938351650774293
+bundle.js:366 Epoch 4340, Erro total: 0.29382209170680973
+bundle.js:366 Epoch 4350, Erro total: 0.2938090205703088
+bundle.js:366 Epoch 4360, Erro total: 0.2937959514953221
+bundle.js:366 Epoch 4370, Erro total: 0.29378288437581473
+bundle.js:366 Epoch 4380, Erro total: 0.29376981914818584
+bundle.js:366 Epoch 4390, Erro total: 0.29375675577709326
+bundle.js:366 Epoch 4400, Erro total: 0.29374369424657254
+bundle.js:366 Epoch 4410, Erro total: 0.2937306345541974
+bundle.js:366 Epoch 4420, Erro total: 0.29371757670707394
+bundle.js:366 Epoch 4430, Erro total: 0.29370452071903
+bundle.js:366 Epoch 4440, Erro total: 0.2936914666085815
+bundle.js:366 Epoch 4450, Erro total: 0.29367841439744186
+bundle.js:366 Epoch 4460, Erro total: 0.29366536410941774
+bundle.js:366 Epoch 4470, Erro total: 0.29365231576957335
+bundle.js:366 Epoch 4480, Erro total: 0.29363926940361773
+bundle.js:366 Epoch 4490, Erro total: 0.2936262250374254
+bundle.js:366 Epoch 4500, Erro total: 0.29361317952043847
+bundle.js:366 Epoch 4510, Erro total: 0.29359934687774747
+bundle.js:366 Epoch 4520, Erro total: 0.2935854355109285
+bundle.js:366 Epoch 4530, Erro total: 0.29357154380617184
+bundle.js:366 Epoch 4540, Erro total: 0.2935576629794086
+bundle.js:366 Epoch 4550, Erro total: 0.2935437885700185
+bundle.js:366 Epoch 4560, Erro total: 0.2935299179677962
+bundle.js:366 Epoch 4570, Erro total: 0.293516049494629
+bundle.js:366 Epoch 4580, Erro total: 0.293502181979923
+bundle.js:366 Epoch 4590, Erro total: 0.29348831455492935
+bundle.js:366 Epoch 4600, Erro total: 0.29347444654654714
+bundle.js:366 Epoch 4610, Erro total: 0.2934605774179813
+bundle.js:366 Epoch 4620, Erro total: 0.2934467067327325
+bundle.js:366 Epoch 4630, Erro total: 0.2934328341310612
+bundle.js:366 Epoch 4640, Erro total: 0.29341895931361345
+bundle.js:366 Epoch 4650, Erro total: 0.2934050820294841
+bundle.js:366 Epoch 4660, Erro total: 0.2933912096199956
+bundle.js:366 Epoch 4670, Erro total: 0.29337719137274854
+bundle.js:366 Epoch 4680, Erro total: 0.29336317025793884
+bundle.js:366 Epoch 4690, Erro total: 0.29334914538565876
+bundle.js:366 Epoch 4700, Erro total: 0.29333511673333573
+bundle.js:366 Epoch 4710, Erro total: 0.2933210844364847
+bundle.js:366 Epoch 4720, Erro total: 0.29330720255467707
+bundle.js:366 Epoch 4730, Erro total: 0.2932933775075636
+bundle.js:366 Epoch 4740, Erro total: 0.293279539901782
+bundle.js:366 Epoch 4750, Erro total: 0.2932656937390183
+bundle.js:366 Epoch 4760, Erro total: 0.2932518409887073
+bundle.js:366 Epoch 4770, Erro total: 0.29323798273585966
+bundle.js:366 Epoch 4780, Erro total: 0.29322411963397804
+bundle.js:366 Epoch 4790, Erro total: 0.2932102521040561
+bundle.js:366 Epoch 4800, Erro total: 0.2931963804309112
+bundle.js:366 Epoch 4810, Erro total: 0.29318250481403013
+bundle.js:366 Epoch 4820, Erro total: 0.2931686253964992
+bundle.js:366 Epoch 4830, Erro total: 0.29315474228253635
+bundle.js:366 Epoch 4840, Erro total: 0.2931408555486996
+bundle.js:366 Epoch 4850, Erro total: 0.293126578025661
+bundle.js:366 Epoch 4860, Erro total: 0.29311219457951787
+bundle.js:366 Epoch 4870, Erro total: 0.29309782277188706
+bundle.js:366 Epoch 4880, Erro total: 0.2930834544176791
+bundle.js:366 Epoch 4890, Erro total: 0.2930690857151949
+bundle.js:366 Epoch 4900, Erro total: 0.2930547145491298
+bundle.js:366 Epoch 4910, Erro total: 0.29304033962667503
+bundle.js:366 Epoch 4920, Erro total: 0.2930259600871039
+bundle.js:366 Epoch 4930, Erro total: 0.29301157531588923
+bundle.js:366 Epoch 4940, Erro total: 0.29299724392943766
+bundle.js:366 Epoch 4950, Erro total: 0.29298364498564233
+bundle.js:366 Epoch 4960, Erro total: 0.29297007657664725
+bundle.js:366 Epoch 4970, Erro total: 0.29295650022628983
+bundle.js:366 Epoch 4980, Erro total: 0.2929429165334368
+bundle.js:366 Epoch 4990, Erro total: 0.2929293261414905
+bundle.js:366 Epoch 5000, Erro total: 0.29291572962645734
+bundle.js:366 Epoch 5010, Erro total: 0.292902127460601
+bundle.js:366 Epoch 5020, Erro total: 0.2928885200203757
+bundle.js:366 Epoch 5030, Erro total: 0.292874907604082
+bundle.js:366 Epoch 5040, Erro total: 0.29286129044868187
+bundle.js:366 Epoch 5050, Erro total: 0.29284766874340556
+bundle.js:366 Epoch 5060, Erro total: 0.2928340426401845
+bundle.js:366 Epoch 5070, Erro total: 0.29282041226155187
+bundle.js:366 Epoch 5080, Erro total: 0.2928067777066263
+bundle.js:366 Epoch 5090, Erro total: 0.2927931390557035
+bundle.js:366 Epoch 5100, Erro total: 0.29277949637381434
+bundle.js:366 Epoch 5110, Erro total: 0.2927658497135322
+bundle.js:366 Epoch 5120, Erro total: 0.29275219911720435
+bundle.js:366 Epoch 5130, Erro total: 0.2927385446187562
+bundle.js:366 Epoch 5140, Erro total: 0.29272488624515525
+bundle.js:366 Epoch 5150, Erro total: 0.2927112240176219
+bundle.js:366 Epoch 5160, Erro total: 0.2926975579526195
+bundle.js:366 Epoch 5170, Erro total: 0.2926838880626857
+bundle.js:366 Epoch 5180, Erro total: 0.29267021435712437
+bundle.js:366 Epoch 5190, Erro total: 0.29265653684257964
+bundle.js:366 Epoch 5200, Erro total: 0.292642855523525
+bundle.js:366 Epoch 5210, Erro total: 0.29262917040267206
+bundle.js:366 Epoch 5220, Erro total: 0.29261548148131356
+bundle.js:366 Epoch 5230, Erro total: 0.2926017887596085
+bundle.js:366 Epoch 5240, Erro total: 0.29258809223683485
+bundle.js:366 Epoch 5250, Erro total: 0.2925747442055795
+bundle.js:366 Epoch 5260, Erro total: 0.2925614553861945
+bundle.js:366 Epoch 5270, Erro total: 0.29254815415892144
+bundle.js:366 Epoch 5280, Erro total: 0.29253484472827024
+bundle.js:366 Epoch 5290, Erro total: 0.2925215292808691
+bundle.js:366 Epoch 5300, Erro total: 0.29250820914305514
+bundle.js:366 Epoch 5310, Erro total: 0.2924948851784653
+bundle.js:366 Epoch 5320, Erro total: 0.2924815579802867
+bundle.js:366 Epoch 5330, Erro total: 0.2924683663481807
+bundle.js:366 Epoch 5340, Erro total: 0.29245554201297974
+bundle.js:366 Epoch 5350, Erro total: 0.29244270197556643
+bundle.js:366 Epoch 5360, Erro total: 0.29242985524870874
+bundle.js:366 Epoch 5370, Erro total: 0.29241700476086807
+bundle.js:366 Epoch 5380, Erro total: 0.29240415200291586
+bundle.js:366 Epoch 5390, Erro total: 0.29239129782211964
+bundle.js:366 Epoch 5400, Erro total: 0.29237836238645093
+bundle.js:366 Epoch 5410, Erro total: 0.29236536952530845
+bundle.js:366 Epoch 5420, Erro total: 0.29235238097077637
+bundle.js:366 Epoch 5430, Erro total: 0.292339395420581
+bundle.js:366 Epoch 5440, Erro total: 0.29232641218603495
+bundle.js:366 Epoch 5450, Erro total: 0.29231343090143475
+bundle.js:366 Epoch 5460, Erro total: 0.2923004513620722
+bundle.js:366 Epoch 5470, Erro total: 0.2922874734428301
+bundle.js:366 Epoch 5480, Erro total: 0.29227449705920033
+bundle.js:366 Epoch 5490, Erro total: 0.29226152214868123
+bundle.js:366 Epoch 5500, Erro total: 0.29224856802520754
+bundle.js:366 Epoch 5510, Erro total: 0.29223577369747905
+bundle.js:366 Epoch 5520, Erro total: 0.2922229725323374
+bundle.js:366 Epoch 5530, Erro total: 0.29221016933239286
+bundle.js:366 Epoch 5540, Erro total: 0.29219736621583237
+bundle.js:366 Epoch 5550, Erro total: 0.2921845640576347
+bundle.js:366 Epoch 5560, Erro total: 0.2921717632305772
+bundle.js:366 Epoch 5570, Erro total: 0.29215896389266516
+bundle.js:366 Epoch 5580, Erro total: 0.2921461661051177
+bundle.js:366 Epoch 5590, Erro total: 0.2921333698841076
+bundle.js:366 Epoch 5600, Erro total: 0.29212057522484297
+bundle.js:366 Epoch 5610, Erro total: 0.2921077821133673
+bundle.js:366 Epoch 5620, Erro total: 0.29209499053255256
+bundle.js:366 Epoch 5630, Erro total: 0.29208220046519595
+bundle.js:366 Epoch 5640, Erro total: 0.2920694118956071
+bundle.js:366 Epoch 5650, Erro total: 0.2920566248103784
+bundle.js:366 Epoch 5660, Erro total: 0.29204383919870963
+bundle.js:366 Epoch 5670, Erro total: 0.29203105505248406
+bundle.js:366 Epoch 5680, Erro total: 0.29201827236621125
+bundle.js:366 Epoch 5690, Erro total: 0.29200549113690627
+bundle.js:366 Epoch 5700, Erro total: 0.29199271136393723
+bundle.js:366 Epoch 5710, Erro total: 0.2919799330488573
+bundle.js:366 Epoch 5720, Erro total: 0.2919671561952438
+bundle.js:366 Epoch 5730, Erro total: 0.2919543808085528
+bundle.js:366 Epoch 5740, Erro total: 0.29194160689596205
+bundle.js:366 Epoch 5750, Erro total: 0.29192883446625045
+bundle.js:366 Epoch 5760, Erro total: 0.2919160635296753
+bundle.js:366 Epoch 5770, Erro total: 0.291903294097861
+bundle.js:366 Epoch 5780, Erro total: 0.29189052618370476
+bundle.js:366 Epoch 5790, Erro total: 0.2918777598012843
+bundle.js:366 Epoch 5800, Erro total: 0.2918649949657808
+bundle.js:366 Epoch 5810, Erro total: 0.29185223169340296
+bundle.js:366 Epoch 5820, Erro total: 0.2918394700013242
+bundle.js:366 Epoch 5830, Erro total: 0.29182670990762016
+bundle.js:366 Epoch 5840, Erro total: 0.29181395143122163
+bundle.js:366 Epoch 5850, Erro total: 0.2918011945918547
+bundle.js:366 Epoch 5860, Erro total: 0.29178843941000837
+bundle.js:366 Epoch 5870, Erro total: 0.2917756859068834
+bundle.js:366 Epoch 5880, Erro total: 0.2917629341043664
+bundle.js:366 Epoch 5890, Erro total: 0.29175018402498776
+bundle.js:366 Epoch 5900, Erro total: 0.2917374356918981
+bundle.js:366 Epoch 5910, Erro total: 0.2917241955111828
+bundle.js:366 Epoch 5920, Erro total: 0.2917108875692848
+bundle.js:366 Epoch 5930, Erro total: 0.291697793798901
+bundle.js:366 Epoch 5940, Erro total: 0.29168484897898844
+bundle.js:366 Epoch 5950, Erro total: 0.29167190388768904
+bundle.js:366 Epoch 5960, Erro total: 0.29165895989961294
+bundle.js:366 Epoch 5970, Erro total: 0.29164601737043955
+bundle.js:366 Epoch 5980, Erro total: 0.2916330763413634
+bundle.js:366 Epoch 5990, Erro total: 0.2916201367614989
+bundle.js:366 Epoch 6000, Erro total: 0.2916071985681455
+bundle.js:366 Epoch 6010, Erro total: 0.2915942617114011
+bundle.js:366 Epoch 6020, Erro total: 0.2915808431067716
+bundle.js:366 Epoch 6030, Erro total: 0.29156649674271634
+bundle.js:366 Epoch 6040, Erro total: 0.2915521857695788
+bundle.js:366 Epoch 6050, Erro total: 0.291537889130193
+bundle.js:366 Epoch 6060, Erro total: 0.29152359941930966
+bundle.js:366 Epoch 6070, Erro total: 0.29150931241804395
+bundle.js:366 Epoch 6080, Erro total: 0.2914950255287731
+bundle.js:366 Epoch 6090, Erro total: 0.2914800719619323
+bundle.js:366 Epoch 6100, Erro total: 0.29146509835621265
+bundle.js:366 Epoch 6110, Erro total: 0.29145012946406396
+bundle.js:366 Epoch 6120, Erro total: 0.2914351600169925
+bundle.js:366 Epoch 6130, Erro total: 0.29141985270614446
+bundle.js:366 Epoch 6140, Erro total: 0.2914045059241604
+bundle.js:366 Epoch 6150, Erro total: 0.2913891616380092
+bundle.js:366 Epoch 6160, Erro total: 0.2913738124182513
+bundle.js:366 Epoch 6170, Erro total: 0.29135845469228455
+bundle.js:366 Epoch 6180, Erro total: 0.2913430864605252
+bundle.js:366 Epoch 6190, Erro total: 0.29132770642953726
+bundle.js:366 Epoch 6200, Erro total: 0.29131232095269116
+bundle.js:366 Epoch 6210, Erro total: 0.2912969473931416
+bundle.js:366 Epoch 6220, Erro total: 0.2912815547719423
+bundle.js:366 Epoch 6230, Erro total: 0.29126614490952396
+bundle.js:366 Epoch 6240, Erro total: 0.2912507185583584
+bundle.js:366 Epoch 6250, Erro total: 0.2912352760186199
+bundle.js:366 Epoch 6260, Erro total: 0.2912196820384398
+bundle.js:366 Epoch 6270, Erro total: 0.291203787926214
+bundle.js:366 Epoch 6280, Erro total: 0.29118787516293926
+bundle.js:366 Epoch 6290, Erro total: 0.2911719417465939
+bundle.js:366 Epoch 6300, Erro total: 0.29115450087596456
+bundle.js:366 Epoch 6310, Erro total: 0.2911374990540764
+bundle.js:366 Epoch 6320, Erro total: 0.29112055785984664
+bundle.js:366 Epoch 6330, Erro total: 0.2911035963102429
+bundle.js:366 Epoch 6340, Erro total: 0.2910866088663874
+bundle.js:366 Epoch 6350, Erro total: 0.2910695924681364
+bundle.js:366 Epoch 6360, Erro total: 0.2910525451562073
+bundle.js:366 Epoch 6370, Erro total: 0.2910358929065432
+bundle.js:366 Epoch 6380, Erro total: 0.29101968754422936
+bundle.js:366 Epoch 6390, Erro total: 0.2910034169893848
+bundle.js:366 Epoch 6400, Erro total: 0.29098740078205887
+bundle.js:366 Epoch 6410, Erro total: 0.29097298314538583
+bundle.js:366 Epoch 6420, Erro total: 0.2909584755197415
+bundle.js:366 Epoch 6430, Erro total: 0.290943918003827
+bundle.js:366 Epoch 6440, Erro total: 0.29092932559531365
+bundle.js:366 Epoch 6450, Erro total: 0.2909147061408427
+bundle.js:366 Epoch 6460, Erro total: 0.2909000641550326
+bundle.js:366 Epoch 6470, Erro total: 0.29088540247571065
+bundle.js:366 Epoch 6480, Erro total: 0.2908707230298843
+bundle.js:366 Epoch 6490, Erro total: 0.29085602720845916
+bundle.js:366 Epoch 6500, Erro total: 0.29084131606262953
+bundle.js:366 Epoch 6510, Erro total: 0.29082659041463355
+bundle.js:366 Epoch 6520, Erro total: 0.29081185092462736
+bundle.js:366 Epoch 6530, Erro total: 0.290797098133529
+bundle.js:366 Epoch 6540, Erro total: 0.29078233249182167
+bundle.js:366 Epoch 6550, Erro total: 0.2907675543797212
+bundle.js:366 Epoch 6560, Erro total: 0.2907527641217689
+bundle.js:366 Epoch 6570, Erro total: 0.2907379619977103
+bundle.js:366 Epoch 6580, Erro total: 0.2907231482507989
+bundle.js:366 Epoch 6590, Erro total: 0.2907083230942871
+bundle.js:366 Epoch 6600, Erro total: 0.29069348671658085
+bundle.js:366 Epoch 6610, Erro total: 0.2906786392854152
+bundle.js:366 Epoch 6620, Erro total: 0.2906637809512603
+bundle.js:366 Epoch 6630, Erro total: 0.2906489118501496
+bundle.js:366 Epoch 6640, Erro total: 0.2906340321060377
+bundle.js:366 Epoch 6650, Erro total: 0.29061933360868525
+bundle.js:366 Epoch 6660, Erro total: 0.29060480978837344
+bundle.js:366 Epoch 6670, Erro total: 0.290590271616906
+bundle.js:366 Epoch 6680, Erro total: 0.2905757225232897
+bundle.js:366 Epoch 6690, Erro total: 0.29056116118968406
+bundle.js:366 Epoch 6700, Erro total: 0.2905465180232546
+bundle.js:366 Epoch 6710, Erro total: 0.29053187932251334
+bundle.js:366 Epoch 6720, Erro total: 0.2905172537515552
+bundle.js:366 Epoch 6730, Erro total: 0.29050349354767135
+bundle.js:366 Epoch 6740, Erro total: 0.2904897099955944
+bundle.js:366 Epoch 6750, Erro total: 0.290475916100925
+bundle.js:366 Epoch 6760, Erro total: 0.29046211600443556
+bundle.js:366 Epoch 6770, Erro total: 0.29044831145454153
+bundle.js:366 Epoch 6780, Erro total: 0.2904345033592051
+bundle.js:366 Epoch 6790, Erro total: 0.2904206923093026
+bundle.js:366 Epoch 6800, Erro total: 0.2904070769243357
+bundle.js:366 Epoch 6810, Erro total: 0.2903935557605146
+bundle.js:366 Epoch 6820, Erro total: 0.2903800281619139
+bundle.js:366 Epoch 6830, Erro total: 0.29036657118966586
+bundle.js:366 Epoch 6840, Erro total: 0.2903531774249293
+bundle.js:366 Epoch 6850, Erro total: 0.29033978666767074
+bundle.js:366 Epoch 6860, Erro total: 0.29032639589264886
+bundle.js:366 Epoch 6870, Erro total: 0.2903130044696718
+bundle.js:366 Epoch 6880, Erro total: 0.2902996125779109
+bundle.js:366 Epoch 6890, Erro total: 0.2902862206015049
+bundle.js:366 Epoch 6900, Erro total: 0.29027282893607387
+bundle.js:366 Epoch 6910, Erro total: 0.2902594379350689
+bundle.js:366 Epoch 6920, Erro total: 0.29024604790208147
+bundle.js:366 Epoch 6930, Erro total: 0.29023265909673396
+bundle.js:366 Epoch 6940, Erro total: 0.2902192717432621
+bundle.js:366 Epoch 6950, Erro total: 0.2902058860383984
+bundle.js:366 Epoch 6960, Erro total: 0.29019250215777315
+bundle.js:366 Epoch 6970, Erro total: 0.29017912026088677
+bundle.js:366 Epoch 6980, Erro total: 0.2901657404949141
+bundle.js:366 Epoch 6990, Erro total: 0.29015236299759956
+bundle.js:366 Epoch 7000, Erro total: 0.29013898789948117
+bundle.js:366 Epoch 7010, Erro total: 0.29012561532559916
+bundle.js:366 Epoch 7020, Erro total: 0.29011224539683766
+bundle.js:366 Epoch 7030, Erro total: 0.29009887823096187
+bundle.js:366 Epoch 7040, Erro total: 0.2900855139434577
+bundle.js:366 Epoch 7050, Erro total: 0.29007215264818725
+bundle.js:366 Epoch 7060, Erro total: 0.29005879445792165
+bundle.js:366 Epoch 7070, Erro total: 0.29004543948476513
+bundle.js:366 Epoch 7080, Erro total: 0.2900323908332525
+bundle.js:366 Epoch 7090, Erro total: 0.29001952659188335
+bundle.js:366 Epoch 7100, Erro total: 0.2900066683282233
+bundle.js:366 Epoch 7110, Erro total: 0.28999381526613327
+bundle.js:366 Epoch 7120, Erro total: 0.2899809674824222
+bundle.js:366 Epoch 7130, Erro total: 0.289968125164373
+bundle.js:366 Epoch 7140, Erro total: 0.289955288454742
+bundle.js:366 Epoch 7150, Erro total: 0.28994245743918406
+bundle.js:366 Epoch 7160, Erro total: 0.2899296321642757
+bundle.js:366 Epoch 7170, Erro total: 0.2899168126563986
+bundle.js:366 Epoch 7180, Erro total: 0.28990399893531105
+bundle.js:366 Epoch 7190, Erro total: 0.28989119102259003
+bundle.js:366 Epoch 7200, Erro total: 0.289878388946336
+bundle.js:366 Epoch 7210, Erro total: 0.2898655927434583
+bundle.js:366 Epoch 7220, Erro total: 0.28985280246047934
+bundle.js:366 Epoch 7230, Erro total: 0.2898400059832275
+bundle.js:366 Epoch 7240, Erro total: 0.28982733026821134
+bundle.js:366 Epoch 7250, Erro total: 0.2898146396266522
+bundle.js:366 Epoch 7260, Erro total: 0.28980193631153894
+bundle.js:366 Epoch 7270, Erro total: 0.2897892283860958
+bundle.js:366 Epoch 7280, Erro total: 0.2897765201284172
+bundle.js:366 Epoch 7290, Erro total: 0.2897638140340417
+bundle.js:366 Epoch 7300, Erro total: 0.28975111166012124
+bundle.js:366 Epoch 7310, Erro total: 0.28973841402515665
+bundle.js:366 Epoch 7320, Erro total: 0.2897257218206231
+bundle.js:366 Epoch 7330, Erro total: 0.2897130355326066
+bundle.js:366 Epoch 7340, Erro total: 0.2897003555156947
+bundle.js:366 Epoch 7350, Erro total: 0.2896876820394558
+bundle.js:366 Epoch 7360, Erro total: 0.2896750153183156
+bundle.js:366 Epoch 7370, Erro total: 0.28966235553100134
+bundle.js:366 Epoch 7380, Erro total: 0.28964970283329083
+bundle.js:366 Epoch 7390, Erro total: 0.2896370573664055
+bundle.js:366 Epoch 7400, Erro total: 0.2896244192625461
+bundle.js:366 Epoch 7410, Erro total: 0.2896117886485322
+bundle.js:366 Epoch 7420, Erro total: 0.28959974715012266
+bundle.js:366 Epoch 7430, Erro total: 0.2895881435111721
+bundle.js:366 Epoch 7440, Erro total: 0.28957652953430707
+bundle.js:366 Epoch 7450, Erro total: 0.2895649183119742
+bundle.js:366 Epoch 7460, Erro total: 0.28955312115113885
+bundle.js:366 Epoch 7470, Erro total: 0.28954113639725376
+bundle.js:366 Epoch 7480, Erro total: 0.28952917911778053
+bundle.js:366 Epoch 7490, Erro total: 0.28951878858165164
+bundle.js:366 Epoch 7500, Erro total: 0.2895085215760438
+bundle.js:366 Epoch 7510, Erro total: 0.2894982471472336
+bundle.js:366 Epoch 7520, Erro total: 0.28948797496480516
+bundle.js:366 Epoch 7530, Erro total: 0.28947771013299006
+bundle.js:366 Epoch 7540, Erro total: 0.2894674554887842
+bundle.js:366 Epoch 7550, Erro total: 0.2894572127291388
+bundle.js:366 Epoch 7560, Erro total: 0.28944698295713867
+bundle.js:366 Epoch 7570, Erro total: 0.2894367669450935
+bundle.js:366 Epoch 7580, Erro total: 0.2894265652662833
+bundle.js:366 Epoch 7590, Erro total: 0.2894162517318088
+bundle.js:366 Epoch 7600, Erro total: 0.2894058661501978
+bundle.js:366 Epoch 7610, Erro total: 0.28939550197701785
+bundle.js:366 Epoch 7620, Erro total: 0.2893851553428791
+bundle.js:366 Epoch 7630, Erro total: 0.2893748254254229
+bundle.js:366 Epoch 7640, Erro total: 0.28936451198995167
+bundle.js:366 Epoch 7650, Erro total: 0.2893543640733602
+bundle.js:366 Epoch 7660, Erro total: 0.2893446830269252
+bundle.js:366 Epoch 7670, Erro total: 0.2893349875812055
+bundle.js:366 Epoch 7680, Erro total: 0.28932620118956265
+bundle.js:366 Epoch 7690, Erro total: 0.28931860825140243
+bundle.js:366 Epoch 7700, Erro total: 0.2893109931629056
+bundle.js:366 Epoch 7710, Erro total: 0.2893032335879873
+bundle.js:366 Epoch 7720, Erro total: 0.28929545238365306
+bundle.js:366 Epoch 7730, Erro total: 0.28928767345079415
+bundle.js:366 Epoch 7740, Erro total: 0.2892768074001634
+bundle.js:366 Epoch 7750, Erro total: 0.2892655128646541
+bundle.js:366 Epoch 7760, Erro total: 0.2892542659672039
+bundle.js:366 Epoch 7770, Erro total: 0.28924305326919386
+bundle.js:366 Epoch 7780, Erro total: 0.2892318678175054
+bundle.js:366 Epoch 7790, Erro total: 0.28922070577612213
+bundle.js:366 Epoch 7800, Erro total: 0.2892095648844819
+bundle.js:366 Epoch 7810, Erro total: 0.28919844371243364
+bundle.js:366 Epoch 7820, Erro total: 0.2891873412970813
+bundle.js:366 Epoch 7830, Erro total: 0.28917625695820515
+bundle.js:366 Epoch 7840, Erro total: 0.28916519019868625
+bundle.js:366 Epoch 7850, Erro total: 0.28915414064721684
+bundle.js:366 Epoch 7860, Erro total: 0.28914310802324855
+bundle.js:366 Epoch 7870, Erro total: 0.28913209211435154
+bundle.js:366 Epoch 7880, Erro total: 0.28912109276085923
+bundle.js:366 Epoch 7890, Erro total: 0.28911010984501345
+bundle.js:366 Epoch 7900, Erro total: 0.2890991432829983
+bundle.js:366 Epoch 7910, Erro total: 0.2890881930188934
+bundle.js:366 Epoch 7920, Erro total: 0.2890772590199733
+bundle.js:366 Epoch 7930, Erro total: 0.289066341272947
+bundle.js:366 Epoch 7940, Erro total: 0.2890554397809054
+bundle.js:366 Epoch 7950, Erro total: 0.2890445545608054
+bundle.js:366 Epoch 7960, Erro total: 0.28903368564136933
+bundle.js:366 Epoch 7970, Erro total: 0.2890228330613198
+bundle.js:366 Epoch 7980, Erro total: 0.2890119968678827
+bundle.js:366 Epoch 7990, Erro total: 0.2890011771155122
+bundle.js:366 Epoch 8000, Erro total: 0.28899037386481174
+bundle.js:366 Epoch 8010, Erro total: 0.2889795871815981
+bundle.js:366 Epoch 8020, Erro total: 0.2889688171361076
+bundle.js:366 Epoch 8030, Erro total: 0.2889580638023124
+bundle.js:366 Epoch 8040, Erro total: 0.28894732725732963
+bundle.js:366 Epoch 8050, Erro total: 0.28893660758092043
+bundle.js:366 Epoch 8060, Erro total: 0.2889259048550501
+bundle.js:366 Epoch 8070, Erro total: 0.28891521916351665
+bundle.js:366 Epoch 8080, Erro total: 0.28890455059162323
+bundle.js:366 Epoch 8090, Erro total: 0.288893899225903
+bundle.js:366 Epoch 8100, Erro total: 0.2888832651538788
+bundle.js:366 Epoch 8110, Erro total: 0.28887264846385036
+bundle.js:366 Epoch 8120, Erro total: 0.2888620492447212
+bundle.js:366 Epoch 8130, Erro total: 0.2888514675858355
+bundle.js:366 Epoch 8140, Erro total: 0.2888409035768495
+bundle.js:366 Epoch 8150, Erro total: 0.28883029308212704
+bundle.js:366 Epoch 8160, Erro total: 0.2888196381867345
+bundle.js:366 Epoch 8170, Erro total: 0.28880891756601834
+bundle.js:366 Epoch 8180, Erro total: 0.28879808556985453
+bundle.js:366 Epoch 8190, Erro total: 0.28878726471308314
+bundle.js:366 Epoch 8200, Erro total: 0.2887764598736184
+bundle.js:366 Epoch 8210, Erro total: 0.2887656732869808
+bundle.js:366 Epoch 8220, Erro total: 0.2887549058431724
+bundle.js:366 Epoch 8230, Erro total: 0.28874415791343144
+bundle.js:366 Epoch 8240, Erro total: 0.2887334296434359
+bundle.js:366 Epoch 8250, Erro total: 0.28872272107345476
+bundle.js:366 Epoch 8260, Erro total: 0.2887120321950571
+bundle.js:366 Epoch 8270, Erro total: 0.28870136298045207
+bundle.js:366 Epoch 8280, Erro total: 0.2886900082833868
+bundle.js:366 Epoch 8290, Erro total: 0.28867831309015246
+bundle.js:366 Epoch 8300, Erro total: 0.28866667147689995
+bundle.js:366 Epoch 8310, Erro total: 0.2886550630389759
+bundle.js:366 Epoch 8320, Erro total: 0.28864347989871886
+bundle.js:366 Epoch 8330, Erro total: 0.28863191879281236
+bundle.js:366 Epoch 8340, Erro total: 0.28862037826895137
+bundle.js:366 Epoch 8350, Erro total: 0.28860885760896776
+bundle.js:366 Epoch 8360, Erro total: 0.28859735641080125
+bundle.js:366 Epoch 8370, Erro total: 0.2885858744233212
+bundle.js:366 Epoch 8380, Erro total: 0.2885744114787499
+bundle.js:366 Epoch 8390, Erro total: 0.28856296746319865
+bundle.js:366 Epoch 8400, Erro total: 0.2885515423023562
+bundle.js:366 Epoch 8410, Erro total: 0.2885401359534398
+bundle.js:366 Epoch 8420, Erro total: 0.28852795836880063
+bundle.js:366 Epoch 8430, Erro total: 0.2885154191005347
+bundle.js:366 Epoch 8440, Erro total: 0.2885029093470443
+bundle.js:366 Epoch 8450, Erro total: 0.2884904259235179
+bundle.js:366 Epoch 8460, Erro total: 0.2884779663091017
+bundle.js:366 Epoch 8470, Erro total: 0.28846552857464586
+bundle.js:366 Epoch 8480, Erro total: 0.28845311132251833
+bundle.js:366 Epoch 8490, Erro total: 0.2884407135521177
+bundle.js:366 Epoch 8500, Erro total: 0.2884283345478752
+bundle.js:366 Epoch 8510, Erro total: 0.2884159737991077
+bundle.js:366 Epoch 8520, Erro total: 0.2884044687881178
+bundle.js:366 Epoch 8530, Erro total: 0.28839386242863135
+bundle.js:366 Epoch 8540, Erro total: 0.2883833278195828
+bundle.js:366 Epoch 8550, Erro total: 0.28837280698549994
+bundle.js:366 Epoch 8560, Erro total: 0.28836230263772017
+bundle.js:366 Epoch 8570, Erro total: 0.2883518162198435
+bundle.js:366 Epoch 8580, Erro total: 0.28834134859529803
+bundle.js:366 Epoch 8590, Erro total: 0.2883309003487276
+bundle.js:366 Epoch 8600, Erro total: 0.28832047192050414
+bundle.js:366 Epoch 8610, Erro total: 0.2883100636683755
+bundle.js:366 Epoch 8620, Erro total: 0.2882996758973461
+bundle.js:366 Epoch 8630, Erro total: 0.2882980703676437
+bundle.js:366 Epoch 8640, Erro total: 0.28829627595235896
+bundle.js:366 Epoch 8650, Erro total: 0.2882906193728384
+bundle.js:366 Epoch 8660, Erro total: 0.28828294355411066
+bundle.js:366 Epoch 8670, Erro total: 0.28827437649576976
+bundle.js:366 Epoch 8680, Erro total: 0.2882654209380945
+bundle.js:366 Epoch 8690, Erro total: 0.2882562784845651
+bundle.js:366 Epoch 8700, Erro total: 0.2882470266743969
+bundle.js:366 Epoch 8710, Erro total: 0.28823828585524025
+bundle.js:366 Epoch 8720, Erro total: 0.28822953637207105
+bundle.js:366 Epoch 8730, Erro total: 0.2882207269335472
+bundle.js:366 Epoch 8740, Erro total: 0.2882118665678515
+bundle.js:366 Epoch 8750, Erro total: 0.2882029639301935
+bundle.js:366 Epoch 8760, Erro total: 0.28819402720962745
+bundle.js:366 Epoch 8770, Erro total: 0.28818506408387257
+bundle.js:366 Epoch 8780, Erro total: 0.2881760816484521
+bundle.js:366 Epoch 8790, Erro total: 0.28816708636161165
+bundle.js:366 Epoch 8800, Erro total: 0.28815808402162596
+bundle.js:366 Epoch 8810, Erro total: 0.2881490797747484
+bundle.js:366 Epoch 8820, Erro total: 0.2881400781458044
+bundle.js:366 Epoch 8830, Erro total: 0.28813108308299373
+bundle.js:366 Epoch 8840, Erro total: 0.28812209801013094
+bundle.js:366 Epoch 8850, Erro total: 0.28811312588142907
+bundle.js:366 Epoch 8860, Erro total: 0.28810416923555504
+bundle.js:366 Epoch 8870, Erro total: 0.28809523024693623
+bundle.js:366 Epoch 8880, Erro total: 0.28808631077316904
+bundle.js:366 Epoch 8890, Erro total: 0.2880774619863194
+bundle.js:366 Epoch 8900, Erro total: 0.28806868325135254
+bundle.js:366 Epoch 8910, Erro total: 0.28805992082734055
+bundle.js:366 Epoch 8920, Erro total: 0.2880511815437244
+bundle.js:366 Epoch 8930, Erro total: 0.2880424682000915
+bundle.js:366 Epoch 8940, Erro total: 0.2880337819925779
+bundle.js:366 Epoch 8950, Erro total: 0.2880253552199414
+bundle.js:366 Epoch 8960, Erro total: 0.28801717750875977
+bundle.js:366 Epoch 8970, Erro total: 0.2880090096026078
+bundle.js:366 Epoch 8980, Erro total: 0.2880008634229872
+bundle.js:366 Epoch 8990, Erro total: 0.28799274345181447
+bundle.js:366 Epoch 9000, Erro total: 0.28798465151026964
+bundle.js:366 Epoch 9010, Erro total: 0.2879765884471203
+bundle.js:366 Epoch 9020, Erro total: 0.28796855473277116
+bundle.js:366 Epoch 9030, Erro total: 0.28796055067569076
+bundle.js:366 Epoch 9040, Erro total: 0.2879525765047261
+bundle.js:366 Epoch 9050, Erro total: 0.2879446324025128
+bundle.js:366 Epoch 9060, Erro total: 0.28793697519084294
+bundle.js:366 Epoch 9070, Erro total: 0.28792945268860665
+bundle.js:366 Epoch 9080, Erro total: 0.28792195285195693
+bundle.js:366 Epoch 9090, Erro total: 0.28791448107860085
+bundle.js:366 Epoch 9100, Erro total: 0.28790703906848536
+bundle.js:366 Epoch 9110, Erro total: 0.2878996272942728
+bundle.js:366 Epoch 9120, Erro total: 0.2878922458616315
+bundle.js:366 Epoch 9130, Erro total: 0.28788489478458196
+bundle.js:366 Epoch 9140, Erro total: 0.2878775740664885
+bundle.js:366 Epoch 9150, Erro total: 0.2878702837187225
+bundle.js:366 Epoch 9160, Erro total: 0.28786302376117173
+bundle.js:366 Epoch 9170, Erro total: 0.28785579421878343
+bundle.js:366 Epoch 9180, Erro total: 0.2878485951182807
+bundle.js:366 Epoch 9190, Erro total: 0.28784142648590566
+bundle.js:366 Epoch 9200, Erro total: 0.2878342883461207
+bundle.js:366 Epoch 9210, Erro total: 0.2878271807209884
+bundle.js:366 Epoch 9220, Erro total: 0.2878201036299751
+bundle.js:366 Epoch 9230, Erro total: 0.28781305709000765
+bundle.js:366 Epoch 9240, Erro total: 0.2878068723510573
+bundle.js:366 Epoch 9250, Erro total: 0.2878019975446021
+bundle.js:366 Epoch 9260, Erro total: 0.2877972644240032
+bundle.js:366 Epoch 9270, Erro total: 0.2877942009306414
+bundle.js:366 Epoch 9280, Erro total: 0.2877913893218565
+bundle.js:366 Epoch 9290, Erro total: 0.28778911476543806
+bundle.js:366 Epoch 9300, Erro total: 0.28778711927694167
+bundle.js:366 Epoch 9310, Erro total: 0.28778512211586266
+bundle.js:366 Epoch 9320, Erro total: 0.2877831332276571
+bundle.js:366 Epoch 9330, Erro total: 0.2877811573328895
+bundle.js:366 Epoch 9340, Erro total: 0.2877791968216249
+bundle.js:366 Epoch 9350, Erro total: 0.2877772529792658
+bundle.js:366 Epoch 9360, Erro total: 0.2877753265219947
+bundle.js:366 Epoch 9370, Erro total: 0.2877734178497556
+bundle.js:366 Epoch 9380, Erro total: 0.28777152717585286
+bundle.js:366 Epoch 9390, Erro total: 0.28776965459834825
+bundle.js:366 Epoch 9400, Erro total: 0.28776780014175196
+bundle.js:366 Epoch 9410, Erro total: 0.28776587269734805
+bundle.js:366 Epoch 9420, Erro total: 0.2877640352313928
+bundle.js:366 Epoch 9430, Erro total: 0.2877622159885736
+bundle.js:366 Epoch 9440, Erro total: 0.28776041773691424
+bundle.js:366 Epoch 9450, Erro total: 0.2877586420032219
+bundle.js:366 Epoch 9460, Erro total: 0.28775688876951605
+bundle.js:366 Epoch 9470, Erro total: 0.2877551575304965
+bundle.js:366 Epoch 9480, Erro total: 0.2877534476659928
+bundle.js:366 Epoch 9490, Erro total: 0.2877518683436411
+bundle.js:366 Epoch 9500, Erro total: 0.28775038576342926
+bundle.js:366 Epoch 9510, Erro total: 0.2877489158981241
+bundle.js:366 Epoch 9520, Erro total: 0.2877474635373963
+bundle.js:366 Epoch 9530, Erro total: 0.2877460299427644
+bundle.js:366 Epoch 9540, Erro total: 0.2877442954757039
+bundle.js:366 Epoch 9550, Erro total: 0.2877415495857322
+bundle.js:366 Epoch 9560, Erro total: 0.28773888920621393
+bundle.js:366 Epoch 9570, Erro total: 0.2877362755694135
+bundle.js:366 Epoch 9580, Erro total: 0.2877336959297811
+bundle.js:366 Epoch 9590, Erro total: 0.28773013287879273
+bundle.js:366 Epoch 9600, Erro total: 0.28772527367238176
+bundle.js:366 Epoch 9610, Erro total: 0.2877204807194668
+bundle.js:366 Epoch 9620, Erro total: 0.28771573486728236
+bundle.js:366 Epoch 9630, Erro total: 0.28771102841275836
+bundle.js:366 Epoch 9640, Erro total: 0.2877056924680755
+bundle.js:366 Epoch 9650, Erro total: 0.2876998501409458
+bundle.js:366 Epoch 9660, Erro total: 0.2876940431385159
+bundle.js:366 Epoch 9670, Erro total: 0.2876882714658289
+bundle.js:366 Epoch 9680, Erro total: 0.28768285498969426
+bundle.js:366 Epoch 9690, Erro total: 0.2876781881812966
+bundle.js:366 Epoch 9700, Erro total: 0.2876735465423856
+bundle.js:366 Epoch 9710, Erro total: 0.28766892846794784
+bundle.js:366 Epoch 9720, Erro total: 0.2876643340546624
+bundle.js:366 Epoch 9730, Erro total: 0.28765976397852644
+bundle.js:366 Epoch 9740, Erro total: 0.2876552188689774
+bundle.js:366 Epoch 9750, Erro total: 0.28765069919034725
+bundle.js:366 Epoch 9760, Erro total: 0.2876462052575691
+bundle.js:366 Epoch 9770, Erro total: 0.2876417372760669
+bundle.js:366 Epoch 9780, Erro total: 0.28763729537724175
+bundle.js:366 Epoch 9790, Erro total: 0.2876328796445283
+bundle.js:366 Epoch 9800, Erro total: 0.28762849013112907
+bundle.js:366 Epoch 9810, Erro total: 0.2876241268716348
+bundle.js:366 Epoch 9820, Erro total: 0.2876197898894514
+bundle.js:366 Epoch 9830, Erro total: 0.28761547920144204
+bundle.js:366 Epoch 9840, Erro total: 0.2876111948207646
+bundle.js:366 Epoch 9850, Erro total: 0.28760693675856086
+bundle.js:366 Epoch 9860, Erro total: 0.2876027050249066
+bundle.js:366 Epoch 9870, Erro total: 0.2875984996293117
+bundle.js:366 Epoch 9880, Erro total: 0.2875943205809369
+bundle.js:366 Epoch 9890, Erro total: 0.2875901678886484
+bundle.js:366 Epoch 9900, Erro total: 0.28758604156097806
+bundle.js:366 Epoch 9910, Erro total: 0.2875819416060272
+bundle.js:366 Epoch 9920, Erro total: 0.2875778680313535
+bundle.js:366 Epoch 9930, Erro total: 0.28757382084385597
+bundle.js:366 Epoch 9940, Erro total: 0.28756980004964455
+bundle.js:366 Epoch 9950, Erro total: 0.2875658056539447
+bundle.js:366 Epoch 9960, Erro total: 0.28756183766099147
+bundle.js:366 Epoch 9970, Erro total: 0.2875575145336504
+bundle.js:366 Epoch 9980, Erro total: 0.28755131590108746
+bundle.js:366 Epoch 9990, Erro total: 0.2875451802061139
+bundle.js:366 Epoch 10000, Erro total: 0.28753909033841046
+bundle.js:366 Epoch 10010, Erro total: 0.2875330400340606
+bundle.js:366 Epoch 10020, Erro total: 0.28752702593904356
+bundle.js:366 Epoch 10030, Erro total: 0.28752104611590057
+bundle.js:366 Epoch 10040, Erro total: 0.28751509936899705
+bundle.js:366 Epoch 10050, Erro total: 0.28750918492186245
+bundle.js:366 Epoch 10060, Erro total: 0.28750330225316484
+bundle.js:366 Epoch 10070, Erro total: 0.2874974510067852
+bundle.js:366 Epoch 10080, Erro total: 0.2874916309387946
+bundle.js:366 Epoch 10090, Erro total: 0.2874858418842228
+bundle.js:366 Epoch 10100, Erro total: 0.2874800837352556
+bundle.js:366 Epoch 10110, Erro total: 0.28747435642639213
+bundle.js:366 Epoch 10120, Erro total: 0.28746865992403997
+bundle.js:366 Epoch 10130, Erro total: 0.28746299421904425
+bundle.js:366 Epoch 10140, Erro total: 0.2874573593211848
+bundle.js:366 Epoch 10150, Erro total: 0.2874517552550445
+bundle.js:366 Epoch 10160, Erro total: 0.2874461820568399
+bundle.js:366 Epoch 10170, Erro total: 0.28744063977194906
+bundle.js:366 Epoch 10180, Erro total: 0.28743512845294833
+bundle.js:366 Epoch 10190, Erro total: 0.28742964815803695
+bundle.js:366 Epoch 10200, Erro total: 0.2874241989497574
+bundle.js:366 Epoch 10210, Erro total: 0.2874187808939409
+bundle.js:366 Epoch 10220, Erro total: 0.2874133940588397
+bundle.js:366 Epoch 10230, Erro total: 0.2874080385144088
+bundle.js:366 Epoch 10240, Erro total: 0.2874027143316964
+bundle.js:366 Epoch 10250, Erro total: 0.28739742158234677
+bundle.js:366 Epoch 10260, Erro total: 0.2873921603381749
+bundle.js:366 Epoch 10270, Erro total: 0.2873869306708087
+bundle.js:366 Epoch 10280, Erro total: 0.28738173265139555
+bundle.js:366 Epoch 10290, Erro total: 0.2873765663503479
+bundle.js:366 Epoch 10300, Erro total: 0.28737143183713515
+bundle.js:366 Epoch 10310, Erro total: 0.28736632918010746
+bundle.js:366 Epoch 10320, Erro total: 0.2873612584463447
+bundle.js:366 Epoch 10330, Erro total: 0.2873562197015362
+bundle.js:366 Epoch 10340, Erro total: 0.28735121300987576
+bundle.js:366 Epoch 10350, Erro total: 0.287346238433978
+bundle.js:366 Epoch 10360, Erro total: 0.2873412960348048
+bundle.js:366 Epoch 10370, Erro total: 0.2873363858716082
+bundle.js:366 Epoch 10380, Erro total: 0.2873310510751443
+bundle.js:366 Epoch 10390, Erro total: 0.28732469467029437
+bundle.js:366 Epoch 10400, Erro total: 0.28731841336005287
+bundle.js:366 Epoch 10410, Erro total: 0.2873121827607267
+bundle.js:366 Epoch 10420, Erro total: 0.2873059941507259
+bundle.js:366 Epoch 10430, Erro total: 0.2872998439046078
+bundle.js:366 Epoch 10440, Erro total: 0.28729373037912664
+bundle.js:366 Epoch 10450, Erro total: 0.2872876527377399
+bundle.js:366 Epoch 10460, Erro total: 0.2872816104956205
+bundle.js:366 Epoch 10470, Erro total: 0.2872756033387123
+bundle.js:366 Epoch 10480, Erro total: 0.28726963104840814
+bundle.js:366 Epoch 10490, Erro total: 0.2872629041232115
+bundle.js:366 Epoch 10500, Erro total: 0.28725524729747787
+bundle.js:366 Epoch 10510, Erro total: 0.287246392765276
+bundle.js:366 Epoch 10520, Erro total: 0.28723663649853143
+bundle.js:366 Epoch 10530, Erro total: 0.28722694162088913
+bundle.js:366 Epoch 10540, Erro total: 0.28721729021748105
+bundle.js:366 Epoch 10550, Erro total: 0.2872076746430712
+bundle.js:366 Epoch 10560, Erro total: 0.2871980912489852
+bundle.js:366 Epoch 10570, Erro total: 0.28718853818802337
+bundle.js:366 Epoch 10580, Erro total: 0.28717901447444716
+bundle.js:366 Epoch 10590, Erro total: 0.2871695195684952
+bundle.js:366 Epoch 10600, Erro total: 0.287160053182956
+bundle.js:366 Epoch 10610, Erro total: 0.28715061518659335
+bundle.js:366 Epoch 10620, Erro total: 0.2871412055520246
+bundle.js:366 Epoch 10630, Erro total: 0.28713182432537676
+bundle.js:366 Epoch 10640, Erro total: 0.2871224716073706
+bundle.js:366 Epoch 10650, Erro total: 0.28711314754082023
+bundle.js:366 Epoch 10660, Erro total: 0.2871038523019335
+bundle.js:366 Epoch 10670, Erro total: 0.2870945860940029
+bundle.js:366 Epoch 10680, Erro total: 0.287085349142642
+bundle.js:366 Epoch 10690, Erro total: 0.2870761416920739
+bundle.js:366 Epoch 10700, Erro total: 0.28706696400216664
+bundle.js:366 Epoch 10710, Erro total: 0.28705781634601185
+bundle.js:366 Epoch 10720, Erro total: 0.2870486990079088
+bundle.js:366 Epoch 10730, Erro total: 0.28703961228167063
+bundle.js:366 Epoch 10740, Erro total: 0.2870305564691842
+bundle.js:366 Epoch 10750, Erro total: 0.2870215318791803
+bundle.js:366 Epoch 10760, Erro total: 0.2870125388261658
+bundle.js:366 Epoch 10770, Erro total: 0.2870035776295153
+bundle.js:366 Epoch 10780, Erro total: 0.2869946486126669
+bundle.js:366 Epoch 10790, Erro total: 0.2869852137136344
+bundle.js:366 Epoch 10800, Erro total: 0.28697580541297735
+bundle.js:366 Epoch 10810, Erro total: 0.28696642314501614
+bundle.js:366 Epoch 10820, Erro total: 0.28695706862065157
+bundle.js:366 Epoch 10830, Erro total: 0.28694774337358353
+bundle.js:366 Epoch 10840, Erro total: 0.28693844850034717
+bundle.js:366 Epoch 10850, Erro total: 0.2869291848639235
+bundle.js:366 Epoch 10860, Erro total: 0.2869199531595454
+bundle.js:366 Epoch 10870, Erro total: 0.2869107539567838
+bundle.js:366 Epoch 10880, Erro total: 0.28690158773531715
+bundle.js:366 Epoch 10890, Erro total: 0.28689245491409426
+bundle.js:366 Epoch 10900, Erro total: 0.2868833558733502
+bundle.js:366 Epoch 10910, Erro total: 0.2868742909701986
+bundle.js:366 Epoch 10920, Erro total: 0.2868652605491675
+bundle.js:366 Epoch 10930, Erro total: 0.28685626494901006
+bundle.js:366 Epoch 10940, Erro total: 0.28684730450693807
+bundle.js:366 Epoch 10950, Erro total: 0.286838379561097
+bundle.js:366 Epoch 10960, Erro total: 0.28682906426794025
+bundle.js:366 Epoch 10970, Erro total: 0.28681691269981013
+bundle.js:366 Epoch 10980, Erro total: 0.28680484980163923
+bundle.js:366 Epoch 10990, Erro total: 0.28679283513385606
+bundle.js:366 Epoch 11000, Erro total: 0.28678085771336265
+bundle.js:366 Epoch 11010, Erro total: 0.28676891270455424
+bundle.js:366 Epoch 11020, Erro total: 0.28675699782145625
+bundle.js:366 Epoch 11030, Erro total: 0.286745111930019
+bundle.js:366 Epoch 11040, Erro total: 0.2867332544677591
+bundle.js:366 Epoch 11050, Erro total: 0.28672142518832755
+bundle.js:366 Epoch 11060, Erro total: 0.28670962403989625
+bundle.js:366 Epoch 11070, Erro total: 0.2866978511016433
+bundle.js:366 Epoch 11080, Erro total: 0.2866861065472688
+bundle.js:366 Epoch 11090, Erro total: 0.2866743906221809
+bundle.js:366 Epoch 11100, Erro total: 0.28666270362815777
+bundle.js:366 Epoch 11110, Erro total: 0.28665104591244905
+bundle.js:366 Epoch 11120, Erro total: 0.2866394178596832
+bundle.js:366 Epoch 11130, Erro total: 0.28662781988563757
+bundle.js:366 Epoch 11140, Erro total: 0.2866162524323273
+bundle.js:366 Epoch 11150, Erro total: 0.28660471596403453
+bundle.js:366 Epoch 11160, Erro total: 0.286593210964052
+bundle.js:366 Epoch 11170, Erro total: 0.2865819261948982
+bundle.js:366 Epoch 11180, Erro total: 0.2865708485857099
+bundle.js:366 Epoch 11190, Erro total: 0.2865598112949226
+bundle.js:366 Epoch 11200, Erro total: 0.2865488106467496
+bundle.js:366 Epoch 11210, Erro total: 0.2865378452588435
+bundle.js:366 Epoch 11220, Erro total: 0.286526914899859
+bundle.js:366 Epoch 11230, Erro total: 0.28651601989417125
+bundle.js:366 Epoch 11240, Erro total: 0.2865051608145552
+bundle.js:366 Epoch 11250, Erro total: 0.28649433833527993
+bundle.js:366 Epoch 11260, Erro total: 0.28648355316435015
+bundle.js:366 Epoch 11270, Erro total: 0.2864728060131608
+bundle.js:366 Epoch 11280, Erro total: 0.28646209758364444
+bundle.js:366 Epoch 11290, Erro total: 0.286451428563566
+bundle.js:366 Epoch 11300, Erro total: 0.28644079962558994
+bundle.js:366 Epoch 11310, Erro total: 0.2864302114280084
+bundle.js:366 Epoch 11320, Erro total: 0.2864196646161479
+bundle.js:366 Epoch 11330, Erro total: 0.2864091598239511
+bundle.js:366 Epoch 11340, Erro total: 0.2863983269052426
+bundle.js:366 Epoch 11350, Erro total: 0.28638688642093024
+bundle.js:366 Epoch 11360, Erro total: 0.2863753894403984
+bundle.js:366 Epoch 11370, Erro total: 0.2863639585316633
+bundle.js:366 Epoch 11380, Erro total: 0.28635256341928456
+bundle.js:366 Epoch 11390, Erro total: 0.28634120242923244
+bundle.js:366 Epoch 11400, Erro total: 0.2863298756596358
+bundle.js:366 Epoch 11410, Erro total: 0.2863185836451477
+bundle.js:366 Epoch 11420, Erro total: 0.28630732707545903
+bundle.js:366 Epoch 11430, Erro total: 0.2862977288602705
+bundle.js:366 Epoch 11440, Erro total: 0.2862882421202127
+bundle.js:366 Epoch 11450, Erro total: 0.28627877207900876
+bundle.js:366 Epoch 11460, Erro total: 0.28626933553858896
+bundle.js:366 Epoch 11470, Erro total: 0.28625994006233624
+bundle.js:366 Epoch 11480, Erro total: 0.28624979076060036
+bundle.js:366 Epoch 11490, Erro total: 0.2862393135795536
+bundle.js:366 Epoch 11500, Erro total: 0.28622889043003497
+bundle.js:366 Epoch 11510, Erro total: 0.28621852173878864
+bundle.js:366 Epoch 11520, Erro total: 0.28620820788163953
+bundle.js:366 Epoch 11530, Erro total: 0.2861977408352053
+bundle.js:366 Epoch 11540, Erro total: 0.2861869680560046
+bundle.js:366 Epoch 11550, Erro total: 0.28617623435850004
+bundle.js:366 Epoch 11560, Erro total: 0.2861655495466477
+bundle.js:366 Epoch 11570, Erro total: 0.28615491737712717
+bundle.js:366 Epoch 11580, Erro total: 0.286144339483996
+bundle.js:366 Epoch 11590, Erro total: 0.2861338167739648
+bundle.js:366 Epoch 11600, Erro total: 0.2861233499000093
+bundle.js:366 Epoch 11610, Erro total: 0.28611293943178534
+bundle.js:366 Epoch 11620, Erro total: 0.28610258591883136
+bundle.js:366 Epoch 11630, Erro total: 0.2860922899135793
+bundle.js:366 Epoch 11640, Erro total: 0.28608205197871284
+bundle.js:366 Epoch 11650, Erro total: 0.28607187268837875
+bundle.js:366 Epoch 11660, Erro total: 0.28606175262709294
+bundle.js:366 Epoch 11670, Erro total: 0.28605169238790906
+bundle.js:366 Epoch 11680, Erro total: 0.28604169257050244
+bundle.js:366 Epoch 11690, Erro total: 0.2860317537793905
+bundle.js:366 Epoch 11700, Erro total: 0.2860218766223846
+bundle.js:366 Epoch 11710, Erro total: 0.2860120617092507
+bundle.js:366 Epoch 11720, Erro total: 0.28600230965057827
+bundle.js:366 Epoch 11730, Erro total: 0.28599262105681056
+bundle.js:366 Epoch 11740, Erro total: 0.2859829965374161
+bundle.js:366 Epoch 11750, Erro total: 0.28597343670018205
+bundle.js:366 Epoch 11760, Erro total: 0.28596409943143614
+bundle.js:366 Epoch 11770, Erro total: 0.2859550695934605
+bundle.js:366 Epoch 11780, Erro total: 0.28594607668055955
+bundle.js:366 Epoch 11790, Erro total: 0.2859371382965379
+bundle.js:366 Epoch 11800, Erro total: 0.28592826165087676
+bundle.js:366 Epoch 11810, Erro total: 0.2859194501611086
+bundle.js:366 Epoch 11820, Erro total: 0.2859107058422426
+bundle.js:366 Epoch 11830, Erro total: 0.28590245591724556
+bundle.js:366 Epoch 11840, Erro total: 0.2858942701097132
+bundle.js:366 Epoch 11850, Erro total: 0.2858861845391033
+bundle.js:366 Epoch 11860, Erro total: 0.2858781766486716
+bundle.js:366 Epoch 11870, Erro total: 0.2858702407796755
+bundle.js:366 Epoch 11880, Erro total: 0.28586237626322936
+bundle.js:366 Epoch 11890, Erro total: 0.28585458387715285
+bundle.js:366 Epoch 11900, Erro total: 0.28584686469376114
+bundle.js:366 Epoch 11910, Erro total: 0.2857820530195496
+bundle.js:366 Epoch 11920, Erro total: 0.2857897116712438
+bundle.js:366 Epoch 11930, Erro total: 0.2858006900933764
+bundle.js:366 Epoch 11940, Erro total: 0.28580735751303077
+bundle.js:366 Epoch 11950, Erro total: 0.2858110920864141
+bundle.js:366 Epoch 11960, Erro total: 0.2858132005289306
+bundle.js:366 Epoch 11970, Erro total: 0.28581446795127013
+bundle.js:366 Epoch 11980, Erro total: 0.2858148110085008
+bundle.js:366 Epoch 11990, Erro total: 0.2858130631043652
+
+**** TESTES DE ESTIMATIVA LOGO APOS O TREINAMENTO: ******
+
+precocasas-test.js:188 Amostra de teste numero 301: Valor Estimado 0.4102853594307775 - Valor Real: 0.416842439691993, ERRO AO QUADRADO: 0.00004299530155202248
+precocasas-test.js:188 Amostra de teste numero 302: Valor Estimado 0.7921492277267657 - Valor Real: 0.8276042606629369, ERRO AO QUADRADO: 0.001257059360504988
+precocasas-test.js:188 Amostra de teste numero 303: Valor Estimado 0.5109142304098696 - Valor Real: 0.48321790591349334, ERRO AO QUADRADO: 0.0007670863906085721
+precocasas-test.js:188 Amostra de teste numero 304: Valor Estimado 0.14873241892449404 - Valor Real: 0.11992420140768814, ERRO AO QUADRADO: 0.0008299133964956023
+precocasas-test.js:188 Amostra de teste numero 305: Valor Estimado 0.1782439313932735 - Valor Real: 0.19525657221921433, ERRO AO QUADRADO: 0.000289429947872469
+precocasas-test.js:188 Amostra de teste numero 306: Valor Estimado 0.7237416276441996 - Valor Real: 0.7540794381278951, ERRO AO QUADRADO: 0.0009203827449446275
+precocasas-test.js:188 Amostra de teste numero 307: Valor Estimado 0.4515352807553069 - Valor Real: 0.4618130752571738, ERRO AO QUADRADO: 0.00010563305982260524
+precocasas-test.js:188 Amostra de teste numero 308: Valor Estimado 0.859739967758337 - Valor Real: 0.9305715349214944, ERRO AO QUADRADO: 0.0050171109067888645
+precocasas-test.js:188 Amostra de teste numero 309: Valor Estimado 0.11685517644608748 - Valor Real: 0.18163087288696383, ERRO AO QUADRADO: 0.004195890849400562
+precocasas-test.js:188 Amostra de teste numero 310: Valor Estimado 0.08238715141092878 - Valor Real: 0.02372371864284425, ERRO AO QUADRADO: 0.0034413983441355734
+precocasas-test.js:188 Amostra de teste numero 311: Valor Estimado 0.09064500556766954 - Valor Real: 0.08881989562654154, ERRO AO QUADRADO: 0.0000033310262972042526
+precocasas-test.js:188 Amostra de teste numero 312: Valor Estimado 0.48028619726208 - Valor Real: 0.45884373308067133, ERRO AO QUADRADO: 0.0004597792701709934
+precocasas-test.js:188 Amostra de teste numero 313: Valor Estimado 0.0982332030071935 - Valor Real: 0.16997439541598988, ERRO AO QUADRADO: 0.005146798688235943
+precocasas-test.js:188 Amostra de teste numero 314: Valor Estimado 0.3063480433324523 - Valor Real: 0.30373766768934607, ERRO AO QUADRADO: 0.00000681406099812228
+precocasas-test.js:188 Amostra de teste numero 315: Valor Estimado 0.442718238219943 - Valor Real: 0.3979256903086086, ERRO AO QUADRADO: 0.0020063723483891888
+precocasas-test.js:188 Amostra de teste numero 316: Valor Estimado 0.5308802783326992 - Valor Real: 0.49993514257354266, ERRO AO QUADRADO: 0.0009576014271526315
+precocasas-test.js:188 Amostra de teste numero 317: Valor Estimado 0.23232859733795536 - Valor Real: 0.2150465469530169, ERRO AO QUADRADO: 0.0002986692655075517
+precocasas-test.js:188 Amostra de teste numero 318: Valor Estimado 0.11641288031068318 - Valor Real: 0.0877182593394694, ERRO AO QUADRADO: 0.0008233812726816216
+precocasas-test.js:188 Amostra de teste numero 319: Valor Estimado 0.6094115770505734 - Valor Real: 0.5562022498947242, ERRO AO QUADRADO: 0.0028312324963781846
+precocasas-test.js:188 Amostra de teste numero 320: Valor Estimado 0.34027385906600194 - Valor Real: 0.3275065045418998, ERRO AO QUADRADO: 0.00016300534154411187
+precocasas-test.js:188 Amostra de teste numero 321: Valor Estimado 0.1895029917612363 - Valor Real: 0.21684751549058534, ERRO AO QUADRADO: 0.0007477229779849324
+precocasas-test.js:188 Amostra de teste numero 322: Valor Estimado 0.7346100680925985 - Valor Real: 0.7447427886061481, ERRO AO QUADRADO: 0.00010267202500570726
+precocasas-test.js:188 Amostra de teste numero 323: Valor Estimado 0.40047951475835114 - Valor Real: 0.3868106313541479, ERRO AO QUADRADO: 0.00018683837351770295
+precocasas-test.js:188 Amostra de teste numero 324: Valor Estimado 0.4170409148523829 - Valor Real: 0.3981672607230945, ERRO AO QUADRADO: 0.00035621482019200626
+precocasas-test.js:188 Amostra de teste numero 325: Valor Estimado 0.5859640793152228 - Valor Real: 0.592282718221741, ERRO AO QUADRADO: 0.00003992519763096528
+precocasas-test.js:188 Amostra de teste numero 326: Valor Estimado 0.6091295915855102 - Valor Real: 0.566851087348854, ERRO AO QUADRADO: 0.0017874719204889506
+precocasas-test.js:188 Amostra de teste numero 327: Valor Estimado 0.15320089689245825 - Valor Real: 0.14724045749864645, ERRO AO QUADRADO: 0.00003552683776730359
+precocasas-test.js:188 Amostra de teste numero 328: Valor Estimado 0.13732415919791152 - Valor Real: 0.16798731426337002, ERRO AO QUADRADO: 0.0009402290785683531
+precocasas-test.js:188 Amostra de teste numero 329: Valor Estimado 0.21522445049702227 - Valor Real: 0.23576238494856525, ERRO AO QUADRADO: 0.00042180675153587595
+precocasas-test.js:188 Amostra de teste numero 330: Valor Estimado 0.20046553387479457 - Valor Real: 0.22655169042892379, ERRO AO QUADRADO: 0.0006804875637665386
+precocasas-test.js:188 Amostra de teste numero 331: Valor Estimado 0.24794639658795137 - Valor Real: 0.2573307691150815, ERRO AO QUADRADO: 0.00008806644772795506
+precocasas-test.js:188 Amostra de teste numero 332: Valor Estimado 0.5778532428378147 - Valor Real: 0.5068701873909643, ERRO AO QUADRADO: 0.005038594160570631
+precocasas-test.js:188 Amostra de teste numero 333: Valor Estimado 0.40228310331239264 - Valor Real: 0.3301618991758407, ERRO AO QUADRADO: 0.005201468086106195
+precocasas-test.js:188 Amostra de teste numero 334: Valor Estimado 0.6486012702968882 - Valor Real: 0.6563966341815557, ERRO AO QUADRADO: 0.00006076769809437846
+precocasas-test.js:188 Amostra de teste numero 335: Valor Estimado 0.5025023895277946 - Valor Real: 0.49715285297479395, ERRO AO QUADRADO: 0.000028617541331889898
+precocasas-test.js:188 Amostra de teste numero 336: Valor Estimado 0.2811879587140213 - Valor Real: 0.2780954851711484, ERRO AO QUADRADO: 0.000009563392613368851
+precocasas-test.js:188 Amostra de teste numero 337: Valor Estimado 0.09798302262099824 - Valor Real: 0.1584137941406485, ERRO AO QUADRADO: 0.0036518781464601716
+precocasas-test.js:188 Amostra de teste numero 338: Valor Estimado 0.11997944733467507 - Valor Real: 0.14228873398303554, ERRO AO QUADRADO: 0.0004977042707587149
+precocasas-test.js:188 Amostra de teste numero 339: Valor Estimado 0.396239677141769 - Valor Real: 0.3925321843229261, ERRO AO QUADRADO: 0.000013745503001771797
+precocasas-test.js:188 Amostra de teste numero 340: Valor Estimado 0.2020072729935563 - Valor Real: 0.2105460055345004, ERRO AO QUADRADO: 0.00007290995340577749
+precocasas-test.js:188 Amostra de teste numero 341: Valor Estimado 0.45374061365576085 - Valor Real: 0.4561187812067617, ERRO AO QUADRADO: 0.000005655680900633346
+precocasas-test.js:188 Amostra de teste numero 342: Valor Estimado 0.20490293162472667 - Valor Real: 0.21480027672501956, ERRO AO QUADRADO: 0.00009795744003429162
+precocasas-test.js:188 Amostra de teste numero 343: Valor Estimado 0.13601541111407722 - Valor Real: 0.12946106298502075, ERRO AO QUADRADO: 0.00004295947939686612
+precocasas-test.js:188 Amostra de teste numero 344: Valor Estimado 0.6939859392972099 - Valor Real: 0.687654153883174, ERRO AO QUADRADO: 0.00004009150652939772
+precocasas-test.js:188 Amostra de teste numero 345: Valor Estimado 0.34510733421184897 - Valor Real: 0.35124338266257593, ERRO AO QUADRADO: 0.00003765109058966874
+precocasas-test.js:188 Amostra de teste numero 346: Valor Estimado 0.181684615804924 - Valor Real: 0.2003088717439692, ERRO AO QUADRADO: 0.0003468629092830597
+precocasas-test.js:188 Amostra de teste numero 347: Valor Estimado 0.2876945174085787 - Valor Real: 0.19735832882151236, ERRO AO QUADRADO: 0.008160626968438016
+precocasas-test.js:188 Amostra de teste numero 348: Valor Estimado 0.5677779400084284 - Valor Real: 0.5382950204535883, ERRO AO QUADRADO: 0.0008692425454771704
+precocasas-test.js:188 Amostra de teste numero 349: Valor Estimado 0.18168602273094542 - Valor Real: 0.1996847365096553, ERRO AO QUADRADO: 0.00032395369768792065
+precocasas-test.js:188 Amostra de teste numero 350: Valor Estimado 0.7053751812962928 - Valor Real: 0.6953242495337785, ERRO AO QUADRADO: 0.00010102122929472022
+
+
+**** PESOS FINAIS ****
+{
+    "weights": [
+        [
+            [
+                0.27050306670162866,
+                -0.8460939203365213,
+                1.7090202986021767,
+                0.06282542632212336,
+                0.00772420975972057,
+                -0.04020727220325665,
+                0.02001463726339905,
+                0.06148450701967397,
+                0.18094644633552756,
+                0.08987501275066846,
+                -0.0031209335953146363
+            ],
+            [
+                0.6265415564793468,
+                -0.3393054211012628,
+                0.773016219620862,
+                0.22523596008691715,
+                0.45402286310029594,
+                -0.6355716580579568,
+                -0.29470138411641267,
+                0.5502833949344274,
+                -0.21265059687466012,
+                0.928783647348984,
+                0.9525541021656416
+            ],
+            [
+                -0.22862280352199812,
+                0.6486986124075894,
+                -0.5039836454937264,
+                -0.8228329164665444,
+                -0.25930722811445217,
+                0.02026013830253938,
+                0.3983687203939667,
+                0.12097229288669517,
+                -0.626386438984553,
+                0.47436426943608706,
+                -0.7290543616018623
+            ]
+        ],
+        [
+            [
+                0.39242384247626766,
+                -0.02332120971914959,
+                -0.06176396775775676
+            ]
+        ]
+    ],
+    "biases": [
+        [
+            0.13182706617350237,
+            -0.7258157783472987,
+            -0.005769509655173937
+        ],
+        [
+            0.11641288031068318
+        ]
+    ],
+    "layers": [
+        11,
+        3,
+        1
+    ],
+    "generatedAt": 1734649945363
+}
+
+
+
+PROBLEMAS:
+Se eu treinar por umas 17000 epocas, o custo se torna NaN. Ou então, se eu aumentar um pouco o learningRate para 0.05 por exemplo, o problema do custo ficar NaN ocorre bem antes de completar 17000 epocas. 
+
+ISSO INDICA: instabilidade numérica ou problema de explosão de gradientes. 
+
+O fato do custo se tornar NaN após algumas épocas ou com o aumento do learning rate indica problemas de instabilidade numérica ou explosão de gradientes. 
+Isso pode ser causado por várias questões:
+
+Possíveis Causas:
+    1. Gradientes Explosivos: Quando o custo vira NaN, os gradientes provavelmente estão se tornando muito grandes. Isso pode acontecer se o learning rate for alto ou se os pesos iniciais estiverem mal configurados, fazendo com que os gradientes cresçam descontroladamente.
+
+    2. Learning Rate Alto: Um learning rate muito alto faz o modelo atualizar os pesos de forma excessiva, o que pode pular as soluções ótimas e resultar em gradientes crescentes, levando o custo a se tornar NaN.
+
+    3. Pesos Iniciais: Se os pesos iniciais forem muito grandes ou muito pequenos, os gradientes podem crescer rapidamente durante a retropropagação, causando instabilidade.
+
+    4. Função de Ativação: Funções como sigmoide ou tanh podem causar problemas de gradientes explosivos ou desvanecentes. Funções como ReLU são mais estáveis em redes profundas.
+
+O modelo provavelmente está enfrentando instabilidade no treinamento, o que significa que o modelo não está aprendendo de forma controlada. 
+Isso pode resultar em treinamento ineficaz ou overfitting extremo.
+
+Soluções:
+    1. Reduza o Learning Rate: Tente valores menores (0.01 ou 0.001) para estabilizar o treinamento.
+    2. Gradiente Clipping: Limite o valor dos gradientes para evitar explosões.
+    3. Melhore a Inicialização de Pesos: Use inicializações como Xavier ou He, que ajudam a evitar gradientes explosivos.
+    4. Regularização: Aplique regularização L2 ou dropout para controlar a magnitude dos gradientes.
+    5. Troque a Função de Ativação: Se estiver usando sigmoide ou tanh, considere usar ReLU ou Leaky ReLU para maior estabilidade.
+    6. Early Stopping: Pare o treinamento se o erro começar a aumentar ou os gradientes se tornarem muito grandes.
+
+
+CONCLUSAO: Mais o modelo conseguiu captar bem o padrão
