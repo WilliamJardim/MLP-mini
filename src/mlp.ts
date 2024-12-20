@@ -332,7 +332,9 @@ class MLP {
                          inputs, 
                          targets );
 
-        trainMonitor.log(`Erro inicial(ANTES DO TREINAMENTO): ${ MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) ) }`);
+        const erroInicialAntesTreinamento = MLP.compute_train_cost( inputs, targets, inputs.map( (xsis: number[]) => this.forward(xsis) ) );
+        trainMonitor.log(`Erro Total inicial(ANTES DO TREINAMENTO): ${ erroInicialAntesTreinamento }`);
+        trainMonitor.log(`Média do Erro Total inicial(ANTES DO TREINAMENTO): ${ erroInicialAntesTreinamento/targets.length }`);
         
         for (let epoch = 0; epoch < epochs; epoch++) {
         
@@ -399,7 +401,7 @@ class MLP {
 
             // Log do erro para monitoramento
             if (epoch % printEpochs === 0) {
-                trainMonitor.log(`Epoch ${epoch}, Erro total: ${totalError}`);
+                trainMonitor.log(`Epoch ${epoch}, Erro total: ${totalError}, Média Erro Total: ${ totalError/targets.length }`);
             }
         }
 

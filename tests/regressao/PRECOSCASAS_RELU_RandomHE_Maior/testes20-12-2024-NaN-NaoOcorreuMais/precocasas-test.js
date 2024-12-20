@@ -128,6 +128,7 @@ for( let l = numeroAmostrasTreino+1 ; l < numeroAmostrasTreino+1+numeroAmostrasT
     }
 }
 
+console.log('Total dos erros ao quadrado DADOS DE TESTE APOS TREINAMENTO: ',   erroTotalTeste )
 console.log('Média do erro ao quadrado DADOS DE TESTE ANTES DO TREINAMENTO: ', erroTotalTeste/quantidadeTestes )
 
 
