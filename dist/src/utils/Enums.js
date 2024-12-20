@@ -3,6 +3,8 @@ var Initialization;
     Initialization["Zeros"] = "Zeros";
     Initialization["Manual"] = "Manual";
     Initialization["Random"] = "Random";
+    Initialization["RandomHeNormal"] = "RandomHeNormal";
+    Initialization["RandomHeUniform"] = "RandomHeUniform";
     Initialization["Dev"] = "Dev";
 })(Initialization || (Initialization = {}));
 var Task;

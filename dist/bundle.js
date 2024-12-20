@@ -22,6 +22,8 @@
 
 
 
+
+
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
@@ -69,6 +71,30 @@ class MLP {
                 this.weights.push(layerWeights);
                 // Biases para a camada i
                 const layerBiases = Array(this.layers[i]).fill(0).map(() => randomWeight());
+                this.biases.push(layerBiases);
+            }
+        }
+        else if (config.initialization === Initialization.RandomHeNormal || config.initialization === Initialization.RandomHeUniform) {
+            for (let i = 1; i < this.layers.length; i++) {
+                // Pesos entre a camada i-1 e a camada i
+                const layerWeights = [];
+                for (let j = 0; j < this.layers[i]; j++) {
+                    const neuronWeights = [];
+                    for (let k = 0; k < this.layers[i - 1]; k++) {
+                        if (config.initialization === Initialization.RandomHeNormal) {
+                            neuronWeights.push(heNormal(this.layers[i - 1]));
+                        }
+                        else if (config.initialization === Initialization.RandomHeUniform) {
+                            neuronWeights.push(heUniform(this.layers[i - 1]));
+                        }
+                    }
+                    layerWeights.push(neuronWeights);
+                }
+                this.weights.push(layerWeights);
+                // Biases para a camada i
+                const layerBiases = Array(this.layers[i])
+                    .fill(0)
+                    .map(() => 0); // Biases podem ser inicializados como 0 ou seguindo uma inicialização própria
                 this.biases.push(layerBiases);
             }
         }
@@ -386,6 +412,8 @@ var Initialization;
     Initialization["Zeros"] = "Zeros";
     Initialization["Manual"] = "Manual";
     Initialization["Random"] = "Random";
+    Initialization["RandomHeNormal"] = "RandomHeNormal";
+    Initialization["RandomHeUniform"] = "RandomHeUniform";
     Initialization["Dev"] = "Dev";
 })(Initialization || (Initialization = {}));
 var Task;
@@ -407,6 +435,21 @@ var ActivationFunctionsNames;
     ActivationFunctionsNames["Sigmoid"] = "sigmoid";
     ActivationFunctionsNames["ReLU"] = "ReLU";
 })(ActivationFunctionsNames || (ActivationFunctionsNames = {}));
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\heNormal.js
+// Função para inicializar pesos usando He Normal
+function heNormal(nIn) {
+    return Math.random() * Math.sqrt(2 / nIn) * (Math.random() < 0.5 ? -1 : 1);
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\heUniform.js
+// Função para inicializar pesos usando He Uniform
+function heUniform(nIn) {
+    const limit = Math.sqrt(6 / nIn);
+    return Math.random() * 2 * limit - limit; // Gera valores entre -limit e +limit
+}
 
 
 // Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\isDecimalNumber.js

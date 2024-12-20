@@ -2,6 +2,8 @@ enum Initialization{
     Zeros = 'Zeros',
     Manual = 'Manual',
     Random = 'Random',
+    RandomHeNormal = 'RandomHeNormal',
+    RandomHeUniform = 'RandomHeUniform',
     Dev    = 'Dev'
 }
 

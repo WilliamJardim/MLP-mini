@@ -7,6 +7,8 @@ import ValidateDataset from './validators/ValidateDataset';
 import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
 import notifyIfhasNaN from './utils/notifyIfhasNaN';
 import randomWeight from './utils/randomWeight';
+import heNormal from './utils/heNormal';
+import heUniform from './utils/heUniform';
 import ConsoleMonitor from './utils/ConsoleMonitor';
 
 // Rede Neural MLP com suporte a múltiplas camadas
@@ -86,6 +88,34 @@ class MLP {
                 this.biases.push(layerBiases);
             }
 
+        }else if (config.initialization === Initialization.RandomHeNormal || config.initialization === Initialization.RandomHeUniform) {
+            for (let i = 1; i < this.layers.length; i++) {
+                // Pesos entre a camada i-1 e a camada i
+                const layerWeights = [];
+        
+                for (let j = 0; j < this.layers[i]; j++) {
+                    const neuronWeights = [];
+        
+                    for (let k = 0; k < this.layers[i - 1]; k++) {
+                        if (config.initialization === Initialization.RandomHeNormal) {
+                            neuronWeights.push( heNormal( this.layers[i - 1] ) );
+
+                        } else if (config.initialization === Initialization.RandomHeUniform) {
+                            neuronWeights.push( heUniform( this.layers[i - 1] ) );
+                        }
+                    }
+        
+                    layerWeights.push(neuronWeights);
+                }
+        
+                this.weights.push(layerWeights);
+        
+                // Biases para a camada i
+                const layerBiases = Array(this.layers[i])
+                    .fill(0)
+                    .map(() => 0); // Biases podem ser inicializados como 0 ou seguindo uma inicialização própria
+                this.biases.push(layerBiases);
+            }
 
         }else if( config.initialization == Initialization.Zeros ){
 
