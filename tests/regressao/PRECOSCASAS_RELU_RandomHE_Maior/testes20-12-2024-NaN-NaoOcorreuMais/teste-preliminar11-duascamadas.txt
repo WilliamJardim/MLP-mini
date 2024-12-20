@@ -3445,6 +3445,23 @@ Porém, é só uma amostra ou outra,.. falsos positivos podem ocorrer, por conhe
 
 PORÈM a maioria(maior parte, quase todas) das amostras tiveram erros da estimativas muito altos, isso é antes do TREINAMENTO.
 
+Mais essa metrica pode dar a falsa sensasao de que o modelo ja comecou acertando,
+visto que por exemplo, 
+"Valor Estimado: 0.009120045657692347 - Valor Real: 0.14791159086807434", a diferença entre esse valor estimado e o valor real ao quadrado, foi exatamente de "0.019263093021885513" 
+Isso pode dar a sensação que a diferença foi baixa, porém NÂO FOI!. A diferença entre o valor estimado e o valor real foi muito grande, o que é totalmente esperado, visto que NENHUM TREINAMENTO FOI FEITO AINDA!
+
+Varios outros casos identicos a esse encontramos nos logs dos testes feitos nos dados de teste ANTES DO TREINAMENTO TER SIDO INICIADO no inicio desse arquivo,
+voce também vai reparar que muitos das amostras que tiveram diferença baixa estavam extremamente longe do real.
+
+    veja outros exemplos disso extraidos de lá:
+        Valor Estimado: 0.009310348305877857 - Valor Real: 0.37005955603681645, ERRO AO QUADRADO: 0.1301399908784999
+        Valor Estimado: 0.01121480533241218 - Valor Real: 0.2980527732659568, ERRO AO QUADRADO: 0.08227601984824516
+        Valor Estimado: 0.00959816965896889 - Valor Real: 0.21569136136678096, ERRO AO QUADRADO: 0.042474403668312975
+
+    por exemplo, nesse caso a diferença de "0.01121480533241218 - 0.2980527732659568" dá "-0.2868379679335446", ou seja um valor negativo, porém ao elevar ao quadrado, nós obtemos "0.08227601984824516", o que dá a entender que a diferença foi baixa quando não foi!
+    ENTÂO NÂO SE ENGANE COM ISSO.
+
+
 PORÈM APOS O TREINAMENTO TER SIDO FEITO
 
 Fazendo uma analise do óbvio, vemos que houve uma minimização significativa do custo para os dados de teste, que antes do TREINAMENTO estava muito alto, tanto o erro total quanto a média do erro,
