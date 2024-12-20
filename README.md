@@ -91,7 +91,7 @@ O problema XOR é um problema lógico clássico que não pode ser resolvido com 
 Este projeto é cuidadosamente testado em detalhes, isso pode ser notado nos arquivos de teste de integridade que introduzi a partir do dia 16.10.2024, garantindo a integridade do comportamento dos arquivos do dia 15.10.2024 (data inicial do projeto) para com as futuras versões.
 Você poderá ler sobre esses testes aqui:
 
-  [Caminho para o arquivo do teste de integridade](./tests/XOR_INTEGRY_TEST_15_10_verifed/detalhes_teste_integridade.md)
+  [Caminho para o arquivo do teste de integridade](./tests/classificacao/XOR/XOR_INTEGRY_TEST_15_10_verifed/detalhes_teste_integridade.md)
 
 
 ## Licença
