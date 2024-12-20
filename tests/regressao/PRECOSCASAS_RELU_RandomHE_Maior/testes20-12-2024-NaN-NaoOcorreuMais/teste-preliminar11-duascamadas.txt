@@ -1725,7 +1725,8 @@ precocasas-test.js:127 Amostra de teste numero 4996: Valor Estimado 0 - Valor Re
 precocasas-test.js:127 Amostra de teste numero 4997: Valor Estimado 0.011490593919721301 - Valor Real: 0.3487007835529086, ERRO AO QUADRADO: 0.11371071199245016
 precocasas-test.js:127 Amostra de teste numero 4998: Valor Estimado 0.021042621644263584 - Valor Real: 0.34577561962341335, ERRO AO QUADRADO: 0.10545151997652649
 precocasas-test.js:127 Amostra de teste numero 4999: Valor Estimado 0.013811381271888972 - Valor Real: 0.32505320188894904, ERRO AO QUADRADO: 0.0968714709010222
-precocasas-test.js:132 Total dos erros ao quadrado DADOS DE TESTE APOS TREINAMENTO:  288.1438961156656
+
+precocasas-test.js:132 Total dos erros ao quadrado DADOS DE TESTE ANTES TREINAMENTO:  288.1438961156656
 precocasas-test.js:133 Média do erro ao quadrado DADOS DE TESTE ANTES DO TREINAMENTO:  0.19222408013053074
 
 
@@ -3437,3 +3438,7 @@ PESOS FINAIS:
     "generatedAt": 1734724242315
 }
 
+
+CONCLUSAO: Fazendo uma analise do óbvio, vemos que houve uma minimização significativa do custo para os dados de teste, que antes do TREINAMENTO estava muito alto, tanto o erro total quanto a média do erro,
+E DEPOIS DO TREINAMENTO TER SIDO CONCLUIDO, o erro total e a média desse erro caiu drasticamente, isso fica evidente tanto no custo dos dados de treino ao longo das epocas, quanto tambem no custo dos dados de teste ANTES e DEPOIS do TREINAMENTO, 
+além de todos os testes feitos com os dados de teste, amostra por amostra, calculando os valores estimados e os valores reais, e as diferenças, vamos uma melhora absurda, as estimativas ficaram bem proximas das reais para cada amostra, e as diferenças dos valores estimados e reais também ficou muito baixa.
