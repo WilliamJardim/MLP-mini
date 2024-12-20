@@ -3439,6 +3439,20 @@ PESOS FINAIS:
 }
 
 
-CONCLUSAO: Fazendo uma analise do óbvio, vemos que houve uma minimização significativa do custo para os dados de teste, que antes do TREINAMENTO estava muito alto, tanto o erro total quanto a média do erro,
+CONCLUSAO: 
+Antes do TREINAMENTO, assim como nos muitos testes que fiz hoje, vemos que algumas estimativas aleatorias(ISSO È SEM TREINAMENTO) do modelo conhecidentemente estão bem proximas do real, MAIS NENHUM TREINAMENTO  FOI FEITO
+Porém, é só uma amostra ou outra,.. falsos positivos podem ocorrer, por conhecidencia. 
+
+PORÈM a maioria(maior parte, quase todas) das amostras tiveram erros da estimativas muito altos, isso é antes do TREINAMENTO.
+
+PORÈM APOS O TREINAMENTO TER SIDO FEITO
+
+Fazendo uma analise do óbvio, vemos que houve uma minimização significativa do custo para os dados de teste, que antes do TREINAMENTO estava muito alto, tanto o erro total quanto a média do erro,
 E DEPOIS DO TREINAMENTO TER SIDO CONCLUIDO, o erro total e a média desse erro caiu drasticamente, isso fica evidente tanto no custo dos dados de treino ao longo das epocas, quanto tambem no custo dos dados de teste ANTES e DEPOIS do TREINAMENTO, 
 além de todos os testes feitos com os dados de teste, amostra por amostra, calculando os valores estimados e os valores reais, e as diferenças, vamos uma melhora absurda, as estimativas ficaram bem proximas das reais para cada amostra, e as diferenças dos valores estimados e reais também ficou muito baixa.
+As diferenças eram altas antes do TREINAMENTO, mais depois do TREINAMENTO, elas ficaram bem baixas.
+
+è claro que algumas ainda continuam um pouco mais altas, mais isso pode ser uma dificuldade do modelo de generalizar para alguma amostra ou outra,
+mais de qualquer forma, a maioria das estimativas estavam corretas com erro muito baixo, conforme descrito. 
+
+Esse mesmo padrão se repete em todos os outros testes de regressão que fiz com esse dataset
