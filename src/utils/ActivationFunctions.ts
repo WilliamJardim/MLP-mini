@@ -21,4 +21,14 @@ export default class ActivationFunctions {
     public static ReLUDerivative(x: number): number {
         return x > 0 ? 1 : 0;
     }
+
+    // Função de ativação Linear
+    public static Linear(x: number): number {
+        return x;
+    }
+
+    // Derivada da ativação Linear
+    public static LinearDerivative(x: number): number {
+        return 1;
+    }
 }

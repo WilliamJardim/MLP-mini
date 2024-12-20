@@ -23,5 +23,6 @@ enum LayerType{
 
 enum ActivationFunctionsNames{
     Sigmoid = 'sigmoid',
-    ReLU = 'ReLU'
+    ReLU = 'ReLU',
+    Linear = 'Linear'
 }

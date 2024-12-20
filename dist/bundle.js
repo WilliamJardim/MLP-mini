@@ -341,6 +341,14 @@ class ActivationFunctions {
     static ReLUDerivative(x) {
         return x > 0 ? 1 : 0;
     }
+    // Função de ativação Linear
+    static Linear(x) {
+        return x;
+    }
+    // Derivada da ativação Linear
+    static LinearDerivative(x) {
+        return 1;
+    }
 }
 
 
@@ -434,6 +442,7 @@ var ActivationFunctionsNames;
 (function (ActivationFunctionsNames) {
     ActivationFunctionsNames["Sigmoid"] = "sigmoid";
     ActivationFunctionsNames["ReLU"] = "ReLU";
+    ActivationFunctionsNames["Linear"] = "Linear";
 })(ActivationFunctionsNames || (ActivationFunctionsNames = {}));
 
 

@@ -1,0 +1,567 @@
+(20/12/2024 11:47 AM)
+
+DATASET: O mesmo do PRECOSCASAS_RELU
+
+Estrutura:
+// Aplicar a normalização
+const normalizedData = normalizeData(dataset);
+  
+// Estrutura da rede: 11 neurônios na entrada, 3 na camada oculta, 1 na saída, todas usando ReLU
+const config = {
+    layers: [
+        { type: LayerType.Input,  inputs: 11, units: 11 }, 
+        { type: LayerType.Hidden, inputs: 11, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU']  }, 
+        { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'ReLU' ]  }
+    ],
+    initialization: Initialization.RandomHeNormal
+};
+
+const mlp = new MLP(config);
+
+
+PESOS INICIAIS:
+
+//SALVEI OS PESOS INICIAIS PARA GARANTIR REPRODUCIBILIDADE, MAIS FORAM UM CONJUNTO DE VALORES ALEATORIOS GERADOS PELA INICIALIZAÇÂO Initialization.RandomHeNormal
+mlp.importParameters({
+    "weights": [
+        [
+            [
+                0.22677741005078256,
+                0.2456372833335657,
+                0.26918293463221976,
+                0.22519569320736615,
+                -0.18432489103248736,
+                0.34579040631837127,
+                -0.08757992625300418,
+                0.05576830245177678,
+                -0.35362342289855814,
+                -0.09484887191889994,
+                -0.2360360831835377
+            ],
+            [
+                -0.33216649606219517,
+                -0.05894729454604437,
+                -0.1765651907528107,
+                -0.17381980749208345,
+                -0.10555980058127111,
+                -0.4016428569268778,
+                -0.3657646263998327,
+                -0.1037713952865656,
+                -0.1746689026849487,
+                -0.04748451438970722,
+                0.3482923921555126
+            ],
+            [
+                0.13421514142694038,
+                -0.2543354667392169,
+                -0.33140275064831115,
+                0.3898004709574889,
+                -0.012427134540697481,
+                -0.04477495683190677,
+                -0.13025215371086898,
+                0.08357895521254928,
+                -0.06860498089942081,
+                -0.10238235722939426,
+                0.25801216607846583
+            ]
+        ],
+        [
+            [
+                0.02118254566620611,
+                0.2401700180778615,
+                -0.195938037548431
+            ]
+        ]
+    ],
+    "biases": [
+        [
+            0,
+            0,
+            0
+        ],
+        [
+            0
+        ]
+    ],
+    "layers": [
+        11,
+        3,
+        1
+    ],
+    "generatedAt": 1734705209980
+});
+
+PARAMETROS USADOS:
+//Treino e Teste
+const numColunaPreco = 10; //O numero da coluna que queremos estimar, que no caso é o preco
+const numeroAmostrasTreino = 800;
+const numeroAmostrasTeste  = 200;
+
+//Hyperparametros
+const taxa_aprendizado = 0.005;
+
+//Epocas
+const numero_epocas = 110000;
+const exibirACada = 1000;
+
+
+RESULTADOS TREINO:
+
+Loading parameters from JSON, from date: 1734705209980
+bundle.js:212 Success from import JSON, from date: 1734705209980
+bundle.js:392 Erro inicial(ANTES DO TREINAMENTO): 158.09816793463895
+bundle.js:392 Epoch 0, Erro total: 29.289106083348443
+bundle.js:392 Epoch 1000, Erro total: 0.6905581420398321
+bundle.js:392 Epoch 2000, Erro total: 0.6144176944077231
+bundle.js:392 Epoch 3000, Erro total: 0.5445458847181649
+bundle.js:392 Epoch 4000, Erro total: 0.500922695550298
+bundle.js:392 Epoch 5000, Erro total: 0.46707242477355815
+bundle.js:392 Epoch 6000, Erro total: 0.4366677814771027
+bundle.js:392 Epoch 7000, Erro total: 0.3985065267863506
+bundle.js:392 Epoch 8000, Erro total: 0.3496554094462436
+bundle.js:392 Epoch 9000, Erro total: 0.32986748227144536
+bundle.js:392 Epoch 10000, Erro total: 0.3254752498125783
+bundle.js:392 Epoch 11000, Erro total: 0.3240427831810604
+bundle.js:392 Epoch 12000, Erro total: 0.32303199770164387
+bundle.js:392 Epoch 13000, Erro total: 0.3221428755630755
+bundle.js:392 Epoch 14000, Erro total: 0.3214924583272617
+bundle.js:392 Epoch 15000, Erro total: 0.32111181899554625
+bundle.js:392 Epoch 16000, Erro total: 0.32071060737623497
+bundle.js:392 Epoch 17000, Erro total: 0.320360432584852
+bundle.js:392 Epoch 18000, Erro total: 0.32004301813703695
+bundle.js:392 Epoch 19000, Erro total: 0.3197628337301961
+bundle.js:392 Epoch 20000, Erro total: 0.3195112408106929
+bundle.js:392 Epoch 21000, Erro total: 0.3192842518344324
+bundle.js:392 Epoch 22000, Erro total: 0.31907893934338155
+bundle.js:392 Epoch 23000, Erro total: 0.3188794981439963
+bundle.js:392 Epoch 24000, Erro total: 0.3186736280628832
+bundle.js:392 Epoch 25000, Erro total: 0.31846843798878527
+bundle.js:392 Epoch 26000, Erro total: 0.3182535179473742
+bundle.js:392 Epoch 27000, Erro total: 0.31804678713739126
+bundle.js:392 Epoch 28000, Erro total: 0.31784350293515495
+bundle.js:392 Epoch 29000, Erro total: 0.31765262925551163
+bundle.js:392 Epoch 30000, Erro total: 0.31747058034658354
+bundle.js:392 Epoch 31000, Erro total: 0.3173019074355635
+bundle.js:392 Epoch 32000, Erro total: 0.3171516710681574
+bundle.js:392 Epoch 33000, Erro total: 0.3169342103458821
+bundle.js:392 Epoch 34000, Erro total: 0.31705772173154384
+bundle.js:392 Epoch 35000, Erro total: 0.316984668061637
+bundle.js:392 Epoch 36000, Erro total: 0.3168795210754971
+bundle.js:392 Epoch 37000, Erro total: 0.3167742363846981
+bundle.js:392 Epoch 38000, Erro total: 0.3166743254935905
+bundle.js:392 Epoch 39000, Erro total: 0.31658275310297007
+bundle.js:392 Epoch 40000, Erro total: 0.3164977928312394
+bundle.js:392 Epoch 41000, Erro total: 0.3164183593411054
+bundle.js:392 Epoch 42000, Erro total: 0.3163440027551396
+bundle.js:392 Epoch 43000, Erro total: 0.31627389616177004
+bundle.js:392 Epoch 44000, Erro total: 0.31620541459495244
+bundle.js:392 Epoch 45000, Erro total: 0.31613952790073097
+bundle.js:392 Epoch 46000, Erro total: 0.3160754477362476
+bundle.js:392 Epoch 47000, Erro total: 0.31601478644884473
+bundle.js:392 Epoch 48000, Erro total: 0.31595734083971333
+bundle.js:392 Epoch 49000, Erro total: 0.31590288994149834
+bundle.js:392 Epoch 50000, Erro total: 0.3158512222466186
+bundle.js:392 Epoch 51000, Erro total: 0.3158021391454807
+bundle.js:392 Epoch 52000, Erro total: 0.3157554580967012
+bundle.js:392 Epoch 53000, Erro total: 0.31571101194059203
+bundle.js:392 Epoch 54000, Erro total: 0.3156686476098916
+bundle.js:392 Epoch 55000, Erro total: 0.3156282248151796
+bundle.js:392 Epoch 56000, Erro total: 0.3155896148346327
+bundle.js:392 Epoch 57000, Erro total: 0.31555269942576053
+bundle.js:392 Epoch 58000, Erro total: 0.3155173698512524
+bundle.js:392 Epoch 59000, Erro total: 0.3154835260070495
+bundle.js:392 Epoch 60000, Erro total: 0.3154510756410067
+bundle.js:392 Epoch 61000, Erro total: 0.3154199336513042
+bundle.js:392 Epoch 62000, Erro total: 0.3153900214560142
+bundle.js:392 Epoch 63000, Erro total: 0.3153612664252201
+bundle.js:392 Epoch 64000, Erro total: 0.31533360136898136
+bundle.js:392 Epoch 65000, Erro total: 0.31530696407485975
+bundle.js:392 Epoch 66000, Erro total: 0.3152812968896836
+bundle.js:392 Epoch 67000, Erro total: 0.3152565463405951
+bundle.js:392 Epoch 68000, Erro total: 0.3152326627916459
+bundle.js:392 Epoch 69000, Erro total: 0.3152096001315622
+bundle.js:392 Epoch 70000, Erro total: 0.31518731549017887
+bundle.js:392 Epoch 71000, Erro total: 0.3151657689800292
+bundle.js:392 Epoch 72000, Erro total: 0.31514492346108663
+bundle.js:392 Epoch 73000, Erro total: 0.31512474432582815
+bundle.js:392 Epoch 74000, Erro total: 0.31510519930314834
+bundle.js:392 Epoch 75000, Erro total: 0.315086258278963
+bundle.js:392 Epoch 76000, Erro total: 0.31506789313199723
+bundle.js:392 Epoch 77000, Erro total: 0.31505003631533113
+bundle.js:392 Epoch 78000, Erro total: 0.31503162852452665
+bundle.js:392 Epoch 79000, Erro total: 0.3150134974765378
+bundle.js:392 Epoch 80000, Erro total: 0.3149958516480381
+bundle.js:392 Epoch 81000, Erro total: 0.3149786639016703
+bundle.js:392 Epoch 82000, Erro total: 0.3149619128624663
+bundle.js:392 Epoch 83000, Erro total: 0.3149455798422822
+bundle.js:392 Epoch 84000, Erro total: 0.31492964797172734
+bundle.js:392 Epoch 85000, Erro total: 0.31491410167643813
+bundle.js:392 Epoch 86000, Erro total: 0.31489892638818207
+bundle.js:392 Epoch 87000, Erro total: 0.31488410839320696
+bundle.js:392 Epoch 88000, Erro total: 0.31486963474179164
+bundle.js:392 Epoch 89000, Erro total: 0.3148554931847027
+bundle.js:392 Epoch 90000, Erro total: 0.31484167212241765
+bundle.js:392 Epoch 91000, Erro total: 0.31482816056120766
+bundle.js:392 Epoch 92000, Erro total: 0.3148149480735275
+bundle.js:392 Epoch 93000, Erro total: 0.31480202476176605
+bundle.js:392 Epoch 94000, Erro total: 0.314789381224875
+bundle.js:392 Epoch 95000, Erro total: 0.31477700852736124
+bundle.js:392 Epoch 96000, Erro total: 0.31476489817056685
+bundle.js:392 Epoch 97000, Erro total: 0.3147530420660343
+bundle.js:392 Epoch 98000, Erro total: 0.31474143251063985
+bundle.js:392 Epoch 99000, Erro total: 0.31473006216356797
+bundle.js:392 Epoch 100000, Erro total: 0.31471892402492513
+bundle.js:392 Epoch 101000, Erro total: 0.3147080114156621
+bundle.js:392 Epoch 102000, Erro total: 0.3146973179590384
+bundle.js:392 Epoch 103000, Erro total: 0.31468683756326377
+bundle.js:392 Epoch 104000, Erro total: 0.3146765644052772
+bundle.js:392 Epoch 105000, Erro total: 0.3146664929157256
+bundle.js:392 Epoch 106000, Erro total: 0.314656617764823
+bundle.js:392 Epoch 107000, Erro total: 0.31464693384927184
+bundle.js:392 Epoch 108000, Erro total: 0.31463743627978585
+bundle.js:392 Epoch 109000, Erro total: 0.31462812036973936
+
+TESTES FEITOS NOS DADOS DE TESTE:
+
+precocasas-test.js:187 Amostra de teste numero 801: Valor Estimado 0.2574870640105037 - Valor Real: 0.24802983817602117, ERRO AO QUADRADO: 0.00008943912048440369
+precocasas-test.js:187 Amostra de teste numero 802: Valor Estimado 0.4169089196856606 - Valor Real: 0.3911842778078566, ERRO AO QUADRADO: 0.0006617571997412667
+precocasas-test.js:187 Amostra de teste numero 803: Valor Estimado 0.3863964568979814 - Valor Real: 0.37593432292606627, ERRO AO QUADRADO: 0.00010945624724630095
+precocasas-test.js:187 Amostra de teste numero 804: Valor Estimado 0.4148606331970189 - Valor Real: 0.4148920170847621, ERRO AO QUADRADO: 9.84948409878295e-10
+precocasas-test.js:187 Amostra de teste numero 805: Valor Estimado 0.2857471178204057 - Valor Real: 0.2645186638994165, ERRO AO QUADRADO: 0.00045064725587556215
+precocasas-test.js:187 Amostra de teste numero 806: Valor Estimado 0.1263451126382399 - Valor Real: 0.10489043794742224, ERRO AO QUADRADO: 0.00046030306608881125
+precocasas-test.js:187 Amostra de teste numero 807: Valor Estimado 0.3530317497597832 - Valor Real: 0.31963337694760274, ERRO AO QUADRADO: 0.0011154513065013939
+precocasas-test.js:187 Amostra de teste numero 808: Valor Estimado 0.5289657319272267 - Valor Real: 0.49174712747398186, ERRO AO QUADRADO: 0.0013852245174470993
+precocasas-test.js:187 Amostra de teste numero 809: Valor Estimado 0.1664076824861689 - Valor Real: 0.16694019581303013, ERRO AO QUADRADO: 2.8357044328480134e-7
+precocasas-test.js:187 Amostra de teste numero 810: Valor Estimado 0.5968390395433313 - Valor Real: 0.5721327377729651, ERRO AO QUADRADO: 0.0006104013471683973
+precocasas-test.js:187 Amostra de teste numero 811: Valor Estimado 0.3360109473221802 - Valor Real: 0.32205848071948506, ERRO AO QUADRADO: 0.0001946713242993225
+precocasas-test.js:187 Amostra de teste numero 812: Valor Estimado 0.27941820261396405 - Valor Real: 0.277174321722914, ERRO AO QUADRADO: 0.000005035001453219535
+precocasas-test.js:187 Amostra de teste numero 813: Valor Estimado 0.18730400908278727 - Valor Real: 0.19652740179269687, ERRO AO QUADRADO: 0.00008507097308121356
+precocasas-test.js:187 Amostra de teste numero 814: Valor Estimado 0.3457789799586234 - Valor Real: 0.3342460371172472, ERRO AO QUADRADO: 0.00013300877058245011
+precocasas-test.js:187 Amostra de teste numero 815: Valor Estimado 0.2923624894118632 - Valor Real: 0.2951858870240029, ERRO AO QUADRADO: 0.000007971574076236034
+precocasas-test.js:187 Amostra de teste numero 816: Valor Estimado 0.125064833216041 - Valor Real: 0.153913252722132, ERRO AO QUADRADO: 0.000832231307999411
+precocasas-test.js:187 Amostra de teste numero 817: Valor Estimado 0.3623626905525709 - Valor Real: 0.34237295464115985, ERRO AO QUADRADO: 0.0003995895418079572
+precocasas-test.js:187 Amostra de teste numero 818: Valor Estimado 0.5697989080388767 - Valor Real: 0.5576996104794562, ERRO AO QUADRADO: 0.00014639300143139933
+precocasas-test.js:187 Amostra de teste numero 819: Valor Estimado 0.2744523620673572 - Valor Real: 0.2630683014497985, ERRO AO QUADRADO: 0.00012959683614425098
+precocasas-test.js:187 Amostra de teste numero 820: Valor Estimado 0.10099577427148097 - Valor Real: 0.10498819406845937, ERRO AO QUADRADO: 0.000015939415835305024
+precocasas-test.js:187 Amostra de teste numero 821: Valor Estimado 0.07797071604534989 - Valor Real: 0.08064691993021716, ERRO AO QUADRADO: 0.000007162067233378715
+precocasas-test.js:187 Amostra de teste numero 822: Valor Estimado 0.5835266189713111 - Valor Real: 0.5656272559104855, ERRO AO QUADRADO: 0.0003203871979832488
+precocasas-test.js:187 Amostra de teste numero 823: Valor Estimado 0.6595970546349853 - Valor Real: 0.638499744330145, ERRO AO QUADRADO: 0.0004450965020987207
+precocasas-test.js:187 Amostra de teste numero 824: Valor Estimado 0.5514349007023863 - Valor Real: 0.5379622736569812, ERRO AO QUADRADO: 0.0001815116795045805
+precocasas-test.js:187 Amostra de teste numero 825: Valor Estimado 0.4427555874367266 - Valor Real: 0.44458543884978646, ERRO AO QUADRADO: 0.0000033483561938771575
+precocasas-test.js:187 Amostra de teste numero 826: Valor Estimado 0.09712914729205356 - Valor Real: 0.11811477320579919, ERRO AO QUADRADO: 0.00044039649499167207
+precocasas-test.js:187 Amostra de teste numero 827: Valor Estimado 0.7325246374050374 - Valor Real: 0.7555467199061541, ERRO AO QUADRADO: 0.0005300162826882239
+precocasas-test.js:187 Amostra de teste numero 828: Valor Estimado 0.3772408266835834 - Valor Real: 0.3844146664260362, ERRO AO QUADRADO: 0.00005146397665039578
+precocasas-test.js:187 Amostra de teste numero 829: Valor Estimado 0.4178926254901864 - Valor Real: 0.40698411087048064, ERRO AO QUADRADO: 0.00011899569120833446
+precocasas-test.js:187 Amostra de teste numero 830: Valor Estimado 0.5808137427160656 - Valor Real: 0.544461175780545, ERRO AO QUADRADO: 0.0013215091228015042
+precocasas-test.js:187 Amostra de teste numero 831: Valor Estimado 0.484496518073718 - Valor Real: 0.4321675915899657, ERRO AO QUADRADO: 0.002738316546941954
+precocasas-test.js:187 Amostra de teste numero 832: Valor Estimado 0.09374744541348934 - Valor Real: 0.10474944354208025, ERRO AO QUADRADO: 0.00012104396282151799
+precocasas-test.js:187 Amostra de teste numero 833: Valor Estimado 0.13704959950779275 - Valor Real: 0.14366483937917343, ERRO AO QUADRADO: 0.00004376139855590474
+precocasas-test.js:187 Amostra de teste numero 834: Valor Estimado 0.18242911358974923 - Valor Real: 0.18010625338386574, ERRO AO QUADRADO: 0.000005395679536077075
+precocasas-test.js:187 Amostra de teste numero 835: Valor Estimado 0.25204072082286644 - Valor Real: 0.22444147416230523, ERRO AO QUADRADO: 0.0007617184162304992
+precocasas-test.js:187 Amostra de teste numero 836: Valor Estimado 0.43502838061962695 - Valor Real: 0.4273925810623834, ERRO AO QUADRADO: 0.00005830543487840045
+precocasas-test.js:187 Amostra de teste numero 837: Valor Estimado 0.27800628221143503 - Valor Real: 0.2594334656800818, ERRO AO QUADRADO: 0.00034494951390730787
+precocasas-test.js:187 Amostra de teste numero 838: Valor Estimado 0.41749314560274436 - Valor Real: 0.3853076309932022, ERRO AO QUADRADO: 0.001035907350681052
+precocasas-test.js:187 Amostra de teste numero 839: Valor Estimado 0.7506862305859381 - Valor Real: 0.7478098869036877, ERRO AO QUADRADO: 0.000008273352978421942
+precocasas-test.js:187 Amostra de teste numero 840: Valor Estimado 0.5818033212710351 - Valor Real: 0.5539933375443662, ERRO AO QUADRADO: 0.0007733951948775877
+precocasas-test.js:187 Amostra de teste numero 841: Valor Estimado 0.38535308743615404 - Valor Real: 0.37769205317932986, ERRO AO QUADRADO: 0.00005869144588423368
+precocasas-test.js:187 Amostra de teste numero 842: Valor Estimado 0.1321511554182916 - Valor Real: 0.17537636106599291, ERRO AO QUADRADO: 0.0018684184032860705
+precocasas-test.js:187 Amostra de teste numero 843: Valor Estimado 0.08049096271027519 - Valor Real: 0.08137351109907959, ERRO AO QUADRADO: 7.788916585812463e-7
+precocasas-test.js:187 Amostra de teste numero 844: Valor Estimado 0.21544124325697445 - Valor Real: 0.20151108404018528, ERRO AO QUADRADO: 0.0001940493358050962
+precocasas-test.js:187 Amostra de teste numero 845: Valor Estimado 0.44299349945608135 - Valor Real: 0.43071534921494314, ERRO AO QUADRADO: 0.00015075297334396224
+precocasas-test.js:187 Amostra de teste numero 846: Valor Estimado 0.5329197679757686 - Valor Real: 0.5178658710822355, ERRO AO QUADRADO: 0.0002266198116811253
+precocasas-test.js:187 Amostra de teste numero 847: Valor Estimado 0.2364941657303723 - Valor Real: 0.24847632045960416, ERRO AO QUADRADO: 0.00014357203195525353
+precocasas-test.js:187 Amostra de teste numero 848: Valor Estimado 0.24271722947743612 - Valor Real: 0.23401217439691993, ERRO AO QUADRADO: 0.00007577798395482081
+precocasas-test.js:187 Amostra de teste numero 849: Valor Estimado 0.4365968295652567 - Valor Real: 0.4156468071346929, ERRO AO QUADRADO: 0.00043890343984112715
+precocasas-test.js:187 Amostra de teste numero 850: Valor Estimado 0.29829188519222405 - Valor Real: 0.3174601831799314, ERRO AO QUADRADO: 0.0003674236477455461
+precocasas-test.js:187 Amostra de teste numero 851: Valor Estimado 0.09987555729373203 - Valor Real: 0.109022513986645, ERRO AO QUADRADO: 0.00008366681674202546
+precocasas-test.js:187 Amostra de teste numero 852: Valor Estimado 0.110621643857654 - Valor Real: 0.17131948204295253, ERRO AO QUADRADO: 0.0036842275603686846
+precocasas-test.js:187 Amostra de teste numero 853: Valor Estimado 0.27417995918830323 - Valor Real: 0.27606234584611683, ERRO AO QUADRADO: 0.0000035433795295146365
+precocasas-test.js:187 Amostra de teste numero 854: Valor Estimado 0.24400683555318625 - Valor Real: 0.24271998887084162, ERRO AO QUADRADO: 0.0000016559743838613898
+precocasas-test.js:187 Amostra de teste numero 855: Valor Estimado 0.23597452166773059 - Valor Real: 0.21637283432593396, ERRO AO QUADRADO: 0.0003842261466455501
+precocasas-test.js:187 Amostra de teste numero 856: Valor Estimado 0.6992556249431279 - Valor Real: 0.7066883986043434, ERRO AO QUADRADO: 0.00005524612429885932
+precocasas-test.js:187 Amostra de teste numero 857: Valor Estimado 0.20027136129170106 - Valor Real: 0.20334307134692894, ERRO AO QUADRADO: 0.000009435402663388085
+precocasas-test.js:187 Amostra de teste numero 858: Valor Estimado 0.4623359010622505 - Valor Real: 0.4598936714191181, ERRO AO QUADRADO: 0.000005964485629794603
+precocasas-test.js:187 Amostra de teste numero 859: Valor Estimado 0.8202808438051534 - Valor Real: 0.8555371322865909, ERRO AO QUADRADO: 0.0012430058774863405
+precocasas-test.js:187 Amostra de teste numero 860: Valor Estimado 0.09918482064996056 - Valor Real: 0.08956904590025867, ERRO AO QUADRADO: 0.00009246312403700448
+precocasas-test.js:187 Amostra de teste numero 861: Valor Estimado 0.3430818470503104 - Valor Real: 0.34074775912891775, ERRO AO QUADRADO: 0.00000544796642479115
+precocasas-test.js:187 Amostra de teste numero 862: Valor Estimado 0.07679668869533382 - Valor Real: 0.10138155717981111, ERRO AO QUADRADO: 0.0006044157583990446
+precocasas-test.js:187 Amostra de teste numero 863: Valor Estimado 0.2012922413360913 - Valor Real: 0.19792982614449858, ERRO AO QUADRADO: 0.000011305835920653517
+precocasas-test.js:187 Amostra de teste numero 864: Valor Estimado 0.32120396701732257 - Valor Real: 0.32065887625579015, ERRO AO QUADRADO: 2.97123938307992e-7
+precocasas-test.js:187 Amostra de teste numero 865: Valor Estimado 0.2667146273877677 - Valor Real: 0.2477986073512603, ERRO AO QUADRADO: 0.0003578158140215489
+precocasas-test.js:187 Amostra de teste numero 866: Valor Estimado 0.38791867601653046 - Valor Real: 0.3685499759369548, ERRO AO QUADRADO: 0.00037514654277255344
+precocasas-test.js:187 Amostra de teste numero 867: Valor Estimado 0.4264771767923548 - Valor Real: 0.44257203874150275, ERRO AO QUADRADO: 0.0002590445811621303
+precocasas-test.js:187 Amostra de teste numero 868: Valor Estimado 0.12545820176387268 - Valor Real: 0.14417523912651145, ERRO AO QUADRADO: 0.00035032748763441575
+precocasas-test.js:187 Amostra de teste numero 869: Valor Estimado 0.3000903388713828 - Valor Real: 0.277996789087409, ERRO AO QUADRADO: 0.00048812494205692963
+precocasas-test.js:187 Amostra de teste numero 870: Valor Estimado 0.09464183701308303 - Valor Real: 0.08163858058112254, ERRO AO QUADRADO: 0.00016908467783532174
+precocasas-test.js:187 Amostra de teste numero 871: Valor Estimado 0.8551413061882696 - Valor Real: 0.9100314699512724, ERRO AO QUADRADO: 0.0030129300779292677
+precocasas-test.js:187 Amostra de teste numero 872: Valor Estimado 0.17964939650537012 - Valor Real: 0.18281334596643206, ERRO AO QUADRADO: 0.000010010576192154126
+precocasas-test.js:187 Amostra de teste numero 873: Valor Estimado 0.4903866760574247 - Valor Real: 0.4856242104313301, ERRO AO QUADRADO: 0.000022681078839732765
+precocasas-test.js:187 Amostra de teste numero 874: Valor Estimado 0.22554625531745726 - Valor Real: 0.23151751338506887, ERRO AO QUADRADO: 0.00003565592291001683
+precocasas-test.js:187 Amostra de teste numero 875: Valor Estimado 0.597766322484226 - Valor Real: 0.5890548863021116, ERRO AO QUADRADO: 0.0000758891203550528
+precocasas-test.js:187 Amostra de teste numero 876: Valor Estimado 0.14009902912067035 - Valor Real: 0.12937740630451783, ERRO AO QUADRADO: 0.00011495319581184231
+precocasas-test.js:187 Amostra de teste numero 877: Valor Estimado 0.2054500272923787 - Valor Real: 0.18048787824099138, ERRO AO QUADRADO: 0.0006231088852636773
+precocasas-test.js:187 Amostra de teste numero 878: Valor Estimado 0.2855049863229615 - Valor Real: 0.28274078084581605, ERRO AO QUADRADO: 0.000007640831919880926
+precocasas-test.js:187 Amostra de teste numero 879: Valor Estimado 0.32525683855640153 - Valor Real: 0.31404153883173913, ERRO AO QUADRADO: 0.00012578294791401246
+precocasas-test.js:187 Amostra de teste numero 880: Valor Estimado 0.3582933700228715 - Valor Real: 0.34156552667990137, ERRO AO QUADRADO: 0.0002798207429069497
+precocasas-test.js:187 Amostra de teste numero 881: Valor Estimado 0.23934421480463502 - Valor Real: 0.24189470161823978, ERRO AO QUADRADO: 0.0000065049829863717495
+precocasas-test.js:187 Amostra de teste numero 882: Valor Estimado 0.20410913755872195 - Valor Real: 0.20168027732659569, ERRO AO QUADRADO: 0.000005899362027204466
+precocasas-test.js:187 Amostra de teste numero 883: Valor Estimado 0.45776049399949137 - Valor Real: 0.4535667824700716, ERRO AO QUADRADO: 0.000017587216391988346
+precocasas-test.js:187 Amostra de teste numero 884: Valor Estimado 0.630060782739096 - Valor Real: 0.6282513309871864, ERRO AO QUADRADO: 0.000003274115642488748
+precocasas-test.js:187 Amostra de teste numero 885: Valor Estimado 0.10251764892048874 - Valor Real: 0.15326843830836792, ERRO AO QUADRADO: 0.0025756426234928697
+precocasas-test.js:187 Amostra de teste numero 886: Valor Estimado 0.07246954742369445 - Valor Real: 0.0886901807736269, ERRO AO QUADRADO: 0.00026310894627294104
+precocasas-test.js:187 Amostra de teste numero 887: Valor Estimado 0.45304807688959764 - Valor Real: 0.41682552036335196, ERRO AO QUADRADO: 0.0013120736012970631
+precocasas-test.js:187 Amostra de teste numero 888: Valor Estimado 0.41330964432864176 - Valor Real: 0.4003818128496661, ERRO AO QUADRADO: 0.00016712882674879342
+precocasas-test.js:187 Amostra de teste numero 889: Valor Estimado 0.6949164827070242 - Valor Real: 0.6922684307886663, ERRO AO QUADRADO: 0.000007012178962319112
+precocasas-test.js:187 Amostra de teste numero 890: Valor Estimado 0.24032614986946543 - Valor Real: 0.22802837183420563, ERRO AO QUADRADO: 0.0001512353446045185
+precocasas-test.js:187 Amostra de teste numero 891: Valor Estimado 0.34360099539161454 - Valor Real: 0.35674968417253206, ERRO AO QUADRADO: 0.00017288801665742617
+precocasas-test.js:187 Amostra de teste numero 892: Valor Estimado 0.10748733270523339 - Valor Real: 0.12044306081934669, ERRO AO QUADRADO: 0.0001678508909668258
+precocasas-test.js:187 Amostra de teste numero 893: Valor Estimado 0.10251764892048874 - Valor Real: 0.119551036214883, ERRO AO QUADRADO: 0.0002901362827208317
+precocasas-test.js:187 Amostra de teste numero 894: Valor Estimado 0.5781201299273961 - Valor Real: 0.5532366675690309, ERRO AO QUADRADO: 0.0006191866989401802
+precocasas-test.js:187 Amostra de teste numero 895: Valor Estimado 0.6135669674421369 - Valor Real: 0.611547253804969, ERRO AO QUADRADO: 0.00000407924317616202
+precocasas-test.js:187 Amostra de teste numero 896: Valor Estimado 0.2396027363806309 - Valor Real: 0.2438282048968297, ERRO AO QUADRADO: 0.00001785458418138719
+precocasas-test.js:187 Amostra de teste numero 897: Valor Estimado 0.0957449294552609 - Valor Real: 0.07023025326355051, ERRO AO QUADRADO: 0.0006509987011678334
+precocasas-test.js:187 Amostra de teste numero 898: Valor Estimado 0.4547057519715334 - Valor Real: 0.42327460446369486, ERRO AO QUADRADO: 0.000987917033659505
+precocasas-test.js:187 Amostra de teste numero 899: Valor Estimado 0.19402183345483698 - Valor Real: 0.18209521446189014, ERRO AO QUADRADO: 0.00014224424060292019
+precocasas-test.js:187 Amostra de teste numero 900: Valor Estimado 0.35374365643271083 - Valor Real: 0.33271671780063766, ERRO AO QUADRADO: 0.00044213214823697096
+precocasas-test.js:187 Amostra de teste numero 901: Valor Estimado 0.6400626985250418 - Valor Real: 0.6259277431871504, ERRO AO QUADRADO: 0.00019979696240418575
+precocasas-test.js:187 Amostra de teste numero 902: Valor Estimado 0.6062588244357107 - Valor Real: 0.5960660680984179, ERRO AO QUADRADO: 0.00010389228175142201
+precocasas-test.js:187 Amostra de teste numero 903: Valor Estimado 0.7052856241743016 - Valor Real: 0.7057352764242315, ERRO AO QUADRADO: 2.0218714586700072e-7
+precocasas-test.js:187 Amostra de teste numero 904: Valor Estimado 0.18945301749936988 - Valor Real: 0.20405274318715033, ERRO AO QUADRADO: 0.00021315199015843638
+precocasas-test.js:187 Amostra de teste numero 905: Valor Estimado 0.41389302697310565 - Valor Real: 0.41179577994345185, ERRO AO QUADRADO: 0.000004398445103391703
+precocasas-test.js:187 Amostra de teste numero 906: Valor Estimado 0.3579877778994027 - Valor Real: 0.3434022138001564, ERRO AO QUADRADO: 0.00021273868009322338
+precocasas-test.js:187 Amostra de teste numero 907: Valor Estimado 0.6491636313229441 - Valor Real: 0.637888768573663, ERRO AO QUADRADO: 0.00012712253001512732
+precocasas-test.js:187 Amostra de teste numero 908: Valor Estimado 0.37617004856080904 - Valor Real: 0.38307145972447815, ERRO AO QUADRADO: 0.00004762947605001651
+precocasas-test.js:187 Amostra de teste numero 909: Valor Estimado 0.5825873464560674 - Valor Real: 0.5933683751428743, ERRO AO QUADRADO: 0.00011623057954575483
+precocasas-test.js:187 Amostra de teste numero 910: Valor Estimado 0.7743567675070661 - Valor Real: 0.8151582145220477, ERRO AO QUADRADO: 0.001664758078516357
+precocasas-test.js:187 Amostra de teste numero 911: Valor Estimado 0.45295930734859796 - Valor Real: 0.45780225440654515, ERRO AO QUADRADO: 0.000023454136206079333
+precocasas-test.js:187 Amostra de teste numero 912: Valor Estimado 0.2424687339630412 - Valor Real: 0.2617354343379655, ERRO AO QUADRADO: 0.0003712057433371075
+precocasas-test.js:187 Amostra de teste numero 913: Valor Estimado 0.27335649135487156 - Valor Real: 0.23572384647777175, ERRO AO QUADRADO: 0.001416215960445906
+precocasas-test.js:187 Amostra de teste numero 914: Valor Estimado 0.5286114202009956 - Valor Real: 0.5068795870179871, ERRO AO QUADRADO: 0.0004722725734941107
+precocasas-test.js:187 Amostra de teste numero 915: Valor Estimado 0.40928486147144694 - Valor Real: 0.37293678186849544, ERRO AO QUADRADO: 0.0013211828908224988
+precocasas-test.js:187 Amostra de teste numero 916: Valor Estimado 0.23603404742372308 - Valor Real: 0.2421710506527101, ERRO AO QUADRADO: 0.00003766280863259718
+precocasas-test.js:187 Amostra de teste numero 917: Valor Estimado 0.22669364201609216 - Valor Real: 0.25137328550803106, ERRO AO QUADRADO: 0.0006090848028892025
+precocasas-test.js:187 Amostra de teste numero 918: Valor Estimado 0.5578691436649218 - Valor Real: 0.5293033372435781, ERRO AO QUADRADO: 0.0008160052965016783
+precocasas-test.js:187 Amostra de teste numero 919: Valor Estimado 0.36117861814720287 - Valor Real: 0.33687135294471515, ERRO AO QUADRADO: 0.0005908431416240702
+precocasas-test.js:187 Amostra de teste numero 920: Valor Estimado 0.35418176133973434 - Valor Real: 0.33347808758948444, ERRO AO QUADRADO: 0.0004286421067567866
+precocasas-test.js:187 Amostra de teste numero 921: Valor Estimado 0.47501146246118353 - Valor Real: 0.45140862810563676, ERRO AO QUADRADO: 0.0005570937896153792
+precocasas-test.js:187 Amostra de teste numero 922: Valor Estimado 0.29733457088999427 - Valor Real: 0.2919768543584191, ERRO AO QUADRADO: 0.00002870512643271403
+precocasas-test.js:187 Amostra de teste numero 923: Valor Estimado 0.5245349573353868 - Valor Real: 0.5245518257835529, ERRO AO QUADRADO: 2.845445435311553e-10
+precocasas-test.js:187 Amostra de teste numero 924: Valor Estimado 0.7210224076619214 - Valor Real: 0.7303848583288215, ERRO AO QUADRADO: 0.00008765548249013836
+precocasas-test.js:187 Amostra de teste numero 925: Valor Estimado 0.10251764892048874 - Valor Real: 0.06052043854899838, ERRO AO QUADRADO: 0.001763765678987218
+precocasas-test.js:187 Amostra de teste numero 926: Valor Estimado 0.711085942420406 - Valor Real: 0.7089386693136016, ERRO AO QUADRADO: 0.000004610781795205436
+precocasas-test.js:187 Amostra de teste numero 927: Valor Estimado 0.5118530113449777 - Valor Real: 0.5075873789328039, ERRO AO QUADRADO: 0.000018195619875787792
+precocasas-test.js:187 Amostra de teste numero 928: Valor Estimado 0.6802493681575185 - Valor Real: 0.6942235532094087, ERRO AO QUADRADO: 0.00019527784786447114
+precocasas-test.js:187 Amostra de teste numero 929: Valor Estimado 0.057209978365462176 - Valor Real: 0.08441335047825302, ERRO AO QUADRADO: 0.0007400234543069665
+precocasas-test.js:187 Amostra de teste numero 930: Valor Estimado 0.6533784223324026 - Valor Real: 0.6402913132406907, ERRO AO QUADRADO: 0.00017127242437836978
+precocasas-test.js:187 Amostra de teste numero 931: Valor Estimado 0.4782903325747421 - Valor Real: 0.45802220567887864, ERRO AO QUADRADO: 0.00041079696786682504
+precocasas-test.js:187 Amostra de teste numero 932: Valor Estimado 0.6372331408270734 - Valor Real: 0.6314218251819768, ERRO AO QUADRADO: 0.00003377138952694482
+precocasas-test.js:187 Amostra de teste numero 933: Valor Estimado 0.16038906433245917 - Valor Real: 0.1743386422426758, ERRO AO QUADRADO: 0.00019459072387320413
+precocasas-test.js:187 Amostra de teste numero 934: Valor Estimado 0.4223997226712337 - Valor Real: 0.4102345018949648, ERRO AO QUADRADO: 0.00014799259653536486
+precocasas-test.js:187 Amostra de teste numero 935: Valor Estimado 0.5972704574436785 - Valor Real: 0.6290277401792697, ERRO AO QUADRADO: 0.0010085250067482787
+precocasas-test.js:187 Amostra de teste numero 936: Valor Estimado 0.7325964112962285 - Valor Real: 0.759219154183962, ERRO AO QUADRADO: 0.0007087704388663633
+precocasas-test.js:187 Amostra de teste numero 937: Valor Estimado 0.7928591689531924 - Valor Real: 0.800779605065271, ERRO AO QUADRADO: 0.00006273330820551876
+precocasas-test.js:187 Amostra de teste numero 938: Valor Estimado 0.16009182515606632 - Valor Real: 0.18306055615713168, ERRO AO QUADRADO: 0.000527562603799301
+precocasas-test.js:187 Amostra de teste numero 939: Valor Estimado 0.3130709233760182 - Valor Real: 0.3047725666245563, ERRO AO QUADRADO: 0.00006886272477453328
+precocasas-test.js:187 Amostra de teste numero 940: Valor Estimado 0.32620627264906316 - Valor Real: 0.3084638001564098, ERRO AO QUADRADO: 0.0003147953301525615
+precocasas-test.js:187 Amostra de teste numero 941: Valor Estimado 0.05512081787251445 - Valor Real: 0.08146562744390302, ERRO AO QUADRADO: 0.000694048991352727
+precocasas-test.js:187 Amostra de teste numero 942: Valor Estimado 0.29929835022722867 - Valor Real: 0.3001535899055525, ERRO AO QUADRADO: 7.31434907379481e-7
+precocasas-test.js:187 Amostra de teste numero 943: Valor Estimado 0.20051655198320673 - Valor Real: 0.20759546261204356, ERRO AO QUADRADO: 0.00005011097569105915
+precocasas-test.js:187 Amostra de teste numero 944: Valor Estimado 0.2787643883409662 - Valor Real: 0.2702533763460266, ERRO AO QUADRADO: 0.00007243732517800555
+precocasas-test.js:187 Amostra de teste numero 945: Valor Estimado 0.30644538971083257 - Valor Real: 0.30416629068158574, ERRO AO QUADRADO: 0.00000519429238511386
+precocasas-test.js:187 Amostra de teste numero 946: Valor Estimado 0.6188649297370892 - Valor Real: 0.6140588341454611, ERRO AO QUADRADO: 0.000023098554835866427
+precocasas-test.js:187 Amostra de teste numero 947: Valor Estimado 0.06961534526029503 - Valor Real: 0.07939112975997112, ERRO AO QUADRADO: 0.00009556596258410725
+precocasas-test.js:187 Amostra de teste numero 948: Valor Estimado 0.4690781772268573 - Valor Real: 0.46218906033808577, ERRO AO QUADRADO: 0.000047459931507157116
+precocasas-test.js:187 Amostra de teste numero 949: Valor Estimado 0.10251764892048874 - Valor Real: 0.11215540967334416, ERRO AO QUADRADO: 0.00009288643232928011
+precocasas-test.js:187 Amostra de teste numero 950: Valor Estimado 0.6440676303319613 - Valor Real: 0.6676216687721831, ERRO AO QUADRADO: 0.0005547927268434437
+precocasas-test.js:187 Amostra de teste numero 951: Valor Estimado 0.14326247622781982 - Valor Real: 0.1386726974673645, ERRO AO QUADRADO: 0.000021066069069926832
+precocasas-test.js:187 Amostra de teste numero 952: Valor Estimado 0.36647010190308693 - Valor Real: 0.36924742826204654, ERRO AO QUADRADO: 0.000007713541704171837
+precocasas-test.js:187 Amostra de teste numero 953: Valor Estimado 0.4400531885250708 - Valor Real: 0.4354208025025567, ERRO AO QUADRADO: 0.000021459000261583912
+precocasas-test.js:187 Amostra de teste numero 954: Valor Estimado 0.7346853910693218 - Valor Real: 0.7376178713228659, ERRO AO QUADRADO: 0.000008599440437426009
+precocasas-test.js:187 Amostra de teste numero 955: Valor Estimado 0.4150413892815746 - Valor Real: 0.36110453137219517, ERRO AO QUADRADO: 0.0029091846411365843
+precocasas-test.js:187 Amostra de teste numero 956: Valor Estimado 0.4020723370129581 - Valor Real: 0.37370849124706734, ERRO AO QUADRADO: 0.0008045077466312379
+precocasas-test.js:187 Amostra de teste numero 957: Valor Estimado 0.5919921101820249 - Valor Real: 0.5970003910244841, ERRO AO QUADRADO: 0.00002508287699694373
+precocasas-test.js:187 Amostra de teste numero 958: Valor Estimado 0.20023283380932955 - Valor Real: 0.1956099981952716, ERRO AO QUADRADO: 0.000021370609114602405
+precocasas-test.js:187 Amostra de teste numero 959: Valor Estimado 0.055454355012588 - Valor Real: 0.06879493021716898, ERRO AO QUADRADO: 0.00017797094678908098
+precocasas-test.js:187 Amostra de teste numero 960: Valor Estimado 0.11292156490236116 - Valor Real: 0.11361705167538952, ERRO AO QUADRADO: 4.837018514573998e-7
+precocasas-test.js:187 Amostra de teste numero 961: Valor Estimado 0.2315353856576432 - Valor Real: 0.23756805329964506, ERRO AO QUADRADO: 0.00003639307887885628
+precocasas-test.js:187 Amostra de teste numero 962: Valor Estimado 0.8879210751483501 - Valor Real: 0.9563208731877519, ERRO AO QUADRADO: 0.004678532371830965
+precocasas-test.js:187 Amostra de teste numero 963: Valor Estimado 0.20925539345002336 - Valor Real: 0.1855467575046622, ERRO AO QUADRADO: 0.000562099418389671
+precocasas-test.js:187 Amostra de teste numero 964: Valor Estimado 0.04521134371935678 - Valor Real: 0.06819711393851892, ERRO AO QUADRADO: 0.0005283456325681212
+precocasas-test.js:187 Amostra de teste numero 965: Valor Estimado 0.11465558768971905 - Valor Real: 0.10493273626902484, ERRO AO QUADRADO: 0.00009453383974889535
+precocasas-test.js:187 Amostra de teste numero 966: Valor Estimado 0.08800403418337974 - Valor Real: 0.09807946820670156, ERRO AO QUADRADO: 0.00010151437075831102
+precocasas-test.js:187 Amostra de teste numero 967: Valor Estimado 0.12501741068441327 - Valor Real: 0.14339695000902364, ERRO AO QUADRADO: 0.0003378074657848989
+precocasas-test.js:187 Amostra de teste numero 968: Valor Estimado 0.30694568016362606 - Valor Real: 0.30325734674848104, ERRO AO QUADRADO: 0.000013603803381275308
+precocasas-test.js:187 Amostra de teste numero 969: Valor Estimado 0.8425882710012966 - Valor Real: 0.863044614389701, ERRO AO QUADRADO: 0.00041846198482431673
+precocasas-test.js:187 Amostra de teste numero 970: Valor Estimado 0.549842327722883 - Valor Real: 0.5128859486855561, ERRO AO QUADRADO: 0.0013657739515505712
+precocasas-test.js:187 Amostra de teste numero 971: Valor Estimado 0.13266329323682954 - Valor Real: 0.13890298832942308, ERRO AO QUADRADO: 0.00003893379484853583
+precocasas-test.js:187 Amostra de teste numero 972: Valor Estimado 0.34244948620312077 - Valor Real: 0.3434792907417434, ERRO AO QUADRADO: 0.000001060497387767735
+precocasas-test.js:187 Amostra de teste numero 973: Valor Estimado 0.5259345849244331 - Valor Real: 0.5364451738555014, ERRO AO QUADRADO: 0.00011047247967789474
+precocasas-test.js:187 Amostra de teste numero 974: Valor Estimado 0.15441371195410536 - Valor Real: 0.14404458431089454, ERRO AO QUADRADO: 0.00010751880808119885
+precocasas-test.js:187 Amostra de teste numero 975: Valor Estimado 0.5283826696875711 - Valor Real: 0.5015546983095711, ERRO AO QUADRADO: 0.0007197400482587856
+precocasas-test.js:187 Amostra de teste numero 976: Valor Estimado 0.20958135911249648 - Valor Real: 0.24187214251338507, ERRO AO QUADRADO: 0.001042694692643102
+precocasas-test.js:187 Amostra de teste numero 977: Valor Estimado 0.7382895211451538 - Valor Real: 0.7434813586596883, ERRO AO QUADRADO: 0.000026955176777328383
+precocasas-test.js:187 Amostra de teste numero 978: Valor Estimado 0.4917151536662544 - Valor Real: 0.5002039719063948, ERRO AO QUADRADO: 0.0000720600351141397
+precocasas-test.js:187 Amostra de teste numero 979: Valor Estimado 0.5435494772737018 - Valor Real: 0.5451717875834687, ERRO AO QUADRADO: 0.000002631890741175957
+precocasas-test.js:187 Amostra de teste numero 980: Valor Estimado 0.7809684234848937 - Valor Real: 0.7915078129699814, ERRO AO QUADRADO: 0.00011107873071837723
+precocasas-test.js:187 Amostra de teste numero 981: Valor Estimado 0.6034946247910332 - Valor Real: 0.6275519987366901, ERRO AO QUADRADO: 0.0005787572411611704
+precocasas-test.js:187 Amostra de teste numero 982: Valor Estimado 0.509156020012994 - Valor Real: 0.47545005414185165, ERRO AO QUADRADO: 0.0011360921353066114
+precocasas-test.js:187 Amostra de teste numero 983: Valor Estimado 0.6319785486795337 - Valor Real: 0.630925524875173, ERRO AO QUADRADO: 0.000001108859132550464
+precocasas-test.js:187 Amostra de teste numero 984: Valor Estimado 0.6312410055151918 - Valor Real: 0.616462318775191, ERRO AO QUADRADO: 0.00021840958175907616
+precocasas-test.js:187 Amostra de teste numero 985: Valor Estimado 0.11192209807617055 - Valor Real: 0.14397314714552126, ERRO AO QUADRADO: 0.0010272697464459267
+precocasas-test.js:187 Amostra de teste numero 986: Valor Estimado 0.10251764892048874 - Valor Real: 0.11597353817000541, ERRO AO QUADRADO: 0.00018106095549525828
+precocasas-test.js:187 Amostra de teste numero 987: Valor Estimado 0.4830179485666653 - Valor Real: 0.4631873007279071, ERRO AO QUADRADO: 0.0003932545937048456
+precocasas-test.js:187 Amostra de teste numero 988: Valor Estimado 0.15185847651579665 - Valor Real: 0.162779920892739, ERRO AO QUADRADO: 0.00011927794727864547
+precocasas-test.js:187 Amostra de teste numero 989: Valor Estimado 0.7677340431376305 - Valor Real: 0.7816711032906214, ERRO AO QUADRADO: 0.0001942416457080867
+precocasas-test.js:187 Amostra de teste numero 990: Valor Estimado 0.13582464118030152 - Valor Real: 0.140366510256873, ERRO AO QUADRADO: 0.000020628574708716224
+precocasas-test.js:187 Amostra de teste numero 991: Valor Estimado 0.19185261551728305 - Valor Real: 0.2181531236840522, ERRO AO QUADRADO: 0.000691716729830291
+precocasas-test.js:187 Amostra de teste numero 992: Valor Estimado 0.7895812435293385 - Valor Real: 0.7962593244300066, ERRO AO QUADRADO: 0.000044596764515868416
+precocasas-test.js:187 Amostra de teste numero 993: Valor Estimado 0.34283439748139927 - Valor Real: 0.3441917824700716, ERRO AO QUADRADO: 0.0000018424940074729753
+precocasas-test.js:187 Amostra de teste numero 994: Valor Estimado 0.5268795568175306 - Valor Real: 0.4865519536184804, ERRO AO QUADRADO: 0.0016263155797800449
+precocasas-test.js:187 Amostra de teste numero 995: Valor Estimado 0.7533927717550123 - Valor Real: 0.7559762828610961, ERRO AO QUADRADO: 0.0000066745296352582945
+precocasas-test.js:187 Amostra de teste numero 996: Valor Estimado 0.32060593946879923 - Valor Real: 0.32092112584972626, ERRO AO QUADRADO: 9.934245472188201e-8
+precocasas-test.js:187 Amostra de teste numero 997: Valor Estimado 0.17254135545688382 - Valor Real: 0.1599355937556398, ERRO AO QUADRADO: 0.00015890522806855074
+precocasas-test.js:187 Amostra de teste numero 998: Valor Estimado 0.2957589256633753 - Valor Real: 0.2953579001985201, ERRO AO QUADRADO: 1.608214234623366e-7
+precocasas-test.js:187 Amostra de teste numero 999: Valor Estimado 0.40739779703895995 - Valor Real: 0.3703095861156229, ERRO AO QUADRADO: 0.001375535389493936
+precocasas-test.js:187 Amostra de teste numero 1000: Valor Estimado 0.13008177515955727 - Valor Real: 0.14329825392528425, ERRO AO QUADRADO: 0.0001746753109649123
+
+
+PESOS FINAIS:
+{
+    "weights": [
+        [
+            [
+                0.08087997445557395,
+                -0.7933218261674221,
+                1.0575890844183542,
+                0.03348143372533748,
+                0.009385307702394803,
+                0.0010190364345470876,
+                0.024545891164483635,
+                0.010169255366324594,
+                0.1142141151896512,
+                0.01707822175694585,
+                -0.014316689156699132
+            ],
+            [
+                -0.31515582146775845,
+                -0.015291843461663098,
+                -0.2579267076732998,
+                -0.2020701458257161,
+                -0.09668755727870655,
+                -0.4016428569268778,
+                -0.3657646263998327,
+                -0.1774553886635393,
+                -0.14638455459840913,
+                -0.025073524430312067,
+                0.335853884415506
+            ],
+            [
+                0.04287453250982189,
+                -0.2742890373067558,
+                -0.2692445177926083,
+                -0.007996831485664914,
+                -0.007073650163363924,
+                -0.006903564940890794,
+                0.0000882944483394859,
+                -0.004626151457376368,
+                -0.02560942101004703,
+                0.0013943931425793635,
+                -0.0026376765154082753
+            ]
+        ],
+        [
+            [
+                0.5215243413232922,
+                0.2627251411763907,
+                -0.8632688106473932
+            ]
+        ]
+    ],
+    "biases": [
+        [
+            0.386965627319121,
+            -0.012438507740011777,
+            0.26921746691698084
+        ],
+        [
+            0.10251764892048874
+        ]
+    ],
+    "layers": [
+        11,
+        3,
+        1
+    ],
+    "generatedAt": 1734706175097
+}
+
+
+
+CONCLUSOES: Parece que com essa nova inicialização de pesos RandomHeNormal, o problema do NaN foi reduzido, ele parece ocorrer com um pouco menas frequencia ao inicializar pesos aleatorios, e também, com esses pesos, mesmo apos treinar por 110 mil epocas, nao ocorreu o problema do NaN.
+Os resultados foram semelhantes ao do teste passado PRECOSCASAS_RELU, só que parece que foi um pouquinho melhor e mais estavel.
+
+(20/12/2024 12:03 PM) TESTES ADICIONAIS: 
+    TESTE DE ONTEM QUE REFIZ HOJE PRA CONFIRMAR UM DETALHE:
+        Teste novamente o a rquivo PRECOSCASAS_RELU usando a mesma inicialização de pesos do problema do XOR, antiga,... e nele o problema do NaN começa a ocorrer com muito mais frequencia,. mais reparei que ele só acontece quando o valor do learning rate é 0.1, ou 0.05, por ai,... se eu colocar um learning rate muito baixinho como 0.0001, o problema praticamente não acontece,... ou fica muito mais raro acontecer,.
+        tudo indica que o learning rate é o principal fator que causa o problema do custo ficar NaN, por causa dos gradientes.
+        Eu rodei o script de teste do PRECOSCASAS_RELU varias e varias vezes pra confirmar isso.
+
+        CONFIG USADA:
+            // Aplicar a normalização
+            const normalizedData = normalizeData(dataset);
+            
+            // Estrutura da rede: 11 neurônios na entrada, 3 na camada oculta, 1 na saída, todas usando ReLU
+            const config = {
+                layers: [
+                    { type: LayerType.Input,  inputs: 11, units: 11 }, 
+                    { type: LayerType.Hidden, inputs: 11, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU']  }, 
+                    { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'ReLU' ]  }
+                ],
+                initialization: Initialization.Random
+            };
+
+            const mlp = new MLP(config);
+
+            let datasetTratado = [];
+            let targets       = [];
+
+            //Treino e Teste
+            const numColunaPreco = 10; //O numero da coluna que queremos estimar, que no caso é o preco
+            const numeroAmostrasTreino = 10;
+            const numeroAmostrasTeste  = 10;
+
+            //Hyperparametros
+            const taxa_aprendizado = 0.01;
+
+
+    TESTE DE HOJE QUE REFIZ HOJE DENOVO PRA CONFIRMAR ESSE DETALHE:
+        Ai eu fiz exatamente o mesmo teste só que no novo teste PRECOSCASAS_RELU_RandomHE(neste teste),.... com exatamente o mesmo learning rate que deu os problemas do NaN de 0.1, ou 0.05, por ai.... e ai, o problema ocorreu tambem mais com uma frequencia menor,.... mais a partir de 8 mil epocas aproximadamente, o custo ficou NaN em algumas tentativas....
+        Eu rodei o script de teste do PRECOSCASAS_RELU_RandomHE varias e varias vezes pra confirmar isso.
+        Mais ao que tudo indica, se o learning rate foi menor, ... pode ser que o problema não ocorreria tão cedo,.... e também, em geral, esse problema do NaN ocorreu com muita menas frequencia depois que eu usei a inicialização He Normal.
+
+        CONFIG USADA:
+            // Aplicar a normalização
+            const normalizedData = normalizeData(dataset);
+            
+            // Estrutura da rede: 11 neurônios na entrada, 3 na camada oculta, 1 na saída, todas usando ReLU
+            const config = {
+                layers: [
+                    { type: LayerType.Input,  inputs: 11, units: 11 }, 
+                    { type: LayerType.Hidden, inputs: 11, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU']  }, 
+                    { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'ReLU' ]  }
+                ],
+                initialization: Initialization.RandomHeNormal
+            };
+
+            const mlp = new MLP(config);
+
+            let datasetTratado = [];
+            let targets       = [];
+
+            //Treino e Teste
+            const numColunaPreco = 10; //O numero da coluna que queremos estimar, que no caso é o preco
+            const numeroAmostrasTreino = 10;
+            const numeroAmostrasTeste  = 10;
+
+            //Hyperparametros
+            const taxa_aprendizado = 0.01;

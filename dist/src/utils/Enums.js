@@ -25,4 +25,5 @@ var ActivationFunctionsNames;
 (function (ActivationFunctionsNames) {
     ActivationFunctionsNames["Sigmoid"] = "sigmoid";
     ActivationFunctionsNames["ReLU"] = "ReLU";
+    ActivationFunctionsNames["Linear"] = "Linear";
 })(ActivationFunctionsNames || (ActivationFunctionsNames = {}));
