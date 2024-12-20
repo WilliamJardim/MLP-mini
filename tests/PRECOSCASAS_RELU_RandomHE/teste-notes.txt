@@ -20,6 +20,8 @@ const mlp = new MLP(config);
 
 
 PESOS INICIAIS:
+
+//SALVEI OS PESOS INICIAIS PARA GARANTIR REPRODUCIBILIDADE, MAIS FORAM UM CONJUNTO DE VALORES ALEATORIOS GERADOS PELA INICIALIZAÇÂO Initialization.RandomHeNormal
 mlp.importParameters({
     "weights": [
         [
@@ -493,3 +495,7 @@ PESOS FINAIS:
     "generatedAt": 1734706175097
 }
 
+
+
+CONCLUSOES: Parece que com essa nova inicialização de pesos RandomHeNormal, o problema do NaN foi reduzido, ele parece ocorrer com um pouco menas frequencia ao inicializar pesos aleatorios, e também, com esses pesos, mesmo apos treinar por 110 mil epocas, nao ocorreu o problema do NaN.
+Os resultados foram semelhantes ao do teste passado PRECOSCASAS_RELU, só que parece que foi um pouquinho melhor e mais estavel.
