@@ -1,0 +1,29 @@
+Eu testei varias vezes, com varias estruturas diferentes,
+por exemplo, testei varias vezes com 5 unidades na camada oculta E COM APENAS 1 CAMADA OCULTA
+
+e tambem testei varias vezes COM APENAS 1 CAMADA OCULTA porém com 3 unidades.
+
+e tambem testei varias vezes COM APENAS 1 CAMADA OCULTA porém com 16 unidades, ou com 32 unidaes.
+
+Para esses novos testes as demais configurações deixei as mesmas:
+    //Treino e Teste
+    const numColunaPreco = 10; //O numero da coluna que queremos estimar, que no caso é o preco
+    const numeroAmostrasTreino = 3500;
+    const numeroAmostrasTeste  = 1500;
+
+    //Hyperparametros
+    const taxa_aprendizado = 0.001;
+
+    //Epocas
+    const numero_epocas = 100;   E TAMBEM 1000 NOS PROXIMOS TESTES QUE FIZ
+    const exibirACada = 1;
+
+
+
+Nesses casos, depois de muitas tentativas, ... o problema do NaN só ocorreu 1 vez, indicando fortemente que depois de mudar a inicialização de pesos, e usar learning rates mais baixas, isso melhorou muito
+
+Isso sugere que, o problema do NaN diminuiu significativamente com a inicialização de pesos He Normal, e com learning rate menores.
+Ao que tudo indica com todos os muitos testes que fiz hoje, Agora foi mais a inicialização de pesos He Normal que ajudou mesmo.
+não importou tanto da função usada ser ReLu, e nem a alta quantidade de epocas.
+
+NOTA: a unidade de saida usa função Linear, isso pode ter ajudado tambem.
