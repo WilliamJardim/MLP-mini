@@ -499,3 +499,69 @@ PESOS FINAIS:
 
 CONCLUSOES: Parece que com essa nova inicialização de pesos RandomHeNormal, o problema do NaN foi reduzido, ele parece ocorrer com um pouco menas frequencia ao inicializar pesos aleatorios, e também, com esses pesos, mesmo apos treinar por 110 mil epocas, nao ocorreu o problema do NaN.
 Os resultados foram semelhantes ao do teste passado PRECOSCASAS_RELU, só que parece que foi um pouquinho melhor e mais estavel.
+
+(20/12/2024 12:03 PM) TESTES ADICIONAIS: 
+    TESTE DE ONTEM QUE REFIZ HOJE PRA CONFIRMAR UM DETALHE:
+        Teste novamente o a rquivo PRECOSCASAS_RELU usando a mesma inicialização de pesos do problema do XOR, antiga,... e nele o problema do NaN começa a ocorrer com muito mais frequencia,. mais reparei que ele só acontece quando o valor do learning rate é 0.1, ou 0.05, por ai,... se eu colocar um learning rate muito baixinho como 0.0001, o problema praticamente não acontece,... ou fica muito mais raro acontecer,.
+        tudo indica que o learning rate é o principal fator que causa o problema do custo ficar NaN, por causa dos gradientes.
+        Eu rodei o script de teste do PRECOSCASAS_RELU varias e varias vezes pra confirmar isso.
+
+        CONFIG USADA:
+            // Aplicar a normalização
+            const normalizedData = normalizeData(dataset);
+            
+            // Estrutura da rede: 11 neurônios na entrada, 3 na camada oculta, 1 na saída, todas usando ReLU
+            const config = {
+                layers: [
+                    { type: LayerType.Input,  inputs: 11, units: 11 }, 
+                    { type: LayerType.Hidden, inputs: 11, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU']  }, 
+                    { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'ReLU' ]  }
+                ],
+                initialization: Initialization.Random
+            };
+
+            const mlp = new MLP(config);
+
+            let datasetTratado = [];
+            let targets       = [];
+
+            //Treino e Teste
+            const numColunaPreco = 10; //O numero da coluna que queremos estimar, que no caso é o preco
+            const numeroAmostrasTreino = 10;
+            const numeroAmostrasTeste  = 10;
+
+            //Hyperparametros
+            const taxa_aprendizado = 0.01;
+
+
+    TESTE DE HOJE QUE REFIZ HOJE DENOVO PRA CONFIRMAR ESSE DETALHE:
+        Ai eu fiz exatamente o mesmo teste só que no novo teste PRECOSCASAS_RELU_RandomHE(neste teste),.... com exatamente o mesmo learning rate que deu os problemas do NaN de 0.1, ou 0.05, por ai.... e ai, o problema ocorreu tambem mais com uma frequencia menor,.... mais a partir de 8 mil epocas aproximadamente, o custo ficou NaN em algumas tentativas....
+        Eu rodei o script de teste do PRECOSCASAS_RELU_RandomHE varias e varias vezes pra confirmar isso.
+        Mais ao que tudo indica, se o learning rate foi menor, ... pode ser que o problema não ocorreria tão cedo,.... e também, em geral, esse problema do NaN ocorreu com muita menas frequencia depois que eu usei a inicialização He Normal.
+
+        CONFIG USADA:
+            // Aplicar a normalização
+            const normalizedData = normalizeData(dataset);
+            
+            // Estrutura da rede: 11 neurônios na entrada, 3 na camada oculta, 1 na saída, todas usando ReLU
+            const config = {
+                layers: [
+                    { type: LayerType.Input,  inputs: 11, units: 11 }, 
+                    { type: LayerType.Hidden, inputs: 11, units: 3, functions: [ 'ReLU', 'ReLU', 'ReLU']  }, 
+                    { type: LayerType.Final,  inputs: 3, units: 1, functions: [ 'ReLU' ]  }
+                ],
+                initialization: Initialization.RandomHeNormal
+            };
+
+            const mlp = new MLP(config);
+
+            let datasetTratado = [];
+            let targets       = [];
+
+            //Treino e Teste
+            const numColunaPreco = 10; //O numero da coluna que queremos estimar, que no caso é o preco
+            const numeroAmostrasTreino = 10;
+            const numeroAmostrasTeste  = 10;
+
+            //Hyperparametros
+            const taxa_aprendizado = 0.01;
