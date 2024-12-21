@@ -79,6 +79,9 @@ O problema XOR é um problema lógico clássico que não pode ser resolvido com 
     Entrada: 1,1, Previsão: 0
     ```
 
+## Explicação aprofundada de como o algoritmo dessa implantação funciona:
+[Ler explicação](./docs/ANOTACOES_ALGORITMO.txt)
+
 ## Estrutura do Código
 
 - **MLP**: Classe que representa a Rede Neural Multicamadas.
