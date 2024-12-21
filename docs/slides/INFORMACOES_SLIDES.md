@@ -13,9 +13,9 @@ Então esse processo é um somatório, e **se resume em: "GRADIENTE * PESO (+) G
 O processo de backpropagation é uma técnica usada para treinar redes neurais. Para calcular o gradiente de uma unidade em uma camada oculta, precisamos usar os gradientes das unidades na camada seguinte, multiplicados pelos pesos que conectam essas unidades.
 
 Em termos simples, o cálculo do gradiente em uma unidade da camada oculta funciona da seguinte forma: 
- - 1. Pegamos o gradiente de cada unidade da camada seguinte.
- - 2. Multiplicamos esse gradiente pelo peso que conecta essa unidade à unidade atual da camada oculta.
- - 3. Somamos todos esses valores para obter o gradiente total da unidade na camada oculta.
+ - (1 passo). Pegamos o gradiente de cada unidade da camada seguinte.
+ - (2 passo). Multiplicamos esse gradiente pelo peso que conecta essa unidade à unidade atual da camada oculta.
+ - (3 passo). Somamos todos esses valores para obter o gradiente total da unidade na camada oculta.
 
 Esse processo é repetido para todas as unidades na camada oculta. Em outras palavras, para calcular o gradiente de uma unidade na camada oculta, somamos os gradientes das unidades na camada seguinte, multiplicados pelos respectivos pesos.
 
