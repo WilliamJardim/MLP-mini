@@ -34,14 +34,15 @@ Como você pode ver, a matrix "this.weights" está organizado em ordem da primei
 
 
 NOTAS SOBRE ESSA MATRIX this.weights:
-  Ela no problema do XOR tem tamanho(propriedade length) de 2, pois, ela tem 3 elementos: 
-    (index 0) NUMERO_ENTRADAS, 
-    (index 1) NUMERO_UNIDADES_CAMADA_OCULTA, 
-    (index 2) NUMERO_UNIDADES_SAIDA
+  - Ela no problema do XOR tem tamanho(propriedade length) de 2, pois, ela tem 3 elementos: 
+    - (index 0) NUMERO_ENTRADAS, 
+    - (index 1) NUMERO_UNIDADES_CAMADA_OCULTA, 
+    - (index 2) NUMERO_UNIDADES_SAIDA
   
-  Ou seja, o indice 0 é a camada de entrada.
-  O indice 1 é a quantidade de unidades da camada ocultas
-  E o ultimo indice, o indice 2, é a quantidade de saidas da rede(ou seja a quantidade de unidades na camada de saida)
+  ## Ou seja
+  - O indice 0 é a camada de entrada.
+  - O indice 1 é a quantidade de unidades da camada ocultas
+  - E o ultimo indice, o indice 2, é a quantidade de saidas da rede(ou seja a quantidade de unidades na camada de saida)
 
 
 Os erros da camada de saída são calculados pela subtração entre os valores estimados e os valores desejados, das unidades da camada de saída.
@@ -76,7 +77,7 @@ NOTAS:
       SUB-NOTA: Como esse modelo só tem uma camada oculta, isso fica muito fácil de entender.
 
 
-DENTRO DO PRIMEIRO FOR:
+**DENTRO DESSE PRIMEIRO FOR:**
 Para cada iteração de "l":
    ele cria uma variável "const layerError = [];" pra armazenar os gradientes da camada "l" atual
 
@@ -89,9 +90,9 @@ Para cada iteração de "l":
 da camada oculta atual( "this.weights[l - 1]" )
    
 
-# Segundo laço FOR   
+# Segundo laço FOR, alinhado(dentro do primeiro)   
 
-DENTRO DESSE SEGUNDO FOR:
+**DENTRO DESSE SEGUNDO FOR:**
 
   Na primeira iteração a variável "j" começa sendo "0", o que significa que estamos acessando a primeira unidade(ou melhor dizendo, o primeiro vetor de pesos) da matrix this.weights[l - 1], a saber, esse índice "j=0" aponta para a seguinte posição: "this.weights[l - 1][0]", que é justamente o vetor de pesos da unidade "j=0" que contém dois pesos: "[0.8228850033675079, -0.314907800152612]".
 
@@ -100,9 +101,9 @@ DENTRO DESSE SEGUNDO FOR:
   LOGO ABAIXO, ELE VAI RODAR AINDA OUTRO TERCEIRO LOOP FOR: "for (let k = 0; k < this.weights[l].length; k++) {"
   
 
-# Terceiro laço FOR
+# Terceiro laço FOR, alinhado(dentro do segundo)  
 
-DENTRO DESSE TERCEIRO LOOP FOR:
+**DENTRO DESSE TERCEIRO LOOP FOR:**
 
     Esse outro loop for, que itera sobre o índice "k", ele corresponde aos vetores de pesos da camada seguinte(isso é, da camada oculta seguinte à camada oculta atual)
 
@@ -119,8 +120,10 @@ DENTRO DESSE TERCEIRO LOOP FOR:
   E LOGO EM SEGUIDA, ele faz "layerError.push(error * ActivationFunctions[`${nomeDaFuncao}Derivative`](this.layerActivations[l][j]));", para adicionar na lista "layerError" o erro da unidade "j" da camada o oculta atual MULTIPLICADO pela derivada da função de ativação da unidade "j" da camada o oculta atual
 
 
-[APOS TERMINAR TODAS AS ITERAÇÔES DO SEGUNDO LOOP QUE ITERA SOBRE J]
-Ele faz "layerErrors.unshift(layerError);", isso é, joga o vetor de gradientes da camada oculta atual "l" para o INICIO DO VETOR usando o método unshift que é o inverso do push. 
+# Ao final de cada iteração do segundo laço FOR
+
+**[APOS TERMINAR TODAS AS ITERAÇÔES DO SEGUNDO LOOP QUE ITERA SOBRE J]**
+Nesse ponto do código, Ele faz "layerErrors.unshift(layerError);", isso é, joga o vetor de gradientes da camada oculta atual "l" para o INICIO DO VETOR usando o método unshift que é o inverso do push. 
 Dese modo, da próxima vez que formos acessar o "layerErrors[0]" dentro do TERCEIRO LOOP, se estivéssemos calculando os gradientes de uma outra camada oculta anterior a essa, estaríamos na verdade acessando os gradientes da ULTIMA CAMADA OCULTA CALCULADA, OU SEJA, ESSES GRADIENTES QUE ESTAMOS ADICIONANDO COM O UNSHIFT
 
 
