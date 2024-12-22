@@ -17,13 +17,21 @@ Estrutura da Rede
 
 
 
-o this.layers contém quantas unidades tem por camada,
+O "this.layers" contém quantas unidades existem em cada camada,
 em ordem do primeiro até o ultimo mesmo.
 
-bem como o  this.weights, que é uma matriz , ou seja, um vetor que contém outros vetores. 
-a primeira dimensão dessa matriz é a camada, ou seja, cada vetor de pesos dentro dela corresponde aos pesos de uma unidade dessa camada
-por exemplo this.weights[0] retornará todos os vetores de pesos da camada oculta cujo indice é 0, OU SEJA, LOGO this.weights[0][0] vai retornar o vetor de pesos da unidade cujo índice é 0 da camada oculta cujo índice 0
-Está organizado em ordem da primeira camada até a ultima tambem.
+bem como o "this.weights", que é uma matriz , ou seja, um vetor que contém outros vetores. 
+
+A primeira dimensão dessa matriz é a camada. Ou seja, cada linha dentro dela[isso é, da matriz] é um vetor de pesos que corresponde aos pesos de uma unidade dessa camada.
+Por exemplo "this.weights[0]" retornará todos os vetores de pesos da camada oculta cujo indice é 0, OU SEJA, LOGO "this.weights[0][0]" vai retornar o vetor de pesos da unidade cujo índice é 0 da camada oculta cujo índice é 0
+
+Outro exemplo "this.weights[1]" retornará todos os vetores de pesos da camada de saida, cujo indice é 1, OU SEJA, LOGO "this.weights[1][0]" vai retornar o vetor de pesos da unidade cujo índice é 0 da camada oculta cujo índice é 1
+
+A sintaxe para acessar os vetores de peso é sempre assim: "this.weights[ INDICE_CAMADA ][ INDICE_UNIDADAE ]"
+E por extensão, a sintaxe para acessar um peso especifico é assim: "this.weights[ INDICE_CAMADA ][ INDICE_UNIDADAE ][ INDICE_PESO ]"
+
+Como você pode ver, a matrix "this.weights" está organizado em ordem da primeira camada até a ultima camada tambem.
+
 
 NOTAS SOBRE ESSA MATRIX this.weights:
   Ela no problema do XOR tem tamanho(propriedade length) de 2, pois, ela tem 3 elementos: 
@@ -38,18 +46,19 @@ NOTAS SOBRE ESSA MATRIX this.weights:
 
 Os erros da camada de saída são calculados pela subtração entre os valores estimados e os valores desejados, das unidades da camada de saída.
 
-existe uma variável criada chamada "layerErrors", que nesse ponto(após ter sido calculado esses erros da camada de saida), começa como uma matriz que contém esses erros "const layerErrors = [outputError];"
-e "outputError" é um vetor de erros(isso é, os erros que foram calculados da camada de saída, conforme descrito acima)
+Existe uma variável criada chamada "layerErrors", que nesse ponto(após ter sido calculado esses erros da camada de saida), começa como uma matriz que contém esses erros "const layerErrors = [outputError];"
+
+E a variavel "outputError" é um vetor de erros(isso é, os erros que foram calculados da camada de saída, conforme descrito acima)
 
 
-Quando vai iterar sobre as camadas no backpropagation NO TRECHO: "for (let l = this.weights.length - 1; l >= 1; l--) {"
-ele começa com "this.weights.length - 1" por que ele ignora a camada de saída, pois já calculamos os gradientes da camada de saída
+No primeiro laço FOR, Quando vai iterar sobre as camadas no backpropagation NO TRECHO: "for (let l = this.weights.length - 1; l >= 1; l--) {"
+Nessa iteração a variavel "l" começa com o valor de "this.weights.length - 1" por que o código ignora a camada de saída, pois já calculamos os gradientes da camada de saída
 
 NOTAS SOBRE A CONDIÇÂO DESSE FOR: 
       E também a condição de parada do loop é enquanto "l >= 1"(enquanto "l" for maior ou igual que 1) por que eu quero que ele ignore a camada de entrada. Ou seja, ele só vai fazer até a primeira camada oculta, mais ai no indice 0, ele para, pois o indice zero é a camada de entrada, e ela precisa ser ignorada nesse processo.
 
       NOTA SOBRE ISSO:
-        Se eu nao ignorasse a camada entrada coisas estranhas iriam acontecer: O código tentatira calcular os gradientes das entradas, sendo que as entradas não tem função de ativação, não tem derivada, ou seja, elas não são unidades e não tem pesos lá, são apenas números!
+        Se eu nao ignorasse a camada entrada coisas estranhas iriam acontecer: O código tentaria calcular os gradientes das entradas, sendo que as entradas não tem função de ativação, não tem derivada, ou seja, elas não são unidades e não tem pesos lá, são apenas números!
         Então, isso causaria erros. Por isso ignoro a camada de entrada, por que faz todo sentido ignorar dessa forma.
 
         Além disso, um outro fato é que, como esse problema do XOR tem apenas uma camada oculta e a camada de saida,
