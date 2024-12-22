@@ -57,7 +57,7 @@ E a variavel "outputError" é um vetor de erros(isso é, os erros que foram calc
 No primeiro laço FOR, Quando vai iterar sobre as camadas no backpropagation NO TRECHO: "for (let l = this.weights.length - 1; l >= 1; l--) {"
 Nessa iteração a variavel "l" começa com o valor de "this.weights.length - 1" por que o código ignora a camada de saída, pois já calculamos os gradientes da camada de saída
 
-## NOTAS SOBRE A CONDIÇÂO DESSE FOR: 
+# NOTAS SOBRE A CONDIÇÂO DESSE FOR: 
     E também a condição de parada do loop é enquanto "l >= 1"(enquanto "l" for maior ou igual que 1) por que eu quero que ele ignore a camada de entrada. Ou seja, ele só vai fazer até a primeira camada oculta, mais ai no indice 0, ele para, pois o indice zero é a camada de entrada, e ela precisa ser ignorada nesse processo.
 
     NOTA SOBRE ISSO: Se eu nao ignorasse a camada entrada coisas estranhas iriam acontecer: O código tentaria calcular os gradientes das entradas, sendo que as entradas não tem função de ativação, não tem derivada, ou seja, elas não são unidades e não tem pesos lá, são apenas números!. Então, isso causaria erros. Por isso ignoro a camada de entrada, por que faz todo sentido ignorar dessa forma.
@@ -65,7 +65,7 @@ Nessa iteração a variavel "l" começa com o valor de "this.weights.length - 1"
     Além disso, um outro fato é que, como esse problema do XOR tem apenas uma camada oculta e a camada de saida,
     então, ele só irá calcular os gradientes dessa camada oculta. Ou seja, no laço for que itera sobre as camadas, ele já começa com o valor de "l = this.weights.length - 1", que nesse caso do problema do XOR, vai ter valor de 1. E como ele faz o loop ENQUANTO "l >= 1", ele vai fazer apenas dessa camada oculta, conforme explicado. E quando ele subtraisse 1 da variavel "l" para ir para a proxima iteração, a condição "l >= 1" retornaria false, e ele encerraria o loop. 
 
-## NOTAS: 
+# OUTRAS NOTAS: 
     O valor de "l" nessa iteração começa sendo 1, ou seja, ao acessar this.weights[l - 1], estamos pegando a matrix dos pesos da camada oculta atual
 
     Por outro lado Se fosse "this.weights[l]" eu estaria acessando a matrix dos pesos da camada de saída(output)
@@ -115,7 +115,7 @@ da camada oculta atual( "this.weights[l - 1]" )
    IMPORTANTE: Da mesma forma, Nessa mesma linha 278, no segundo termo, isso é "this.weights[l][k][j]", nós estamos acessando os gradientes das unidades da camada seguinte(pois estamos usando o índice "l" que corresponde a camada seguinte), ... desse modo, nesse primeiro trecho linha ao acessar "this.weights[l][k]", estamos acessando os gradientes da UNIDADE K da camada seguinte. Ou seja,... o segunto termo isso é "this.weights[l][k][j]", que pega o peso de conexão, ou seja, o peso da unidade K(do terceiro for) da camada seguinte L(do primeiro for) cujo índice é "J(da iteração do segundo for)" 
 
   Ai logo em seguida, quando termina todas as iterações desse terceiro for, com a variável "error" já calculada, ele obtem qual é a função de ativação usada pela unidade(nesse caso do problema do XOR é a Sigmoid para todas!)
-  E LOGO EM SEGUIDA, ele faz "layerError.push(error * ActivationFunctions[`${nomeDaFuncao}Derivative`](this.layerActivations[l][j]));", para adicionar na lista "layerError" o erro da unidade "j" da camada o oculta atual MULTIPLICADO pela derivada da função de ativação da unidade "j" da camada o oculta atual
+  E LOGO EM SEGUIDA, ele faz "layerError.push(error * ActivationFunctions{`${nomeDaFuncao}Derivative`}(this.layerActivations[l][j]));", para adicionar na lista "layerError" o erro da unidade "j" da camada o oculta atual MULTIPLICADO pela derivada da função de ativação da unidade "j" da camada o oculta atual
 
 
 # Ao final de cada iteração do segundo laço FOR
