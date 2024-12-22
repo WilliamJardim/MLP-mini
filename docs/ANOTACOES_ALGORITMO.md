@@ -1,4 +1,5 @@
 -=-=-=-=-=-=--=-= EXPLICAÇÂO DO FUNCIONAMENTO DO BACKPROPAGATION DESTA IMPLANTAÇÂO -=-=-=-=-=-=-=-=-=
+
 DATA: 21/12/2024 10:12 AM
 
 EXPLICAÇÂO DETALHADA DE COMO O ALGORITMO DO BACKPROPAGATION FUNCIONA COM BASE NESSA IMPLANTAÇÂO.
@@ -6,16 +7,16 @@ EXPLICAÇÂO DETALHADA DE COMO O ALGORITMO DO BACKPROPAGATION FUNCIONA COM BASE 
 PROBLEMA ESCOLHIDO PARA ESSA ANALISE: XOR, DO TESTE DE INTEGRIDADE, DEVIDO A SIMPLICIDADE DA ESTRUTURA USADA
 -=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-Explicação do Backpropagation na Implementação XOR
+# Explicação do Backpropagation na Implementação XOR
 
 Nesta análise, explicaremos como o algoritmo de backpropagation é implementado para resolver o problema XOR. Este guia detalhado descreve cada etapa do cálculo dos gradientes, desde a camada de saída até as camadas ocultas, destacando como as estruturas de dados `this.layers` e `this.weights` são usadas.
 
-Estrutura da Rede
+# Estrutura da Rede
 - this.layers: Define a quantidade de unidades em cada camada, do início ao fim.
 - this.weights: Contém os pesos da rede, organizados em uma matriz tridimensional:
 - this.weights[l][j][k]: representa o peso entre a unidade `j` da camada `l` e a unidade `k` da camada seguinte.
 
-
+# Inicio do texto explicativo
 
 O "this.layers" contém quantas unidades existem em cada camada,
 em ordem do primeiro até o ultimo mesmo.
