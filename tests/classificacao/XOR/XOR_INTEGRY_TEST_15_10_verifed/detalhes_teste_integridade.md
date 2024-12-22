@@ -109,3 +109,9 @@ script.js:171 Hash 2 desse resultado:  e727b358b88d8152b034da93750bdff29ae14e66a
 # Esclarecimentos
 Para obter esse historico de erro ao longo das epocas, eu rodei novamente o "script.html"[Veja ele aqui](./script.html) do teste de integridade 
 Eu rodei novamente, e como de esperado, como não houve nenhuma alteração no algoritmo, o resultado permaneceu exatamente o mesmo descrito no arquivo [Compare aqui](./resultado-atualizado.txt) e tembem exatamente o mesmo das anotações iniciais dos resultados do dia 15.10.2024
+
+# Detalhes técnicos de como está implantação funciona
+Eu criei um documento que contém uma analise completa que descreve como essa minha implantação exatamente funciona, passo a passo, detalhe por detalhe, com o objetivo de facilitar a compreensão dos calculos e lógica envolvida. Para ver esse documento, clique no link abaixo:
+
+[Ver ANOTACOES DO ALGORITMO](../../../../docs/ANOTACOES_ALGORITMO.md)
+
