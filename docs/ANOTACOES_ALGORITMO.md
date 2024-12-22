@@ -33,16 +33,16 @@ E por extensão, a sintaxe para acessar um peso especifico é assim: "this.weigh
 Como você pode ver, a matrix "this.weights" está organizado em ordem da primeira camada até a ultima camada tambem.
 
 
-NOTAS SOBRE ESSA MATRIX this.weights:
+## NOTAS SOBRE ESSA MATRIX this.weights:
   - Ela no problema do XOR tem tamanho(propriedade length) de 2, pois, ela tem 3 elementos: 
-    - (index 0) NUMERO_ENTRADAS, 
-    - (index 1) NUMERO_UNIDADES_CAMADA_OCULTA, 
-    - (index 2) NUMERO_UNIDADES_SAIDA
+     - (index 0) NUMERO_ENTRADAS, 
+     - (index 1) NUMERO_UNIDADES_CAMADA_OCULTA, 
+     - (index 2) NUMERO_UNIDADES_SAIDA
   
-  ## Ou seja
-  - O indice 0 é a camada de entrada.
-  - O indice 1 é a quantidade de unidades da camada ocultas
-  - E o ultimo indice, o indice 2, é a quantidade de saidas da rede(ou seja a quantidade de unidades na camada de saida)
+  - Ou seja:
+     - O indice 0 é a camada de entrada.
+     - O indice 1 é a quantidade de unidades da camada ocultas
+     - E o ultimo indice, o indice 2, é a quantidade de saidas da rede(ou seja a quantidade de unidades na camada de saida)
 
 
 Os erros da camada de saída são calculados pela subtração entre os valores estimados e os valores desejados, das unidades da camada de saída.
@@ -57,36 +57,34 @@ E a variavel "outputError" é um vetor de erros(isso é, os erros que foram calc
 No primeiro laço FOR, Quando vai iterar sobre as camadas no backpropagation NO TRECHO: "for (let l = this.weights.length - 1; l >= 1; l--) {"
 Nessa iteração a variavel "l" começa com o valor de "this.weights.length - 1" por que o código ignora a camada de saída, pois já calculamos os gradientes da camada de saída
 
-NOTAS SOBRE A CONDIÇÂO DESSE FOR: 
-      E também a condição de parada do loop é enquanto "l >= 1"(enquanto "l" for maior ou igual que 1) por que eu quero que ele ignore a camada de entrada. Ou seja, ele só vai fazer até a primeira camada oculta, mais ai no indice 0, ele para, pois o indice zero é a camada de entrada, e ela precisa ser ignorada nesse processo.
+## NOTAS SOBRE A CONDIÇÂO DESSE FOR: 
+    E também a condição de parada do loop é enquanto "l >= 1"(enquanto "l" for maior ou igual que 1) por que eu quero que ele ignore a camada de entrada. Ou seja, ele só vai fazer até a primeira camada oculta, mais ai no indice 0, ele para, pois o indice zero é a camada de entrada, e ela precisa ser ignorada nesse processo.
 
-      NOTA SOBRE ISSO:
-        Se eu nao ignorasse a camada entrada coisas estranhas iriam acontecer: O código tentaria calcular os gradientes das entradas, sendo que as entradas não tem função de ativação, não tem derivada, ou seja, elas não são unidades e não tem pesos lá, são apenas números!
-        Então, isso causaria erros. Por isso ignoro a camada de entrada, por que faz todo sentido ignorar dessa forma.
+    NOTA SOBRE ISSO: Se eu nao ignorasse a camada entrada coisas estranhas iriam acontecer: O código tentaria calcular os gradientes das entradas, sendo que as entradas não tem função de ativação, não tem derivada, ou seja, elas não são unidades e não tem pesos lá, são apenas números!. Então, isso causaria erros. Por isso ignoro a camada de entrada, por que faz todo sentido ignorar dessa forma.
 
-        Além disso, um outro fato é que, como esse problema do XOR tem apenas uma camada oculta e a camada de saida,
-        então, ele só irá calcular os gradientes dessa camada oculta. Ou seja, no laço for que itera sobre as camadas, ele já começa com o valor de "l = this.weights.length - 1", que nesse caso do problema do XOR, vai ter valor de 1. E como ele faz o loop ENQUANTO "l >= 1", ele vai fazer apenas dessa camada oculta, conforme explicado. E quando ele subtraisse 1 da variavel "l" para ir para a proxima iteração, a condição "l >= 1" retornaria false, e ele encerraria o loop. 
+    Além disso, um outro fato é que, como esse problema do XOR tem apenas uma camada oculta e a camada de saida,
+    então, ele só irá calcular os gradientes dessa camada oculta. Ou seja, no laço for que itera sobre as camadas, ele já começa com o valor de "l = this.weights.length - 1", que nesse caso do problema do XOR, vai ter valor de 1. E como ele faz o loop ENQUANTO "l >= 1", ele vai fazer apenas dessa camada oculta, conforme explicado. E quando ele subtraisse 1 da variavel "l" para ir para a proxima iteração, a condição "l >= 1" retornaria false, e ele encerraria o loop. 
 
-NOTAS: 
-      O valor de "l" nessa iteração começa sendo 1, ou seja, ao acessar this.weights[l - 1], estamos pegando a matrix dos pesos da camada oculta atual
+## NOTAS: 
+    O valor de "l" nessa iteração começa sendo 1, ou seja, ao acessar this.weights[l - 1], estamos pegando a matrix dos pesos da camada oculta atual
 
-      Por outro lado Se fosse "this.weights[l]" eu estaria acessando a matrix dos pesos da camada de saída(output)
+    Por outro lado Se fosse "this.weights[l]" eu estaria acessando a matrix dos pesos da camada de saída(output)
 
-      Isso faz todo sentido pois "l" na primeira iteração vai ter o valor "1", que aponta para a camada de saída, e l-l, ou seja 0, aponta para a camada oculta(que está atráz da camada 1)
-      
-      SUB-NOTA: Como esse modelo só tem uma camada oculta, isso fica muito fácil de entender.
+    Isso faz todo sentido pois "l" na primeira iteração vai ter o valor "1", que aponta para a camada de saída, e l-l, ou seja 0, aponta para a camada oculta(que está atráz da camada 1)
+    
+    SUB-NOTA: Como esse modelo só tem uma camada oculta, isso fica muito fácil de entender.
 
 
 **DENTRO DESSE PRIMEIRO FOR:**
 Para cada iteração de "l":
-   ele cria uma variável "const layerError = [];" pra armazenar os gradientes da camada "l" atual
+   Ele cria uma variável "const layerError = [];" pra armazenar os gradientes da camada "l" atual
 
    LOGO ABAIXO É O MOMENTO EM QUE O SEGUNDO FOR È CRIADO:
    em seguida ele roda um outro laço FOR: " for (let j = 0; j < this.weights[l - 1].length; j++) {"
 
-   esse outro for percorre cada "vetor de pesos" da matriz da camada oculta atual "this.weights[l - 1]"
+   Esse outro laço FOR percorre cada "vetor de pesos" da matriz da camada oculta atual "this.weights[l - 1]"
 
-   "j" é o índice do "vetor de pesos"(que contém os pesos da unidade), então na realidade, a cada iteração de "j", ele vai acessar uma unidade(isso é um vetor de pesos que corresponde aos pesos da unidade) cujo índice é "j"
+   O "j" é o índice do "vetor de pesos"(que contém os pesos da unidade), então na realidade, a cada iteração de "j", ele vai acessar uma unidade(isso é um vetor de pesos que corresponde aos pesos da unidade) cujo índice é "j"
 da camada oculta atual( "this.weights[l - 1]" )
    
 
@@ -105,9 +103,9 @@ da camada oculta atual( "this.weights[l - 1]" )
 
 **DENTRO DESSE TERCEIRO LOOP FOR:**
 
-    Esse outro loop for, que itera sobre o índice "k", ele corresponde aos vetores de pesos da camada seguinte(isso é, da camada oculta seguinte à camada oculta atual)
+   Esse outro loop for, que itera sobre o índice "k", ele corresponde aos vetores de pesos da camada seguinte(isso é, da camada oculta seguinte à camada oculta atual)
 
-    Na primeira iteração esse valor "k" começa sendo "0", o que significa que estamos na primeira unidade da camada seguinte(isso é, o primeiro vetor de pesos da camada seguinte) da matriz this.weights[l], ou seja, estamos na posição "this.weights[l][0]", que é justamente o seguinte vetor de pesos: [0.21803494362838416, 0.13302177857890918]
+   Na primeira iteração esse valor "k" começa sendo "0", o que significa que estamos na primeira unidade da camada seguinte(isso é, o primeiro vetor de pesos da camada seguinte) da matriz this.weights[l], ou seja, estamos na posição "this.weights[l][0]", que é justamente o seguinte vetor de pesos: [0.21803494362838416, 0.13302177857890918]
 
    Esse FOR vai somando a variável "error", acumulando assim os gradientes, da seguinte forma: "multiplicando o gradiente da unidade k PELO peso cujo índice é "j" da unidade k", 
    NOTA: lembrando que a unidade "k" está na camada seguinte. 
