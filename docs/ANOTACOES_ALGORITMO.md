@@ -51,6 +51,8 @@ Existe uma variável criada chamada "layerErrors", que nesse ponto(após ter sid
 E a variavel "outputError" é um vetor de erros(isso é, os erros que foram calculados da camada de saída, conforme descrito acima)
 
 
+# Primeiro laço FOR 
+
 No primeiro laço FOR, Quando vai iterar sobre as camadas no backpropagation NO TRECHO: "for (let l = this.weights.length - 1; l >= 1; l--) {"
 Nessa iteração a variavel "l" começa com o valor de "this.weights.length - 1" por que o código ignora a camada de saída, pois já calculamos os gradientes da camada de saída
 
@@ -86,6 +88,9 @@ Para cada iteração de "l":
    "j" é o índice do "vetor de pesos"(que contém os pesos da unidade), então na realidade, a cada iteração de "j", ele vai acessar uma unidade(isso é um vetor de pesos que corresponde aos pesos da unidade) cujo índice é "j"
 da camada oculta atual( "this.weights[l - 1]" )
    
+
+# Segundo laço FOR   
+
 DENTRO DESSE SEGUNDO FOR:
 
   Na primeira iteração a variável "j" começa sendo "0", o que significa que estamos acessando a primeira unidade(ou melhor dizendo, o primeiro vetor de pesos) da matrix this.weights[l - 1], a saber, esse índice "j=0" aponta para a seguinte posição: "this.weights[l - 1][0]", que é justamente o vetor de pesos da unidade "j=0" que contém dois pesos: "[0.8228850033675079, -0.314907800152612]".
@@ -94,6 +99,8 @@ DENTRO DESSE SEGUNDO FOR:
 
   LOGO ABAIXO, ELE VAI RODAR AINDA OUTRO TERCEIRO LOOP FOR: "for (let k = 0; k < this.weights[l].length; k++) {"
   
+
+# Terceiro laço FOR
 
 DENTRO DESSE TERCEIRO LOOP FOR:
 

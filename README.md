@@ -80,7 +80,7 @@ O problema XOR é um problema lógico clássico que não pode ser resolvido com 
     ```
 
 ## Explicação aprofundada de como o algoritmo dessa implantação funciona:
-- [Ler explicação](./docs/ANOTACOES_ALGORITMO.txt)
+- [Ler explicação](./docs/ANOTACOES_ALGORITMO.md)
 
 - [Ver slides](./docs/slides/INFORMACOES_SLIDES.md)
 
