@@ -5,6 +5,7 @@
 **EXPLICAÇÂO DETALHADA DE COMO O ALGORITMO DO BACKPROPAGATION FUNCIONA COM BASE NESSA IMPLANTAÇÂO.**
 
 **PROBLEMA ESCOLHIDO PARA ESSA ANALISE: XOR, DO TESTE DE INTEGRIDADE, DEVIDO A SIMPLICIDADE DA ESTRUTURA USADA:** 
+
 [Ver Problema Escolhido](../tests/classificacao/XOR/XOR_INTEGRY_TEST_15_10_verifed/detalhes_teste_integridade.md)
 
 # Explicação do Backpropagation na Implementação XOR
