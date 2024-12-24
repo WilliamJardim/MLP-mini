@@ -1,0 +1,481 @@
+Hoje, dia 24/12/2024 Adicionei a derivada da função de ativação na função "train".
+
+e pra isso, eu tive que reestruturar a lógica de incluir as funções de ativação
+das linhas 373 a 376: 
+ "//Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+ const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[l - 1] && this.layers_functions[l - 1][j]) ? true : false;
+ const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[l - 1][j] : 'Sigmoid' );
+
+ layerError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ](this.layerActivations[l][j]) );",
+ 
+Deixei essas linhas assim como exibido acima; 
+
+E também, na parte de calculo do erro, eu adicionei essas linhas:
+"
+    // Cálculo do erro da saída
+    const outputError = [];
+    for (let j = 0; j < output.length; j++) {
+        //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+        const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[ this.weights.length-1 ] && this.layers_functions[ this.weights.length-1 ][j]) ? true : false;
+        const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[ this.weights.length-1 ][j] : 'Sigmoid' );
+
+        const error = target[j] - output[j] ;
+        outputError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ]( output[j] ) );
+    }
+"
+
+Deixei essas linhas assim como exibido acima; 
+
+Eu fiz essa mudança, por que na camada oculta, ao usar "this.layers_functions[l - 1]" para obter as funções de ativação da camada oculta, ele na verdade estava trazendo as mesmas funções de ativação usadas na camada de saida,
+ou seja, estava pegando a função de ativação errada! 
+Isso acontecia por que, ao acrescentar as novas linhas na camada de saida( linhas estas descritas acima aqui neste arquivo na linha 15 a 23 ), ao acessar "this.layers_functions[l - 1]" ele retornava os mesmos valores de "this.layers_functions[ this.weights.length-1 ]"
+por isso que ele pegava a função de ativação errada!
+Ai eu corrigi isso revisando a estrutura do "layers_functions"
+
+pois no problema do XOR, eu tinha configurado assim(conforme mencionado):
+
+    // Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
+    const config = {
+        layers: [
+            { type: LayerType.Input,  inputs: 2, units: 2 }, 
+            { type: LayerType.Hidden, inputs: 2, units: 2, functions: [ 'Sigmoid', 'Sigmoid' ]  }, 
+            { type: LayerType.Final,  inputs: 2, units: 1, functions: [ 'ReLU' ]  }
+        ],
+        initialization: Initialization.Random
+    };
+
+Por que a ideia é que, a derivada da função de ativação fosse referente a função de ativação usada para cada camada
+
+(NOTA: esta IMPLANTAÇÂO ja suportava diferentes funções de ativações, porém, a derivada da função de ativação não era usada para calcular os gradientes da camada de saida. Eu adicionei isso hoje, e reparei esse bug)
+
+
+BUG QUE ACONTECEU NO BACKPROPAGATION APÒS ESSA MUDANÇA DA FUNÇÂO DE ATIVAÇÂO:
+
+
+Porém, eu reparei que depois disso, o backpropagation não estava mais funcionando direito
+Pois, o erro no treinamento não abaixava quase nada, e era quase que aleatorio.
+
+
+Segue abaixo um exemplo do erro:
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.0820348521641607
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.2705087130410402
+    bundle.js:405 Epoch 0, Erro total: 1.0803731196703261, Média Erro Total: 0.27009327991758153
+    bundle.js:405 Epoch 1000, Erro total: 1.0000000003819771, Média Erro Total: 0.2500000000954943
+    bundle.js:405 Epoch 2000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 3000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 4000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 5000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 6000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 7000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 8000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 9000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 0
+    xor-test.js:36 Entrada: 1,0, Estimativa: 0
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    OUTRO TESTE
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.1615357865086757
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.29038394662716893
+    bundle.js:405 Epoch 0, Erro total: 1.153382833368989, Média Erro Total: 0.28834570834224726
+    bundle.js:405 Epoch 1000, Erro total: 0.5077404377621982, Média Erro Total: 0.12693510944054956
+    bundle.js:405 Epoch 2000, Erro total: 0.6358466676901797, Média Erro Total: 0.15896166692254493
+    bundle.js:405 Epoch 3000, Erro total: 0.7603129585239052, Média Erro Total: 0.1900782396309763
+    bundle.js:405 Epoch 4000, Erro total: 0.7737694124906195, Média Erro Total: 0.19344235312265487
+    bundle.js:405 Epoch 5000, Erro total: 0.8076826015354525, Média Erro Total: 0.20192065038386312
+    bundle.js:405 Epoch 6000, Erro total: 0.8722517055300643, Média Erro Total: 0.21806292638251606
+    bundle.js:405 Epoch 7000, Erro total: 0.8681113402369918, Média Erro Total: 0.21702783505924794
+    bundle.js:405 Epoch 8000, Erro total: 0.8526165682052993, Média Erro Total: 0.21315414205132482
+    bundle.js:405 Epoch 9000, Erro total: 0.9415524423746273, Média Erro Total: 0.23538811059365683
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 1
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.0746413479975545
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.2686603369993886
+    bundle.js:405 Epoch 0, Erro total: 1.0704625739347355, Média Erro Total: 0.2676156434836839
+    bundle.js:405 Epoch 1000, Erro total: 1.0002157244140708, Média Erro Total: 0.2500539311035177
+    bundle.js:405 Epoch 2000, Erro total: 1.0000709421713427, Média Erro Total: 0.2500177355428357
+    bundle.js:405 Epoch 3000, Erro total: 1.0000233955292452, Média Erro Total: 0.2500058488823113
+    bundle.js:405 Epoch 4000, Erro total: 1.0000070512589887, Média Erro Total: 0.2500017628147472
+    bundle.js:405 Epoch 5000, Erro total: 1.0000026191685554, Média Erro Total: 0.25000065479213884
+    bundle.js:405 Epoch 6000, Erro total: 1.0000024714186568, Média Erro Total: 0.2500006178546642
+    bundle.js:405 Epoch 7000, Erro total: 1.000003407639499, Média Erro Total: 0.25000085190987476
+    bundle.js:405 Epoch 8000, Erro total: 1.0000039493093944, Média Erro Total: 0.2500009873273486
+    bundle.js:405 Epoch 9000, Erro total: 0.9999107402496029, Média Erro Total: 0.24997768506240073
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 1
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 0
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.203961054821556
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.300990263705389
+    bundle.js:405 Epoch 0, Erro total: 1.1970460698398657, Média Erro Total: 0.29926151745996643
+    bundle.js:405 Epoch 1000, Erro total: 1.0042414634699666, Média Erro Total: 0.25106036586749164
+    bundle.js:405 Epoch 2000, Erro total: 0.9946920705171154, Média Erro Total: 0.24867301762927885
+    bundle.js:405 Epoch 3000, Erro total: 0.9732264145653724, Média Erro Total: 0.2433066036413431
+    bundle.js:405 Epoch 4000, Erro total: 0.9454595926678079, Média Erro Total: 0.23636489816695197
+    bundle.js:405 Epoch 5000, Erro total: 0.9999535867446445, Média Erro Total: 0.24998839668616113
+    bundle.js:405 Epoch 6000, Erro total: 0.999759931338537, Média Erro Total: 0.24993998283463426
+    bundle.js:405 Epoch 7000, Erro total: 0.9999495157552853, Média Erro Total: 0.24998737893882134
+    bundle.js:405 Epoch 8000, Erro total: 1.0000018439135088, Média Erro Total: 0.2500004609783772
+    bundle.js:405 Epoch 9000, Erro total: 1.00000353399785, Média Erro Total: 0.2500008834994625
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 1
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 0
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.1442705676440768
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.2860676419110192
+    bundle.js:405 Epoch 0, Erro total: 1.131985774218628, Média Erro Total: 0.282996443554657
+    bundle.js:405 Epoch 1000, Erro total: 0.9195354358251295, Média Erro Total: 0.22988385895628238
+    bundle.js:405 Epoch 2000, Erro total: 1.0000000003816691, Média Erro Total: 0.2500000000954173
+    bundle.js:405 Epoch 3000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 4000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 5000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 6000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 7000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 8000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    bundle.js:405 Epoch 9000, Erro total: 1.0000000003813847, Média Erro Total: 0.2500000000953462
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 0
+    xor-test.js:36 Entrada: 1,0, Estimativa: 0
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.014911784681211
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.25372794617030275
+    bundle.js:405 Epoch 0, Erro total: 1.0134914480971058, Média Erro Total: 0.25337286202427645
+    bundle.js:405 Epoch 1000, Erro total: 0.9737136287632505, Média Erro Total: 0.24342840719081263
+    bundle.js:405 Epoch 2000, Erro total: 1.0144584164572108, Média Erro Total: 0.2536146041143027
+    bundle.js:405 Epoch 3000, Erro total: 0.9971503913800466, Média Erro Total: 0.24928759784501164
+    bundle.js:405 Epoch 4000, Erro total: 0.9919734653433965, Média Erro Total: 0.24799336633584912
+    bundle.js:405 Epoch 5000, Erro total: 0.9955932495218934, Média Erro Total: 0.24889831238047336
+    bundle.js:405 Epoch 6000, Erro total: 0.9972625147827143, Média Erro Total: 0.24931562869567858
+    bundle.js:405 Epoch 7000, Erro total: 0.9982119610777845, Média Erro Total: 0.24955299026944613
+    bundle.js:405 Epoch 8000, Erro total: 0.9987152459314008, Média Erro Total: 0.2496788114828502
+    bundle.js:405 Epoch 9000, Erro total: 0.9989872196391403, Média Erro Total: 0.24974680490978507
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 0
+    xor-test.js:36 Entrada: 1,0, Estimativa: 0
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.0729637981710662
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.26824094954276656
+    bundle.js:405 Epoch 0, Erro total: 1.0680707550739588, Média Erro Total: 0.2670176887684897
+    bundle.js:405 Epoch 1000, Erro total: 0.9997331786408056, Média Erro Total: 0.2499332946602014
+    bundle.js:405 Epoch 2000, Erro total: 0.9999998181353372, Média Erro Total: 0.2499999545338343
+    bundle.js:405 Epoch 3000, Erro total: 1.0000000002570775, Média Erro Total: 0.25000000006426937
+    bundle.js:405 Epoch 4000, Erro total: 1.0000000003812999, Média Erro Total: 0.25000000009532497
+    bundle.js:405 Epoch 5000, Erro total: 1.0000000003813831, Média Erro Total: 0.2500000000953458
+    bundle.js:405 Epoch 6000, Erro total: 1.0000000003813831, Média Erro Total: 0.2500000000953458
+    bundle.js:405 Epoch 7000, Erro total: 1.0000000003813831, Média Erro Total: 0.2500000000953458
+    bundle.js:405 Epoch 8000, Erro total: 1.0000000003813831, Média Erro Total: 0.2500000000953458
+    bundle.js:405 Epoch 9000, Erro total: 1.0000000003813831, Média Erro Total: 0.2500000000953458
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 0
+    xor-test.js:36 Entrada: 1,0, Estimativa: 0
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.0498612922504158
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.26246532306260395
+    bundle.js:405 Epoch 0, Erro total: 1.045835439237231, Média Erro Total: 0.2614588598093078
+    bundle.js:405 Epoch 1000, Erro total: 0.7473914603280225, Média Erro Total: 0.18684786508200563
+    bundle.js:405 Epoch 2000, Erro total: 0.7737432836804728, Média Erro Total: 0.1934358209201182
+    bundle.js:405 Epoch 3000, Erro total: 0.8187006265679732, Média Erro Total: 0.2046751566419933
+    bundle.js:405 Epoch 4000, Erro total: 0.8509658630435905, Média Erro Total: 0.2127414657608976
+    bundle.js:405 Epoch 5000, Erro total: 0.8726659653761122, Média Erro Total: 0.21816649134402805
+    bundle.js:405 Epoch 6000, Erro total: 0.8650639348257751, Média Erro Total: 0.2162659837064438
+    bundle.js:405 Epoch 7000, Erro total: 0.8759972842688374, Média Erro Total: 0.21899932106720935
+    bundle.js:405 Epoch 8000, Erro total: 0.8941112520175821, Média Erro Total: 0.22352781300439553
+    bundle.js:405 Epoch 9000, Erro total: 0.9141140432372934, Média Erro Total: 0.22852851080932335
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 1
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.017085374480988
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.254271343620247
+    bundle.js:405 Epoch 0, Erro total: 1.0153610726440272, Média Erro Total: 0.2538402681610068
+    bundle.js:405 Epoch 1000, Erro total: 0.9883391195957553, Média Erro Total: 0.24708477989893882
+    bundle.js:405 Epoch 2000, Erro total: 0.9929514875081613, Média Erro Total: 0.24823787187704033
+    bundle.js:405 Epoch 3000, Erro total: 1.000737638873414, Média Erro Total: 0.2501844097183535
+    bundle.js:405 Epoch 4000, Erro total: 1.00963203435521, Média Erro Total: 0.2524080085888025
+    bundle.js:405 Epoch 5000, Erro total: 1.0162708865112293, Média Erro Total: 0.25406772162780733
+    bundle.js:405 Epoch 6000, Erro total: 0.9846272668892566, Média Erro Total: 0.24615681672231415
+    bundle.js:405 Epoch 7000, Erro total: 0.9892555159156622, Média Erro Total: 0.24731387897891555
+    bundle.js:405 Epoch 8000, Erro total: 0.9925242227865743, Média Erro Total: 0.24813105569664357
+    bundle.js:405 Epoch 9000, Erro total: 0.9942867348304536, Média Erro Total: 0.2485716837076134
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 0
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 1
+
+    (ETC, TESTEI OUTRAS VARIAS VEZES E NUNCA SAIA DISSO, AI EU VI QUE TINHA ALGO DE ERRADO COM OS CALCULOS)
+
+SOLUÇÂO DO PROBLEMA:
+
+O problema estava na linha 376: " layerError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ](this.layerActivations[l - 1][j]) );"
+Onde "this.layerActivations[l - 1]" estava retornando a ativação da outra camada, SENDO QUE EU PRECISAVA OBTER A ATIVAÇÂO DA CAMADA OCULTA ATUAL na hora de calcular os gradientes das unidades da camada oculta atual!
+
+Então eu alterei essa linha para "layerError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ](this.layerActivations[l][j]) );"
+
+e pronto, o erro começou a cair normalmente. PROBLEMA RESOLVIDO!
+
+SEMELHANÇAS COM OUTROS PROBLEMAS QUE JA TIVE NO PASSADO AO DESENVOLVER ESSA IMPLANTAÇÂO:
+Me lembro de muitos outros erros parecidos com isso, onde pequenos detalhes minisculos, fazem toda a diferença, e fazem o calculo estar incorreto,
+de modo que, sempre que existe algum bug em algum trecho do código, o backpropagation não funciona, de modo que ele é muito sensivel a erros de calculo.
+
+TEMPO DE PERCEPÇÂO + CORREÇÂO: 5 minutos
+
+
+PROVAS QUE ESSA ATUALIZAÇÂO DA DERIVADA FUNCIONA MUITO BEM:
+
+Esse é um exemplo de um resultado para o problema do XOR logo após eu terminar essa atualização de hoje 24/12/2024
+Como pode ver, o comportamento do erro ao longo das epocas continua o mesmo de sempre, e ainda funciona muito bem.
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.3498579628629073
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.3374644907157268
+    bundle.js:405 Epoch 0, Erro total: 1.3357998887444096, Média Erro Total: 0.3339499721861024
+    bundle.js:405 Epoch 1000, Erro total: 0.9903060535759598, Média Erro Total: 0.24757651339398995
+    bundle.js:405 Epoch 2000, Erro total: 0.9410639625766294, Média Erro Total: 0.23526599064415735
+    bundle.js:405 Epoch 3000, Erro total: 0.7977982760163032, Média Erro Total: 0.1994495690040758
+    bundle.js:405 Epoch 4000, Erro total: 0.6871366630196656, Média Erro Total: 0.1717841657549164
+    bundle.js:405 Epoch 5000, Erro total: 0.43909324252017207, Média Erro Total: 0.10977331063004302
+    bundle.js:405 Epoch 6000, Erro total: 0.10572006059973424, Média Erro Total: 0.02643001514993356
+    bundle.js:405 Epoch 7000, Erro total: 0.045352676706548224, Média Erro Total: 0.011338169176637056
+    bundle.js:405 Epoch 8000, Erro total: 0.027325583526388444, Média Erro Total: 0.006831395881597111
+    bundle.js:405 Epoch 9000, Erro total: 0.019178212608857777, Média Erro Total: 0.004794553152214444
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+Rodei esse código umas 6 vezes seguidas, e em todas essas vezes, seguidas(com pesos aleatórios em cada vez), os resultados forám ótimos para o problema do XOR, similares a estes
+
+Depois disso, rodei mais algumas vezes, e rodei mais 6 vezes seguidas denovo, e o resultado foi muito bom também, semelhante a esses 
+
+OUTRO EXEMPLO DE RESULTADO BOM:
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.1834694721351116
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.2958673680337779
+    bundle.js:405 Epoch 0, Erro total: 1.1730051842020524, Média Erro Total: 0.2932512960505131
+    bundle.js:405 Epoch 1000, Erro total: 0.9695665808025971, Média Erro Total: 0.24239164520064926
+    bundle.js:405 Epoch 2000, Erro total: 0.7745354969624338, Média Erro Total: 0.19363387424060846
+    bundle.js:405 Epoch 3000, Erro total: 0.2959136858345821, Média Erro Total: 0.07397842145864553
+    bundle.js:405 Epoch 4000, Erro total: 0.08342061767106672, Média Erro Total: 0.02085515441776668
+    bundle.js:405 Epoch 5000, Erro total: 0.04082548733967448, Média Erro Total: 0.01020637183491862
+    bundle.js:405 Epoch 6000, Erro total: 0.025817128165628467, Média Erro Total: 0.006454282041407117
+    bundle.js:405 Epoch 7000, Erro total: 0.018530745561783787, Média Erro Total: 0.004632686390445947
+    bundle.js:405 Epoch 8000, Erro total: 0.014315802200814482, Média Erro Total: 0.0035789505502036205
+    bundle.js:405 Epoch 9000, Erro total: 0.011598410065671486, Média Erro Total: 0.0028996025164178714
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.1743029189090204
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.2935757297272551
+    bundle.js:405 Epoch 0, Erro total: 1.165089365826976, Média Erro Total: 0.291272341456744
+    bundle.js:405 Epoch 1000, Erro total: 0.9743306295400738, Média Erro Total: 0.24358265738501844
+    bundle.js:405 Epoch 2000, Erro total: 0.7698099550574536, Média Erro Total: 0.1924524887643634
+    bundle.js:405 Epoch 3000, Erro total: 0.20481000520740428, Média Erro Total: 0.05120250130185107
+    bundle.js:405 Epoch 4000, Erro total: 0.06267317869303168, Média Erro Total: 0.01566829467325792
+    bundle.js:405 Epoch 5000, Erro total: 0.03319245032709814, Média Erro Total: 0.008298112581774535
+    bundle.js:405 Epoch 6000, Erro total: 0.021886949470691173, Média Erro Total: 0.005471737367672793
+    bundle.js:405 Epoch 7000, Erro total: 0.016110973668580688, Média Erro Total: 0.004027743417145172
+    bundle.js:405 Epoch 8000, Erro total: 0.012657846201008289, Média Erro Total: 0.003164461550252072
+    bundle.js:405 Epoch 9000, Erro total: 0.010379863012315731, Média Erro Total: 0.002594965753078933
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+    (logo em seguida do anterior)
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.006955459238473
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.25173886480961827
+    bundle.js:405 Epoch 0, Erro total: 1.006850797694738, Média Erro Total: 0.2517126994236845
+    bundle.js:405 Epoch 1000, Erro total: 0.9998379870380563, Média Erro Total: 0.24995949675951407
+    bundle.js:405 Epoch 2000, Erro total: 0.9963847503093012, Média Erro Total: 0.2490961875773253
+    bundle.js:405 Epoch 3000, Erro total: 0.9563215523429611, Média Erro Total: 0.23908038808574028
+    bundle.js:405 Epoch 4000, Erro total: 0.7275771936232809, Média Erro Total: 0.18189429840582022
+    bundle.js:405 Epoch 5000, Erro total: 0.3157624047749118, Média Erro Total: 0.07894060119372795
+    bundle.js:405 Epoch 6000, Erro total: 0.09144698020873235, Média Erro Total: 0.022861745052183087
+    bundle.js:405 Epoch 7000, Erro total: 0.043603565349838044, Média Erro Total: 0.010900891337459511
+    bundle.js:405 Epoch 8000, Erro total: 0.02713375694896529, Média Erro Total: 0.0067834392372413226
+    bundle.js:405 Epoch 9000, Erro total: 0.019283958755429445, Média Erro Total: 0.004820989688857361
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.1689551723185618
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.29223879307964046
+    bundle.js:405 Epoch 0, Erro total: 1.1613900262428505, Média Erro Total: 0.2903475065607126
+    bundle.js:405 Epoch 1000, Erro total: 0.9857903231307442, Média Erro Total: 0.24644758078268605
+    bundle.js:405 Epoch 2000, Erro total: 0.8376206140024622, Média Erro Total: 0.20940515350061556
+    bundle.js:405 Epoch 3000, Erro total: 0.6433951469973176, Média Erro Total: 0.1608487867493294
+    bundle.js:405 Epoch 4000, Erro total: 0.29235441446676946, Média Erro Total: 0.07308860361669237
+    bundle.js:405 Epoch 5000, Erro total: 0.08515807971631857, Média Erro Total: 0.021289519929079643
+    bundle.js:405 Epoch 6000, Erro total: 0.04126151470866454, Média Erro Total: 0.010315378677166136
+    bundle.js:405 Epoch 7000, Erro total: 0.025936445816263632, Média Erro Total: 0.006484111454065908
+    bundle.js:405 Epoch 8000, Erro total: 0.01855453288242125, Média Erro Total: 0.004638633220605312
+    bundle.js:405 Epoch 9000, Erro total: 0.014305924523631313, Média Erro Total: 0.0035764811309078283
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.0007685349502444
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.2501921337375611
+    bundle.js:405 Epoch 0, Erro total: 1.0004826126274007, Média Erro Total: 0.25012065315685017
+    bundle.js:405 Epoch 1000, Erro total: 0.9815466722865805, Média Erro Total: 0.24538666807164514
+    bundle.js:405 Epoch 2000, Erro total: 0.7609113023737291, Média Erro Total: 0.19022782559343226
+    bundle.js:405 Epoch 3000, Erro total: 0.15271910060191424, Média Erro Total: 0.03817977515047856
+    bundle.js:405 Epoch 4000, Erro total: 0.05428171097875479, Média Erro Total: 0.013570427744688697
+    bundle.js:405 Epoch 5000, Erro total: 0.03044337295255375, Média Erro Total: 0.007610843238138438
+    bundle.js:405 Epoch 6000, Erro total: 0.020607669108826276, Média Erro Total: 0.005151917277206569
+    bundle.js:405 Epoch 7000, Erro total: 0.015391761005674156, Média Erro Total: 0.003847940251418539
+    bundle.js:405 Epoch 8000, Erro total: 0.012203668540598811, Média Erro Total: 0.003050917135149703
+    bundle.js:405 Epoch 9000, Erro total: 0.010069725456914768, Média Erro Total: 0.002517431364228692
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.1187383666878004
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.2796845916719501
+    bundle.js:405 Epoch 0, Erro total: 1.1109339270764211, Média Erro Total: 0.2777334817691053
+    bundle.js:405 Epoch 1000, Erro total: 0.9972625614495771, Média Erro Total: 0.2493156403623943
+    bundle.js:405 Epoch 2000, Erro total: 0.9827828974605571, Média Erro Total: 0.24569572436513928
+    bundle.js:405 Epoch 3000, Erro total: 0.8911453704360426, Média Erro Total: 0.22278634260901065
+    bundle.js:405 Epoch 4000, Erro total: 0.5975298560833416, Média Erro Total: 0.1493824640208354
+    bundle.js:405 Epoch 5000, Erro total: 0.11349903610778057, Média Erro Total: 0.028374759026945143
+    bundle.js:405 Epoch 6000, Erro total: 0.045577430951975556, Média Erro Total: 0.011394357737993889
+    bundle.js:405 Epoch 7000, Erro total: 0.027015476226092773, Média Erro Total: 0.006753869056523193
+    bundle.js:405 Epoch 8000, Erro total: 0.018832844493562526, Média Erro Total: 0.004708211123390631
+    bundle.js:405 Epoch 9000, Erro total: 0.014321485600509328, Média Erro Total: 0.003580371400127332
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+    (logo em seguida do anterior)
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.2387864598572431
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.3096966149643108
+    bundle.js:405 Epoch 0, Erro total: 1.2276678559667644, Média Erro Total: 0.3069169639916911
+    bundle.js:405 Epoch 1000, Erro total: 1.0000216202724665, Média Erro Total: 0.25000540506811664
+    bundle.js:405 Epoch 2000, Erro total: 0.9999619500831147, Média Erro Total: 0.24999048752077868
+    bundle.js:405 Epoch 3000, Erro total: 0.9998181703449287, Média Erro Total: 0.24995454258623218
+    bundle.js:405 Epoch 4000, Erro total: 0.9991411557509655, Média Erro Total: 0.24978528893774138
+    bundle.js:405 Epoch 5000, Erro total: 0.9919365872598084, Média Erro Total: 0.2479841468149521
+    bundle.js:405 Epoch 6000, Erro total: 0.8955161044287527, Média Erro Total: 0.22387902610718818
+    bundle.js:405 Epoch 7000, Erro total: 0.7208335031286767, Média Erro Total: 0.18020837578216917
+    bundle.js:405 Epoch 8000, Erro total: 0.40103746323952705, Média Erro Total: 0.10025936580988176
+    bundle.js:405 Epoch 9000, Erro total: 0.10413042713704135, Média Erro Total: 0.026032606784260337
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+    (logo em seguida do anterior)
+
+    Erro Total inicial(ANTES DO TREINAMENTO): 1.0891089469464912
+    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.2722772367366228
+    bundle.js:405 Epoch 0, Erro total: 1.083005439168997, Média Erro Total: 0.27075135979224924
+    bundle.js:405 Epoch 1000, Erro total: 0.9981587303504218, Média Erro Total: 0.24953968258760545
+    bundle.js:405 Epoch 2000, Erro total: 0.9870122840438247, Média Erro Total: 0.24675307101095617
+    bundle.js:405 Epoch 3000, Erro total: 0.8891524331844709, Média Erro Total: 0.22228810829611773
+    bundle.js:405 Epoch 4000, Erro total: 0.6674607005369468, Média Erro Total: 0.1668651751342367
+    bundle.js:405 Epoch 5000, Erro total: 0.3187826584079191, Média Erro Total: 0.07969566460197977
+    bundle.js:405 Epoch 6000, Erro total: 0.12860120822924684, Média Erro Total: 0.03215030205731171
+    bundle.js:405 Epoch 7000, Erro total: 0.0698380658077461, Média Erro Total: 0.017459516451936524
+    bundle.js:405 Epoch 8000, Erro total: 0.04577571628560669, Média Erro Total: 0.011443929071401673
+    bundle.js:405 Epoch 9000, Erro total: 0.03337461795162632, Média Erro Total: 0.00834365448790658
+    xor-test.js:33 Estimativas:
+    xor-test.js:36 Entrada: 0,0, Estimativa: 0
+    xor-test.js:36 Entrada: 0,1, Estimativa: 1
+    xor-test.js:36 Entrada: 1,0, Estimativa: 1
+    xor-test.js:36 Entrada: 1,1, Estimativa: 0
+    (logo em seguida do anterior)
+
+ESSE PROBLEMA FOI RESOLVIDO!
+
+PORÈM ISSO LEVANTOU UMA DUVIDA IMPORTANTE
+
+TESE: Muito provavelmente, nos testes de regressão linear que eu fiz, a rede aplicou funções de ativação da camada de saida na camada oculta, ou algo assim, por causa desse bug que corrigi hoje!
+Isso é só uma teoria, mais é uma dedução baseada em evidencias desse bug que hoje eu corrigi.
+PRECISO TESTAR PRA COMPROVAR SE DE FATO, ESSE BUG OCORRIA, POIS IRIA IMPACTAR O MODELO.
+
+CONFIRMAÇÂO DA TESE, E EXPLICAÇÂO DE COMO ESSE BUG AFETOU OS TESTES DE REGRESSÂO LINEAR:
+DE FATO! ESSE BUG JÀ EXISTIA A BASTANTE TEMPO, E SIM, AFETOU OS TESTES DA REGRESSÂO LINEAR DO PREÇO DAS CASAS!
+Agora mesmo as 18:24 PM, eu fui no meu github, baixei a versão do MLP-Mini(DE 3 DIAS ATRAZ, UMA VERSÂO QUE DE QUANDO EU TINHA FEITO ESSES TESTES DA REGRESSÂO LINEAR, E QUE EU AINDA NÂO FIZ COMMIT DESSA CORREÇÂO DE HOJE)
+E eu fui debugar o backpropagation na parte que ele calcula os gradientes das unidades das camadas ocultas, e pra minha surpresa, os resultados foram esses:
+
+Na linha 280 a 283:
+"
+  //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+  const unidadeTemFuncao = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
+  const nomeDaFuncao = (unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid');
+  layerError.push(error * ActivationFunctions[`${nomeDaFuncao}Derivative`](this.layerActivations[l][j]));
+"
+
+Na camada oculta de número "l=2" na iteração das camadas do laço for mais externo:
+
+a variavel "nomeDaFuncao" estava com o valor "Linear", o que significa que na ultima camada oculta ela nunca usou a função ReLU nas camadas ocultas, o que significa que na ultima camada oculta ela usou a função de ativação Linear ou mesmo Sigmoid talvez(caso algum indice não tenha sido encontrado, visto que só existia uma posição no Array, e as demais provavelmente seriam undefined), que tem derivada=1
+
+E como eu mesmo mencionei, como ele pegou a função de ativação errada na ultima camada oculta, e ele estava aplicando a função de ativação da camada de saida nessa ultima camada oculta, e como o Array que armazena os nome dessa função só tinha 1 elemento, ou seja apenas 1 "Linear",... e como a variavel "j" iria iterar até 32 elementos que é a quantidade de unidades na ultima camada oculta,.. ao tentar acessar j=1, o valor foi undefined, e isso fez o algoritmo escolher uma função de ativação padrão a "Sigmoid"
+
+Ou seja, tem uma unidade na camada oculta que usou função Linear, enquanto todas as outras 31 usaram Sigmoid, sendo que eram pra todas 32 unidades usarem ReLU!
+Por causa desse problema de indice das funções de ativações 
+
+Se fosse "this.layers_functions[l-1]", ai sim ele pegaria as funções de ativações corretas, que seriam ReLU para as 32 unidades da ultima camada oculta
+
+Mais a camada oculta de número "l=1" estava usando ReLu nas unidades, mais ja saiu de controle, pois a outra camada oculta usou Linear, e o uso dessa função estava incorreta conforme explicado
+
+OU SEJA, NA PENULTIMA CAMADA OCULTA l=1, ELA ESTAVA APLICANDO AS FUNÇÔES DE ATIVAÇÂO QUE ERAM PRA TER SIDO APLICADAS NA ULTIMA CAMADA OCULTA(L=2)
+
+ou seja, bagunçou tudo, inverteu tudo!
+
+FUNÇÔES DE ATIVAÇÂO DE CADA CAMADA DO PROBLEMA DA REGRESSÂO
+
+   ReLU(64 unidades)
+   ReLU(32 unidades)
+   Linear(1 unidade)
+
+Esse bug também poderia ter sido o causador de alguns erros de NaN de alguns testes passados.
+
+OS TESTES DE CLASSIFICAÇÂO NUNCA FORAM AFETADOS POR ESSE BUG!
+
+Esse bug foi corrigido hoje, e só afetou os testes de regressão linear que eu fiz.
+PORÈM, ELE NÂO AFETOU OS TESTES DE CLASSIFICAÇÂO DO XOR, POIS USAVAM APENAS FUNÇÂO DE ATIVAÇÂO SIGMOID, ENTÂO NÂO FAZIA DIFERENÇA, ESSE BUG NEM AFETAVA(POIS POR PADRÂO TODAS AS UNIDADES USAM FUNÇÂO SIGMOID E NOS TESTES DO XOR, EU USEI APENAS SIGMOID MESMO), E POR ISSO NÂO FOI IDENTIFICADO TÂO CEDO
+
+ALÈM DISSO, o outro teste de CLASSIFICAÇÂO de letras e números que eu fiz tambem NÂO FOI AFETADO POR ESSE BUG,
+VISTO QUE ELE SÒ USA FUNÇÂO DE ATIVAÇÂO SIGMOID EM TODOS OS TESTES QUE FIZ NELE
+EU conferi arquivo por arquivo de script e dos testes das configurações usadas, que eu sempre anotava tudo no repositório
+
+Voce pode conferir isso aqui nesse ponto do ultimo commit que eu fiz antes de notar esse bug: https://github.com/WilliamJardim/classificadordigitos/tree/f6288f8c9c47f22834c571c9dff930205c1e2354
+
+porém em todos os testes, eu usei função Sigmoid, que é a função padrão que o MLP-Mini define quando as funções de ativação da camada não são especificadas, ou quando ele encontra um valor undefined no Array de "layers_functions" da camada, então ele atribui Sigmoid por padrão,
+por isso esse bug não afetou esses testes tambem.
+
+Esse bug afetou somente a regressão linear
+
+
+

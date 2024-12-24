@@ -347,8 +347,12 @@ class MLP {
                 // Cálculo do erro da saída
                 const outputError = [];
                 for (let j = 0; j < output.length; j++) {
-                    const error = target[j] - output[j];
-                    outputError.push(error);
+                    //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+                    const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[ this.weights.length-1 ] && this.layers_functions[ this.weights.length-1 ][j]) ? true : false;
+                    const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[ this.weights.length-1 ][j] : 'Sigmoid' );
+
+                    const error = target[j] - output[j] ;
+                    outputError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ]( output[j] ) );
                 }
 
                 // Backpropagation (retropropagação)
@@ -366,8 +370,12 @@ class MLP {
                         }
 
                         //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
-                        const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
-                        const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid' );
+                        /* (BUG-FIX 24/12/2024) 
+                        *   NOTA: Aqui useo "this.layers_functions[l - 1]" para pegar a função de ativação que vai ser usada nessa camada oculta "l", é isso o que significa
+                        *   Antes era só "l" mais ai mudei para "l - 1" para corrigir um bug que fazia ele pegar a função de ativação incorreta
+                        */
+                        const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[l - 1] && this.layers_functions[l - 1][j]) ? true : false;
+                        const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[l - 1][j] : 'Sigmoid' );
                     
                         layerError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ](this.layerActivations[l][j]));
                     }

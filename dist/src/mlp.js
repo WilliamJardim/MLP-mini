@@ -248,8 +248,11 @@ class MLP {
                 // Cálculo do erro da saída
                 const outputError = [];
                 for (let j = 0; j < output.length; j++) {
+                    //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+                    const unidadeTemFuncao = (this.layers_functions.length > 0 && this.layers_functions[this.weights.length - 1] && this.layers_functions[this.weights.length - 1][j]) ? true : false;
+                    const nomeDaFuncao = (unidadeTemFuncao == true ? this.layers_functions[this.weights.length - 1][j] : 'Sigmoid');
                     const error = target[j] - output[j];
-                    outputError.push(error);
+                    outputError.push(error * ActivationFunctions[`${nomeDaFuncao}Derivative`](output[j]));
                 }
                 // Backpropagation (retropropagação)
                 const layerErrors = [outputError];
@@ -262,8 +265,8 @@ class MLP {
                             error += layerErrors[0][k] * this.weights[l][k][j];
                         }
                         //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
-                        const unidadeTemFuncao = (this.layers_functions.length > 0 && this.layers_functions[l] && this.layers_functions[l][j]) ? true : false;
-                        const nomeDaFuncao = (unidadeTemFuncao == true ? this.layers_functions[l][j] : 'Sigmoid');
+                        const unidadeTemFuncao = (this.layers_functions.length > 0 && this.layers_functions[l - 1] && this.layers_functions[l - 1][j]) ? true : false;
+                        const nomeDaFuncao = (unidadeTemFuncao == true ? this.layers_functions[l - 1][j] : 'Sigmoid');
                         layerError.push(error * ActivationFunctions[`${nomeDaFuncao}Derivative`](this.layerActivations[l][j]));
                     }
                     /**
