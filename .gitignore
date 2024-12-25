@@ -3,3 +3,5 @@ tests/integry-test
 olddev
 pending
 TODO.txt
+tests/classificacao/test
+tests/classificacao/test/*
