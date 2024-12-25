@@ -14,6 +14,7 @@ import ConsoleMonitor from './utils/ConsoleMonitor';
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     private config             : MLPConfig;
+    private hyperparameters    : HyperParameters;
     private layers             : number[];
     private layers_functions   : string[][];
     private weights            : number[][][];
@@ -29,6 +30,7 @@ class MLP {
         });
 
         this.config = config;
+        this.hyperparameters = config.hyperparameters;
 
         // Aplica uma validação de estrutura 
         ValidateStructure( this.config );
@@ -351,8 +353,21 @@ class MLP {
                     const unidadeTemFuncao : boolean = (this.layers_functions.length > 0 && this.layers_functions[ this.weights.length-1 ] && this.layers_functions[ this.weights.length-1 ][j]) ? true : false;
                     const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? this.layers_functions[ this.weights.length-1 ][j] : 'Sigmoid' );
 
-                    const error = target[j] - output[j] ;
-                    outputError.push(error * ActivationFunctions[ `${nomeDaFuncao}Derivative` ]( output[j] ) );
+                    const error = target[j] - output[j];
+
+                    //Adiciona essa diferença acima dentro de "outputError"
+                    outputError.push(
+                    
+                        /** MULTIPLICADA POR <O_VALOR_DA_CONDIÇÂO_ABAIXO> **/
+                        error * (
+                                    /** 
+                                    * Se é pra derivar a camada de saida, ele pega a derivada da função de ativação dessa unidade da camada de saida. 
+                                    * Caso o contrário, ele deixa 1 para não afetar em nada a diferença
+                                    */
+                                    this.hyperparameters.derivateFinalLayer == true ? ActivationFunctions[ `${nomeDaFuncao}Derivative` ]( output[j] ) 
+                                                                                    : 1 
+                                )
+                    );
                 }
 
                 // Backpropagation (retropropagação)

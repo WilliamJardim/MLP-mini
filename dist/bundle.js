@@ -31,6 +31,7 @@ class MLP {
             name: 'GeralConsole'
         });
         this.config = config;
+        this.hyperparameters = config.hyperparameters;
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
         // layers é um array onde cada elemento é o número de unidades na respectiva camada
@@ -268,7 +269,16 @@ class MLP {
                     const unidadeTemFuncao = (this.layers_functions.length > 0 && this.layers_functions[this.weights.length - 1] && this.layers_functions[this.weights.length - 1][j]) ? true : false;
                     const nomeDaFuncao = (unidadeTemFuncao == true ? this.layers_functions[this.weights.length - 1][j] : 'Sigmoid');
                     const error = target[j] - output[j];
-                    outputError.push(error * ActivationFunctions[`${nomeDaFuncao}Derivative`](output[j]));
+                    //Adiciona essa diferença acima dentro de "outputError"
+                    outputError.push(
+                    /** MULTIPLICADA POR <O_VALOR_DA_CONDIÇÂO_ABAIXO> **/
+                    error * (
+                    /**
+                    * Se é pra derivar a camada de saida, ele pega a derivada da função de ativação dessa unidade da camada de saida.
+                    * Caso o contrário, ele deixa 1 para não afetar em nada a diferença
+                    */
+                    this.hyperparameters.derivateFinalLayer == true ? ActivationFunctions[`${nomeDaFuncao}Derivative`](output[j])
+                        : 1));
                 }
                 // Backpropagation (retropropagação)
                 const layerErrors = [outputError];

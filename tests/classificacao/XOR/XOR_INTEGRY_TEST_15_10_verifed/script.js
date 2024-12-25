@@ -6,6 +6,17 @@ const mlp = new MLP({
         { type: LayerType.Final,  inputs: 2, units: 1 }
     ],
     initialization: Initialization.Dev,
+
+    //Extra parameters
+    hyperparameters: {
+        /**
+        * Esse parametro determina Se vai aplicar a derivada na camada de saida ou não.
+        * Caso você use 'false', você vai ter os resultados do teste de integridade de antes da atualização do dia 24/12/2024, é uma forma rápida de você testar isso se quiser
+        * 
+        * LEIA SOBRE ISSO EM: https://github.com/WilliamJardim/MLP-mini/blob/main/tests/classificacao/XOR/XOR_INTEGRY_TEST_15_10_verifed/VERS%C3%82O%20DE%2023-12%20pra%20traz/NOTAS-RETRO-INTEGRIDADE.md
+        */
+        derivateFinalLayer: true
+    }
 });
 
 var pesosIniciais = [
