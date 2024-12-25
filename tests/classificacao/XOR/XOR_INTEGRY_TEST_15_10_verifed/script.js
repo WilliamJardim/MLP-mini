@@ -69,24 +69,24 @@ inputs.forEach(input => {
  * O RESULTADO PRECISA BATER COM ISSO 
  
     Erro Total inicial(ANTES DO TREINAMENTO): 1.006463576017077
-    bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.25161589400426926
-    bundle.js:405 Epoch 0, Erro total: 1.0058870340846515, Média Erro Total: 0.2514717585211629
-    bundle.js:405 Epoch 1000, Erro total: 0.9982959622034995, Média Erro Total: 0.24957399055087487
-    bundle.js:405 Epoch 2000, Erro total: 0.9905320150991395, Média Erro Total: 0.24763300377478487
-    bundle.js:405 Epoch 3000, Erro total: 0.9221247945990458, Média Erro Total: 0.23053119864976146
-    bundle.js:405 Epoch 4000, Erro total: 0.7722593299006424, Média Erro Total: 0.1930648324751606
-    bundle.js:405 Epoch 5000, Erro total: 0.6760491879689282, Média Erro Total: 0.16901229699223205
-    bundle.js:405 Epoch 6000, Erro total: 0.1774392307956196, Média Erro Total: 0.0443598076989049
-    bundle.js:405 Epoch 7000, Erro total: 0.054887941979764945, Média Erro Total: 0.013721985494941236
-    bundle.js:405 Epoch 8000, Erro total: 0.03004105365104298, Média Erro Total: 0.007510263412760745
-    bundle.js:405 Epoch 9000, Erro total: 0.02022987983142562, Média Erro Total: 0.005057469957856405
+    bundle.js:409 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.25161589400426926
+    bundle.js:409 Epoch 0, Erro total: 1.0058870340846515, Média Erro Total: 0.2514717585211629
+    bundle.js:409 Epoch 1000, Erro total: 0.9982959622034995, Média Erro Total: 0.24957399055087487
+    bundle.js:409 Epoch 2000, Erro total: 0.9905320150991395, Média Erro Total: 0.24763300377478487
+    bundle.js:409 Epoch 3000, Erro total: 0.9221247945990458, Média Erro Total: 0.23053119864976146
+    bundle.js:409 Epoch 4000, Erro total: 0.7722593299006424, Média Erro Total: 0.1930648324751606
+    bundle.js:409 Epoch 5000, Erro total: 0.6760491879689282, Média Erro Total: 0.16901229699223205
+    bundle.js:409 Epoch 6000, Erro total: 0.1774392307956196, Média Erro Total: 0.0443598076989049
+    bundle.js:409 Epoch 7000, Erro total: 0.054887941979764945, Média Erro Total: 0.013721985494941236
+    bundle.js:409 Epoch 8000, Erro total: 0.03004105365104298, Média Erro Total: 0.007510263412760745
+    bundle.js:409 Epoch 9000, Erro total: 0.02022987983142562, Média Erro Total: 0.005057469957856405
     script.js:62 Estimativas:
     script.js:65 Entrada: 0,0, Estimativa: 0
     script.js:65 Entrada: 0,1, Estimativa: 1
     script.js:65 Entrada: 1,0, Estimativa: 1
     script.js:65 Entrada: 1,1, Estimativa: 0
-    script.js:163 Hash 1 desse resultado:  e41f848d5c5d266ea8b0033faf2abdd2ece76c59b0d5af26fa5c347b2bc47de5
-    script.js:171 Hash 2 desse resultado:  9763f8b2f72727cfb3ed08053775cf74cc1ac48cc8d936b6a3be4706839e38f6
+    script.js:209 Hash 1 desse resultado:  e41f848d5c5d266ea8b0033faf2abdd2ece76c59b0d5af26fa5c347b2bc47de5
+    script.js:217 Hash 2 desse resultado:  9763f8b2f72727cfb3ed08053775cf74cc1ac48cc8d936b6a3be4706839e38f6
 
     NOTA: Esse é o arquivo atualizado hoje de 24/12/2024 após a correção do pequeno BUG e da melhoria no calculo dos gradientes na camada de saida.
 
@@ -97,24 +97,24 @@ inputs.forEach(input => {
 
 /**
 Erro Total inicial(ANTES DO TREINAMENTO): 1.006463576017077
-bundle.js:405 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.25161589400426926
-bundle.js:405 Epoch 0, Erro total: 1.0058870340846515, Média Erro Total: 0.2514717585211629
-bundle.js:405 Epoch 1000, Erro total: 0.9982959622034995, Média Erro Total: 0.24957399055087487
-bundle.js:405 Epoch 2000, Erro total: 0.9905320150991395, Média Erro Total: 0.24763300377478487
-bundle.js:405 Epoch 3000, Erro total: 0.9221247945990458, Média Erro Total: 0.23053119864976146
-bundle.js:405 Epoch 4000, Erro total: 0.7722593299006424, Média Erro Total: 0.1930648324751606
-bundle.js:405 Epoch 5000, Erro total: 0.6760491879689282, Média Erro Total: 0.16901229699223205
-bundle.js:405 Epoch 6000, Erro total: 0.1774392307956196, Média Erro Total: 0.0443598076989049
-bundle.js:405 Epoch 7000, Erro total: 0.054887941979764945, Média Erro Total: 0.013721985494941236
-bundle.js:405 Epoch 8000, Erro total: 0.03004105365104298, Média Erro Total: 0.007510263412760745
-bundle.js:405 Epoch 9000, Erro total: 0.02022987983142562, Média Erro Total: 0.005057469957856405
+bundle.js:409 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.25161589400426926
+bundle.js:409 Epoch 0, Erro total: 1.0058870340846515, Média Erro Total: 0.2514717585211629
+bundle.js:409 Epoch 1000, Erro total: 0.9982959622034995, Média Erro Total: 0.24957399055087487
+bundle.js:409 Epoch 2000, Erro total: 0.9905320150991395, Média Erro Total: 0.24763300377478487
+bundle.js:409 Epoch 3000, Erro total: 0.9221247945990458, Média Erro Total: 0.23053119864976146
+bundle.js:409 Epoch 4000, Erro total: 0.7722593299006424, Média Erro Total: 0.1930648324751606
+bundle.js:409 Epoch 5000, Erro total: 0.6760491879689282, Média Erro Total: 0.16901229699223205
+bundle.js:409 Epoch 6000, Erro total: 0.1774392307956196, Média Erro Total: 0.0443598076989049
+bundle.js:409 Epoch 7000, Erro total: 0.054887941979764945, Média Erro Total: 0.013721985494941236
+bundle.js:409 Epoch 8000, Erro total: 0.03004105365104298, Média Erro Total: 0.007510263412760745
+bundle.js:409 Epoch 9000, Erro total: 0.02022987983142562, Média Erro Total: 0.005057469957856405
 script.js:62 Estimativas:
 script.js:65 Entrada: 0,0, Estimativa: 0
 script.js:65 Entrada: 0,1, Estimativa: 1
 script.js:65 Entrada: 1,0, Estimativa: 1
 script.js:65 Entrada: 1,1, Estimativa: 0
-script.js:163 Hash 1 desse resultado:  e41f848d5c5d266ea8b0033faf2abdd2ece76c59b0d5af26fa5c347b2bc47de5
-script.js:171 Hash 2 desse resultado:  9763f8b2f72727cfb3ed08053775cf74cc1ac48cc8d936b6a3be4706839e38f6
+script.js:209 Hash 1 desse resultado:  e41f848d5c5d266ea8b0033faf2abdd2ece76c59b0d5af26fa5c347b2bc47de5
+script.js:217 Hash 2 desse resultado:  9763f8b2f72727cfb3ed08053775cf74cc1ac48cc8d936b6a3be4706839e38f6
 
     NOTA: Esse é o arquivo atualizado hoje de 24/12/2024 após a correção do pequeno BUG e da melhoria no calculo dos gradientes na camada de saida.
 
