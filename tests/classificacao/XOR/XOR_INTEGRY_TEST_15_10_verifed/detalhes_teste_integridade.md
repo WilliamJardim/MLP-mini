@@ -121,6 +121,9 @@ Isso é comprovado.
 Para obter esse historico de erro ao longo das epocas, eu rodei novamente o "script.html"[Veja ele aqui](./script.html) do teste de integridade 
 Eu rodei novamente, e como de esperado, como não houve nenhuma alteração no algoritmo, o resultado permaneceu exatamente o mesmo descrito no arquivo(resultados deis do primeiro dia do projeto até o dia 23/12/2024) [Compare aqui](./resultado-atualizado.txt) e tambem exatamente o mesmo das anotações iniciais dos resultados do dia 15.10.2024
 
+# Confirmação extra
+Se voce quiser conferir todo o cuidado que tive, basta olhar o arquivo [Compare que o que era antes não mudou](./VERSÂO%20DE%2023-12%20pra%20traz/NOTAS-RETRO-INTEGRIDADE.md)
+
 # Detalhes técnicos de como está implantação funciona
 Eu criei um documento que contém uma analise completa que descreve como essa minha implantação exatamente funciona, passo a passo, detalhe por detalhe, com o objetivo de facilitar a compreensão dos calculos e lógica envolvida. Para ver esse documento, clique no link abaixo:
 
