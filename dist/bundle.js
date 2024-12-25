@@ -37,6 +37,10 @@ class MLP {
         });
         this.config = config;
         this.hyperparameters = config.hyperparameters;
+        //Se não for especificado, por padrão, ele vai calcular a derivada da camada de saida, exceto se o usuário quiser mudar isso
+        if (this.hyperparameters.derivateFinalLayer == undefined || this.hyperparameters.derivateFinalLayer == null) {
+            this.hyperparameters.derivateFinalLayer = true;
+        }
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
         // layers é um array onde cada elemento é o número de unidades na respectiva camada

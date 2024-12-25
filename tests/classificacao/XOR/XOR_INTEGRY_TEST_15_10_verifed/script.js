@@ -21,7 +21,7 @@ const mlp = new MLP({
         * Esse parametro quando for 'true', permite capturar informações durante o treinamento,
         * ele captura tudo, deis de pesos iniciais, pesos atuais ANTES DE APLICAR O GRADIENTE DESCEDENTE, gradientes calculados DESSA EPOCA, features das amostras, valores esperados para a amostra, valores estimados para a amostra 
         */
-        debugTrain: true
+        debugTrain: false
     }
 });
 
