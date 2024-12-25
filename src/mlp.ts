@@ -451,7 +451,7 @@ class MLP {
                     dadosDebugAmostra['parameters_after_update'] = this.exportParameters();
 
                     //Se existe um passo anterior cadastrado
-                    if(this.trainTracker[ this.trainTracker.length-1-1 ]){
+                    if(this.trainTracker[ this.trainTracker.length-1 ]){
                         dadosDebugAmostra['oldStep'] = this.trainTracker[ this.trainTracker.length-1-1 ];
                     }
 
