@@ -64,6 +64,44 @@ script.js:163 Hash 1 desse resultado:  7e349ea735552563926e9fcbfae337b6d405abf91
 script.js:171 Hash 2 desse resultado:  e727b358b88d8152b034da93750bdff29ae14e66a73b3f0649bf3abb5c029706
 ```
 
+# VERIFIQUEI TAMBEM OS PESOS FINAIS LOGO EM SEGUIDA PRA VER SE BATEM COM OS DE ANTES
+# PESOS
+```javascript
+[
+    [
+        [
+            7.356551391331864,
+            -7.512464010167511
+        ],
+        [
+            -7.017645475366182,
+            6.69359492863455
+        ]
+    ],
+    [
+        [
+            12.728437039164444,
+            12.855089565130744
+        ]
+    ]
+]
+```
+
+# BIASES
+```javascript
+[
+    [
+        -4.016713934290134,
+        -3.6312859187312987
+    ],
+    [
+        -6.289294653592655
+    ]
+]
+```
+
+**Tanto os pesos quanto os biases são exatamente os que estavam antes tambem!**
+
 # Conclusão
 O algoritmo do backpropagation desta implantação continua exatamente o mesmo que era antes, não houve nenhuma alteração. E se remover o trecho que foi adicionado na atualização, os resultados do teste de integridade serão exatamente esses, que estavam antes da atualização!.
 
