@@ -97,7 +97,7 @@ Este projeto é cuidadosamente testado em detalhes, isso pode ser notado nos arq
 Você poderá ler sobre esses testes aqui:
 
   [Caminho para o arquivo do teste de integridade](./tests/classificacao/XOR/XOR_INTEGRY_TEST_15_10_verifed/detalhes_teste_integridade.md)
-  (ULTIMA VERIFICAÇÂO DE INTEGRIDADE 20/12/2024 16:16 PM)
+  (ULTIMA VERIFICAÇÂO DE INTEGRIDADE 24/12/2024 21:40 PM)
 
 ## Licença
 
