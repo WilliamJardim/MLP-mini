@@ -316,8 +316,9 @@ class MLP {
                     layerErrors.unshift(layerError);
                 }
                 //Se for pra debugar o treinamento
+                let dadosDebugAmostra = null;
                 if (this.hyperparameters.debugTrain == true) {
-                    this.trainTracker.push({
+                    dadosDebugAmostra = {
                         timestamp: new Date().getTime(),
                         date: new Date(),
                         description: `Epoca ${epoch}`,
@@ -333,7 +334,7 @@ class MLP {
                         parameters_before_update: this.exportParameters(), //Os parametros DE ANTES DE APLICAR O GRADIENTE DESCEDENTE DESTA EPOCA
                         layers_functions: this.layers_functions,
                         mlpConfig: this.config //As configurações usadas para criar a MLP
-                    });
+                    };
                 }
                 // Atualização dos pesos e biases
                 for (let l = this.weights.length - 1; l >= 0; l--) {
@@ -345,6 +346,11 @@ class MLP {
                         // Atualiza os biases
                         this.biases[l][j] += learningRate * layerErrors[l][j];
                     }
+                }
+                //Se for pra debugar o treinamento
+                if (this.hyperparameters.debugTrain == true) {
+                    dadosDebugAmostra['parameters_after_update'] = this.exportParameters();
+                    this.trainTracker.push(dadosDebugAmostra);
                 }
             });
             let totalError = MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));

@@ -15,6 +15,7 @@ export default interface TrackedStep{
     allLayersGradients: number[][], //OS gradientes de todas as camadas(incluindo a camada final)
     initial_parameters: DoneParameters,
     parameters_before_update: DoneParameters,
+    parameters_after_update?: DoneParameters,
     layers_functions: string[][],
     mlpConfig: MLPConfig
 }
