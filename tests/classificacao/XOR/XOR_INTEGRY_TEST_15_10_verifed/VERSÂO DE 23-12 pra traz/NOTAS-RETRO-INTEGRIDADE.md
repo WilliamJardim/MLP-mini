@@ -130,4 +130,4 @@ script.js:163 Hash 1 desse resultado:  e41f848d5c5d266ea8b0033faf2abdd2ece76c59b
 script.js:171 Hash 2 desse resultado:  9763f8b2f72727cfb3ed08053775cf74cc1ac48cc8d936b6a3be4706839e38f6
 ```
 
-**Então, enquanto você ver esse resultado, esta tudo ok com a integridade deis do dia 15.10.2024(dia em que foi feito o primeito commit do projeto).**
+**Então, enquanto você ver esse resultado, esta tudo ok com a integridade, que permaneceu a mesma deis do dia 15.10.2024(dia em que foi feito o primeito commit do projeto).**
