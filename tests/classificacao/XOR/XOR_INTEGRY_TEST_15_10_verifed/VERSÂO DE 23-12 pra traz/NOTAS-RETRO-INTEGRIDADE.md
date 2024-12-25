@@ -19,7 +19,7 @@ Eu fui no meu repositório desse projeto MLP-Mini, no dia 21/12/2024, e baixei o
 
 Então, eu sabia que isso teria que fazer o MLP-Mini voltar a produzir os resultados antigos do teste de integridade do XOR, os mesmos resultados de antes da atualização. E de fato isso aconteceu. Deu certo!
 
-**Esses foram os resultados:**
+**Esses foram os resultados atuais(ao remover a derivada):**
 ```javascript
 Erro Total inicial(ANTES DO TREINAMENTO): 1.006463576017077
 bundle.js:409 Média do Erro Total inicial(ANTES DO TREINAMENTO): 0.25161589400426926
@@ -42,7 +42,7 @@ script.js:209 Hash 1 desse resultado:  7e349ea735552563926e9fcbfae337b6d405abf91
 script.js:217 Hash 2 desse resultado:  e727b358b88d8152b034da93750bdff29ae14e66a73b3f0649bf3abb5c029706
 ```
 
-**Que foram exatamente os mesmos resultados que estavam antes(Que peguei do repositório):**
+**Que foram exatamente os mesmos resultados que estavam antes(Que peguei do repositório do dia 21/12/2024 antes da atualização):**
 ```javascript
 Erro inicial(ANTES DO TREINAMENTO): 1.006463576017077
 bundle.js:251 Epoch 0, Erro total: 1.0042949265382282
