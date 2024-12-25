@@ -131,3 +131,9 @@ script.js:171 Hash 2 desse resultado:  9763f8b2f72727cfb3ed08053775cf74cc1ac48cc
 ```
 
 **Então, enquanto você ver esse resultado, esta tudo ok com a integridade, que permaneceu a mesma deis do dia 15.10.2024(dia em que foi feito o primeito commit do projeto).**
+
+# Ponto do repositório nos arquivos que usei pra validar isso
+[Link do teste de integridade do dia 21/12/2024 - commit: "Vinculo teste de integridade com o arquivo de notas da implantação"](https://github.com/WilliamJardim/MLP-mini/tree/faeef37cb0d6ac351cc03b30f5ff14507aea15a9/tests/classificacao/XOR/XOR_INTEGRY_TEST_15_10_verifed)
+
+# Repositório completo nesse ponto
+[Repositório completo nesse ponto do dia 21/12/2024 - commit: "Vinculo teste de integridade com o arquivo de notas da implantação"](https://github.com/WilliamJardim/MLP-mini/tree/faeef37cb0d6ac351cc03b30f5ff14507aea15a9)
