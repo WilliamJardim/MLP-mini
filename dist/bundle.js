@@ -281,6 +281,10 @@ class MLP {
                             error += layerErrors[0][k] * this.weights[l][k][j];
                         }
                         //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
+                        /* (BUG-FIX 24/12/2024)
+                        *   NOTA: Aqui useo "this.layers_functions[l - 1]" para pegar a função de ativação que vai ser usada nessa camada oculta "l", é isso o que significa
+                        *   Antes era só "l" mais ai mudei para "l - 1" para corrigir um bug que fazia ele pegar a função de ativação incorreta
+                        */
                         const unidadeTemFuncao = (this.layers_functions.length > 0 && this.layers_functions[l - 1] && this.layers_functions[l - 1][j]) ? true : false;
                         const nomeDaFuncao = (unidadeTemFuncao == true ? this.layers_functions[l - 1][j] : 'Sigmoid');
                         layerError.push(error * ActivationFunctions[`${nomeDaFuncao}Derivative`](this.layerActivations[l][j]));
