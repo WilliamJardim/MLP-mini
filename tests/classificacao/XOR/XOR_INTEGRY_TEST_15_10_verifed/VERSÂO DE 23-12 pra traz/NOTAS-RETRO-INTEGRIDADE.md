@@ -64,6 +64,12 @@ script.js:163 Hash 1 desse resultado:  7e349ea735552563926e9fcbfae337b6d405abf91
 script.js:171 Hash 2 desse resultado:  e727b358b88d8152b034da93750bdff29ae14e66a73b3f0649bf3abb5c029706
 ```
 
+**Esses resultados foram extraidos do commit do dia 21/12/2024 que é o commit mais recente, ANTES DA ATUALIZAÇÂO DO DIA 24/12/2024:**
+
+[Nesse ponto aqui do dia 21/12/2024 o ponto mais recente antes da atualização, com a mensagem de commit "Vinculo teste de integridade com o arquivo de notas da implantação"](https://github.com/WilliamJardim/MLP-mini/tree/faeef37cb0d6ac351cc03b30f5ff14507aea15a9/tests/classificacao/XOR/XOR_INTEGRY_TEST_15_10_verifed)
+
+Nesse link, você pode ver os arquivos do teste de integridade e encontrar exatamente esse resultado, que era os resultados do teste de integridade que estavam antes da atualização, e você vai obter esses mesmos resultados se remover a nova linha adicionada na atualização!. Conforme eu expliquei aqui nessa longa nota.
+
 # VERIFIQUEI TAMBEM OS PESOS FINAIS LOGO EM SEGUIDA PRA VER SE BATEM COM OS DE ANTES
 # PESOS
 ```javascript
