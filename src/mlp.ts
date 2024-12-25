@@ -414,6 +414,8 @@ class MLP {
                 //Se for pra debugar o treinamento
                 if( this.hyperparameters.debugTrain == true ){
                     this.trainTracker.push({
+                        timestamp: new Date().getTime(),
+                        date: new Date(),
                         description: `Epoca ${ epoch }`,
                         epoch: epoch,    //O numero da epoca atual
                         dataset: inputs, //O dataset inteiro

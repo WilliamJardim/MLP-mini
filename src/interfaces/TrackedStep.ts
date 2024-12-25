@@ -2,6 +2,8 @@ import DoneParameters from './DoneParameters';
 import MLPConfig from './MLPConfig';
 
 export default interface TrackedStep{
+    timestamp: number,
+    date: Date,
     description: string,
     epoch: number,
     dataset: number[][],
