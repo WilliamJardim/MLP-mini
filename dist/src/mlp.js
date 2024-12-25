@@ -231,6 +231,7 @@ class MLP {
     }
     // Função de treinamento com retropropagação
     train(inputs, targets, learningRate = 0.1, epochs = 10000, printEpochs = 1000) {
+        this.trainTracker = [];
         let trainMonitor = new ConsoleMonitor({
             name: 'TrainConsole'
         });
@@ -292,6 +293,24 @@ class MLP {
                     * e assim por diante
                     */
                     layerErrors.unshift(layerError);
+                }
+                //Se for pra debugar o treinamento
+                if (this.hyperparameters.debugTrain == true) {
+                    this.trainTracker.push({
+                        description: `Epoca ${epoch}`,
+                        epoch: epoch, //O numero da epoca atual
+                        dataset: inputs, //O dataset inteiro
+                        amostra: input, //Os dados da amostra atual
+                        indiceAmostra: i, //O indice da amostra atual no dataset
+                        output: output, //Os valores estimados para a amostra atual
+                        target: target, //Os valores esperados para a amostra atual
+                        finalLayerGradients: outputError, //Os gradientes calculados da camada de saida DESSA EPOCA
+                        allLayersGradients: layerErrors, //Os gradientes calculados pelo backpropagation, de todas as camadas, DESSA EPOCA(inclusive a camada de saida)
+                        initial_parameters: this.getInitialParameters(), //Os parametros iniciais ANTES DO TREINAMENTO COMEÇAR
+                        parameters_before_update: this.exportParameters(), //Os parametros DE ANTES DE APLICAR O GRADIENTE DESCEDENTE DESTA EPOCA
+                        layers_functions: this.layers_functions,
+                        mlpConfig: this.config //As configurações usadas para criar a MLP
+                    });
                 }
                 // Atualização dos pesos e biases
                 for (let l = this.weights.length - 1; l >= 0; l--) {

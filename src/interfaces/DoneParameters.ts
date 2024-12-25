@@ -1,4 +1,4 @@
-interface DoneParameters{
+export default interface DoneParameters{
     weights: number[][][],
     biases: number[][],
     layers: any[],

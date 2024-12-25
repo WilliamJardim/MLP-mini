@@ -1,5 +1,7 @@
 import ActivationFunctions from './utils/ActivationFunctions';
 import LayerDeclaration from './interfaces/LayerDeclaration';
+import DoneParameters from './interfaces/DoneParameters';
+import TrackedStep from './interfaces/TrackedStep';
 import MLPConfig from './interfaces/MLPConfig';
 import './utils/Enums';
 import ValidateStructure from './validators/ValidateStructure';
@@ -15,6 +17,7 @@ import ConsoleMonitor from './utils/ConsoleMonitor';
 class MLP {
     private config             : MLPConfig;
     private hyperparameters    : HyperParameters;
+    private trainTracker       : TrackedStep[];
     private layers             : number[];
     private layers_functions   : string[][];
     private weights            : number[][][];
@@ -322,6 +325,8 @@ class MLP {
 
     ): void {
 
+        this.trainTracker = [];
+
         let trainMonitor = new ConsoleMonitor({
             name: 'TrainConsole'
         });
@@ -371,7 +376,7 @@ class MLP {
                 }
 
                 // Backpropagation (retropropagação)
-                const layerErrors = [outputError];
+                const layerErrors: number[][] = [outputError];
 
                 // Cálculo dos erros das camadas ocultas, começando da última camada
                 for (let l = this.weights.length - 1; l >= 1; l--) {
@@ -404,6 +409,25 @@ class MLP {
                     * e assim por diante
                     */
                     layerErrors.unshift(layerError);
+                }
+
+                //Se for pra debugar o treinamento
+                if( this.hyperparameters.debugTrain == true ){
+                    this.trainTracker.push({
+                        description: `Epoca ${ epoch }`,
+                        epoch: epoch,    //O numero da epoca atual
+                        dataset: inputs, //O dataset inteiro
+                        amostra: input, //Os dados da amostra atual
+                        indiceAmostra: i, //O indice da amostra atual no dataset
+                        output: output, //Os valores estimados para a amostra atual
+                        target: target, //Os valores esperados para a amostra atual
+                        finalLayerGradients: outputError, //Os gradientes calculados da camada de saida DESSA EPOCA
+                        allLayersGradients: layerErrors,  //Os gradientes calculados pelo backpropagation, de todas as camadas, DESSA EPOCA(inclusive a camada de saida)
+                        initial_parameters: this.getInitialParameters(), //Os parametros iniciais ANTES DO TREINAMENTO COMEÇAR
+                        parameters_before_update: this.exportParameters(), //Os parametros DE ANTES DE APLICAR O GRADIENTE DESCEDENTE DESTA EPOCA
+                        layers_functions: this.layers_functions,
+                        mlpConfig: this.config //As configurações usadas para criar a MLP
+                    });
                 }
 
                 // Atualização dos pesos e biases

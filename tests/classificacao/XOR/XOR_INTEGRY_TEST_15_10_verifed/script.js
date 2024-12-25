@@ -15,7 +15,13 @@ const mlp = new MLP({
         * 
         * LEIA SOBRE ISSO EM: https://github.com/WilliamJardim/MLP-mini/blob/main/tests/classificacao/XOR/XOR_INTEGRY_TEST_15_10_verifed/VERS%C3%82O%20DE%2023-12%20pra%20traz/NOTAS-RETRO-INTEGRIDADE.md
         */
-        derivateFinalLayer: true
+        derivateFinalLayer: true,
+
+        /**
+        * Esse parametro quando for 'true', permite capturar informações durante o treinamento,
+        * ele captura tudo, deis de pesos iniciais, pesos atuais ANTES DE APLICAR O GRADIENTE DESCEDENTE, gradientes calculados DESSA EPOCA, features das amostras, valores esperados para a amostra, valores estimados para a amostra 
+        */
+        debugTrain: true
     }
 });
 
