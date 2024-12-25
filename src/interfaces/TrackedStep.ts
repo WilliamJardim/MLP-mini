@@ -17,5 +17,6 @@ export default interface TrackedStep{
     parameters_before_update: DoneParameters,
     parameters_after_update?: DoneParameters,
     layers_functions: string[][],
-    mlpConfig: MLPConfig
+    mlpConfig: MLPConfig,
+    oldStep?: TrackedStep
 }

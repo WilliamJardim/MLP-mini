@@ -449,6 +449,12 @@ class MLP {
                 //Se for pra debugar o treinamento
                 if( this.hyperparameters.debugTrain == true ){
                     dadosDebugAmostra['parameters_after_update'] = this.exportParameters();
+
+                    //Se existe um passo anterior cadastrado
+                    if(this.trainTracker[ this.trainTracker.length-1-1 ]){
+                        dadosDebugAmostra['oldStep'] = this.trainTracker[ this.trainTracker.length-1-1 ];
+                    }
+
                     this.trainTracker.push( dadosDebugAmostra );
                 }
                 
