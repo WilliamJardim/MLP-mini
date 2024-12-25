@@ -108,6 +108,8 @@ Nesse link, você pode ver os arquivos do teste de integridade e encontrar exata
 
 **Tanto os pesos quanto os biases são exatamente os que estavam antes tambem!**
 
+Ou seja, os pesos finais desse teste de integridade antes da atualização continuaram exatamente o mesmos que agora, quando eu removo o trecho que foi adicionado na atualização do dia 24/12/2024(como muito bem explicado aqui nesse arquivo de notas). Toda vez que você remover o trecho que foi adicionado na atualização do dia 24/12/2024, os resultados serão exatamente esses: erro ao longo das epócas, pesos finais, tudo!, que eram exatamente os mesmos erro ao longo das epócas e pesos finais que estava antes dessa atualização, como você pode conferir nesses testes e comparações, que foram feitas com base no commit do dia 21/12/2024(o commit mais recente antes da atualização), então, vemos que nada mudou!
+
 # Conclusão
 O algoritmo do backpropagation desta implantação continua exatamente o mesmo que era antes, não houve nenhuma alteração. E se remover o trecho que foi adicionado na atualização, os resultados do teste de integridade serão exatamente esses, que estavam antes da atualização!.
 
