@@ -17,8 +17,18 @@ class MLP {
         this.config = config;
         this.hyperparameters = config.hyperparameters;
         //Se não for especificado, por padrão, ele vai calcular a derivada da camada de saida, exceto se o usuário quiser mudar isso
-        if (this.hyperparameters.derivateFinalLayer == undefined || this.hyperparameters.derivateFinalLayer == null) {
+        if (this.hyperparameters != undefined &&
+            (this.hyperparameters.derivateFinalLayer == undefined || this.hyperparameters.derivateFinalLayer == null)) {
             this.hyperparameters.derivateFinalLayer = true;
+        }
+        else {
+            //Caso não seja nem memso passado hyper parametros, ele ja define por padrão alguns, pra evitar erros
+            if (this.hyperparameters == undefined) {
+                this.hyperparameters = {
+                    derivateFinalLayer: true,
+                    debugTrain: false
+                };
+            }
         }
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
@@ -266,7 +276,8 @@ class MLP {
                     * Se é pra derivar a camada de saida, ele pega a derivada da função de ativação dessa unidade da camada de saida.
                     * Caso o contrário, ele deixa 1 para não afetar em nada a diferença
                     */
-                    this.hyperparameters.derivateFinalLayer == true ? ActivationFunctions[`${nomeDaFuncao}Derivative`](output[j])
+                    (this.hyperparameters != undefined && this.hyperparameters.derivateFinalLayer == true)
+                        ? ActivationFunctions[`${nomeDaFuncao}Derivative`](output[j])
                         : 1));
                 }
                 // Backpropagation (retropropagação)
@@ -300,7 +311,7 @@ class MLP {
                 }
                 //Se for pra debugar o treinamento
                 let dadosDebugAmostra = null;
-                if (this.hyperparameters.debugTrain == true) {
+                if (this.hyperparameters != undefined && this.hyperparameters.debugTrain == true) {
                     dadosDebugAmostra = {
                         timestamp: new Date().getTime(),
                         date: new Date(),
@@ -331,7 +342,7 @@ class MLP {
                     }
                 }
                 //Se for pra debugar o treinamento
-                if (this.hyperparameters.debugTrain == true) {
+                if (this.hyperparameters != undefined && this.hyperparameters.debugTrain == true) {
                     dadosDebugAmostra['parameters_after_update'] = this.exportParameters();
                     //Se existe um passo anterior cadastrado
                     if (this.trainTracker[this.trainTracker.length - 1]) {

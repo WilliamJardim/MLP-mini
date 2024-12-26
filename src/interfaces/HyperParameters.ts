@@ -1,5 +1,5 @@
 interface HyperParameters{
-    learningRate: number,
+    learningRate?: number,
     derivateFinalLayer?: boolean,
     debugTrain?: boolean
 }
