@@ -2,14 +2,19 @@
 ![Icone](./images/logo/logo256x256.png "Icone")
 
 # MLP - Implementação de Rede Neural Multicamadas (MLP) em JavaScript
-
 Este repositório contém uma implementação independente de uma Rede Neural Multicamadas (MLP) em JavaScript, gerada com a ajuda de Inteligência Artificial. A rede foi implementada sem o uso de bibliotecas de aprendizado de máquina ou notação matricial. Ela pode ser configurada para suportar múltiplas camadas e unidades, sendo aplicada ao problema clássico do XOR.
 
 ## Visão Geral
-
 O MLP é uma rede neural feedforward totalmente conectada com uma ou mais camadas ocultas. Este código usa a função de ativação sigmoide e implementa o algoritmo de retropropagação (backpropagation) para ajustar os pesos da rede durante o treinamento.
 
 Esta implementação foi desenvolvida de forma independente para ser simples e didática, realizando os cálculos elemento a elemento (em vez de usar operações matriciais).
+
+## Atribuição e Transparência
+Este código foi inicialmente gerado em Outubro de 2024, por uma interação com um assistente de IA (ChatGPT). A ideia era criar uma implementação manual de uma rede neural MLP para resolver o problema do XOR, oferecendo suporte a múltiplas camadas e unidades. O objetivo principal era consolidar meu entendimento sobre o funcionamento do backpropagation, utilizando uma base gerada por IA como ponto de partida, baseada em conceitos de domínio público.
+
+Desde então, o código foi significativamente modificado e expandido para atender aos requisitos específicos do projeto, refletindo minha compreensão do tema e meu esforço em desenvolver uma implementação independente. Essa abordagem permitiu explorar e aprofundar meu conhecimento, garantindo que as soluções fossem personalizadas e alinhadas às boas práticas de aprendizado.
+
+O processo de desenvolvimento está documentado para promover transparência e aprendizado colaborativo. Para acessar a conversa original que deu início a este projeto, clique aqui: **[Link para o Chat](https://chatgpt.com/share/676de54b-3614-8004-8f8f-9dfa2558f7e0)**. Note que o link foi gerado em 26 de dezembro de 2024, mas a conversa original ocorreu em Outubro de 2024.
 
 ## Características
 
