@@ -277,6 +277,7 @@ class MLP {
         const erroInicialAntesTreinamento = MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));
         trainMonitor.log(`Erro Total inicial(ANTES DO TREINAMENTO): ${erroInicialAntesTreinamento}`);
         trainMonitor.log(`Média do Erro Total inicial(ANTES DO TREINAMENTO): ${erroInicialAntesTreinamento / targets.length}`);
+        let contagemTrackedStep = 0;
         for (let epoch = 0; epoch < epochs; epoch++) {
             inputs.forEach((input, i) => {
                 const target = targets[i];
@@ -334,6 +335,7 @@ class MLP {
                 let dadosDebugAmostra = null;
                 if (this.hyperparameters != undefined && this.hyperparameters.debugTrain == true) {
                     dadosDebugAmostra = {
+                        trackIndex: contagemTrackedStep || 0,
                         timestamp: new Date().getTime(),
                         date: new Date(),
                         description: `Epoca ${epoch}`,
@@ -366,10 +368,11 @@ class MLP {
                 if (this.hyperparameters != undefined && this.hyperparameters.debugTrain == true) {
                     dadosDebugAmostra['parameters_after_update'] = this.exportParameters();
                     //Se existe um passo anterior cadastrado
-                    if (this.trainTracker[this.trainTracker.length - 1]) {
-                        dadosDebugAmostra['oldStep'] = this.trainTracker[this.trainTracker.length - 1 - 1];
+                    if (contagemTrackedStep > 0) {
+                        dadosDebugAmostra['oldStep'] = this.trainTracker[contagemTrackedStep - 1];
                     }
                     this.trainTracker.push(dadosDebugAmostra);
+                    contagemTrackedStep++; //Atualiza o ID do rastreio dos passos
                 }
             });
             let totalError = MLP.compute_train_cost(inputs, targets, inputs.map((xsis) => this.forward(xsis)));
@@ -382,6 +385,7 @@ class MLP {
         this.geralMonitor.integrate([
             trainMonitor
         ]);
+        contagemTrackedStep = 0; //Depois que o treinamento é concluido, ele zera a variavel usada para gerar os IDs dos Trackers
     }
     // Função para prever a saída para um novo conjunto de entradas
     estimate(input) {
