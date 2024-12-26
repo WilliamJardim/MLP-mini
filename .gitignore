@@ -7,3 +7,5 @@ tests/classificacao/test
 tests/classificacao/test/*
 tests/classificacao/test2
 tests/classificacao/test2/*
+./dev/notes.txt
+dev/notes.txt
