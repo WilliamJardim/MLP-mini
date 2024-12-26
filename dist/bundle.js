@@ -10,11 +10,19 @@
 
 
 
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\LayerInfo.js
+{};
+
+
 // Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\MLPConfig.js
 
 
 
 // Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\TrackedStep.js
+{};
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\UnitInfo.js
 {};
 
 
@@ -29,9 +37,11 @@
 
 
 
+
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
+        this.layersInfo = []; //A Array of LayerInfo(s)
         this.geralMonitor = new ConsoleMonitor({
             name: 'GeralConsole'
         });
@@ -53,6 +63,8 @@ class MLP {
         }
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
+        // Cria descrições nas camadas pra facilitar o debugging
+        AddInfoToLayersAndUnits(this.config, this.layersInfo);
         // layers é um array onde cada elemento é o número de unidades na respectiva camada
         // Essa informação será extraida do config
         this.layers = [];
@@ -422,6 +434,31 @@ class ActivationFunctions {
     // Derivada da ativação Linear
     static LinearDerivative(x) {
         return 1;
+    }
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\AddInfoToLayersAndUnits.js
+/**
+*
+* @param mlpConfig  - As configurações onde onde as descrições serão obtidas
+* @param layersInfo - Objeto de dentro da MLP que vai armazenar os dados
+*/
+function AddInfoToLayersAndUnits(mlpConfig, layersInfo) {
+    const infoConfig = mlpConfig.layerInfo || [];
+    if (infoConfig.length > 0) {
+        infoConfig.forEach((infoCamada, indiceLayerInfo) => {
+            //Validações e tratamentos se necessário
+            const infoAdicionarCamada = Object.assign({}, infoCamada);
+            if (!infoCamada['title']) {
+                infoAdicionarCamada['title'] = `Camada ${indiceLayerInfo + 1}`;
+            }
+            if (!infoCamada['description']) {
+                infoAdicionarCamada['description'] = `A camada ${indiceLayerInfo + 1}, cujo indice é ${indiceLayerInfo}`;
+            }
+            infoAdicionarCamada['layerIndex'] = indiceLayerInfo;
+            layersInfo.push(infoAdicionarCamada);
+        });
     }
 }
 

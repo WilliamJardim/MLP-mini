@@ -22,7 +22,14 @@ const mlp = new MLP({
         * ele captura tudo, deis de pesos iniciais, pesos atuais ANTES DE APLICAR O GRADIENTE DESCEDENTE, gradientes calculados DESSA EPOCA, features das amostras, valores esperados para a amostra, valores estimados para a amostra 
         */
         debugTrain: true
-    }
+    },
+
+    //Apenas para explicar melhor as camadas(OPCIONAL)
+    layerInfo: [
+        { title: 'Camada de entrada' },
+        { title: 'Camada oculta' },
+        { title: 'Camada de saida' },
+    ]
 });
 
 var pesosIniciais = [

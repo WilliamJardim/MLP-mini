@@ -8,9 +8,11 @@ import randomWeight from './utils/randomWeight';
 import heNormal from './utils/heNormal';
 import heUniform from './utils/heUniform';
 import ConsoleMonitor from './utils/ConsoleMonitor';
+import AddInfoToLayersAndUnits from './utils/AddInfoToLayersAndUnits';
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
+        this.layersInfo = []; //A Array of LayerInfo(s)
         this.geralMonitor = new ConsoleMonitor({
             name: 'GeralConsole'
         });
@@ -32,6 +34,8 @@ class MLP {
         }
         // Aplica uma validação de estrutura 
         ValidateStructure(this.config);
+        // Cria descrições nas camadas pra facilitar o debugging
+        AddInfoToLayersAndUnits(this.config, this.layersInfo);
         // layers é um array onde cada elemento é o número de unidades na respectiva camada
         // Essa informação será extraida do config
         this.layers = [];

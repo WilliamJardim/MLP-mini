@@ -1,6 +1,7 @@
 import LayerDeclaration from '../interfaces/LayerDeclaration';
 import DoneParameters from '../interfaces/DoneParameters';
 import '../utils/Enums';
+import LayerInfo from './UnitInfo';
 
 export default interface MLPConfig{
     
@@ -13,5 +14,8 @@ export default interface MLPConfig{
     //Structure
     layers: Array<LayerDeclaration>,
 
-    parameters: DoneParameters
+    parameters: DoneParameters,
+
+    //Opcionais
+    layerInfo: LayerInfo[]
 }
