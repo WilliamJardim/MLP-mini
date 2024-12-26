@@ -1,9 +1,9 @@
 // Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
 const mlp = new MLP({
     layers: [
-        { type: LayerType.Input,  inputs: 2, units: 2 },
-        { type: LayerType.Hidden, inputs: 2, units: 2 },
-        { type: LayerType.Final,  inputs: 2, units: 1 }
+        { type: LayerType.Input,  inputs: 2, units: 2, title: 'Camada de entrada' },
+        { type: LayerType.Hidden, inputs: 2, units: 2, title: 'Camada oculta' },
+        { type: LayerType.Final,  inputs: 2, units: 1, title: 'Camada de saida' }
     ],
     initialization: Initialization.Dev,
 
@@ -25,11 +25,11 @@ const mlp = new MLP({
     },
 
     //Apenas para explicar melhor as camadas(OPCIONAL)
-    layerInfo: [
-        { title: 'Camada de entrada' },
-        { title: 'Camada oculta' },
-        { title: 'Camada de saida' },
-    ]
+    //layerInfo: [
+    //    { title: 'Camada de entrada' },
+    //    { title: 'Camada oculta' },
+    //    { title: 'Camada de saida' },
+    //]
 });
 
 var pesosIniciais = [
