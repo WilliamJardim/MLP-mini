@@ -12,7 +12,7 @@ export default interface MLPConfig{
     hyperparameters: HyperParameters,
 
     //Structure
-    layers: Array<LayerDeclaration>,
+    camadas: Array<LayerDeclaration>,
 
     parameters: DoneParameters,
 

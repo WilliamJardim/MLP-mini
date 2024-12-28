@@ -10,9 +10,9 @@ export default function ValidateStructure( config: MLPConfig ): void
     if( !( initializationType in Initialization ) ){ throw `O tipo de inicialização não é um tipo valido de Initialization` };
     if( typeof initializationType != 'string' ){ throw `O atributo 'initialization' precisa ser do tipo 'string' ` };
 
-    const layers:Array<LayerDeclaration> = config.layers;
-    const firstLayer = layers[ 0 ];
-    const lastLayer  = layers[layers.length-1];
+    const camadas:Array<LayerDeclaration> = config.camadas;
+    const firstLayer = camadas[ 0 ];
+    const lastLayer  = camadas[camadas.length-1];
 
     if( firstLayer.type != LayerType.Input ){
         throw 'A primeira camada camada${ 0 } precisa ser a camada de entrada, do tipo LayerType.Input!';
@@ -22,10 +22,10 @@ export default function ValidateStructure( config: MLPConfig ): void
         throw 'A ultima camada camada${ layers.length-1 } precisa ser a camada de saida final do modelo, do tipo LayerType.Final!';
     }
 
-    for( let i = 0 ; i < layers.length ; i++ )
+    for( let i = 0 ; i < camadas.length ; i++ )
     {
-        const previousLayer = layers[i - 1];
-        const currentLayer  = layers[  i  ];
+        const previousLayer = camadas[i - 1];
+        const currentLayer  = camadas[  i  ];
 
         if( !currentLayer.type   ){ throw ` A camada ${ i } precisa ter um atributo 'type'! ` }
         if( !(currentLayer.type in LayerType) ){ throw `O atributo 'type' da camada ${ i } não é um valor valido de LayerType!` };

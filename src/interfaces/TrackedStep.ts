@@ -10,14 +10,14 @@ export default interface TrackedStep{
     dataset: number[][],
     amostra: number[],
     indiceAmostra: number,
-    output: number[],
-    target: number[],
-    finalLayerGradients: number[], //Os gradientes apenas da camada final
-    allLayersGradients: number[][], //OS gradientes de todas as camadas(incluindo a camada final)
+    estimativas: number[],
+    metas: number[],
+    gradientesUltimaCamada: number[], //Os gradientes apenas da camada final
+    todosGradientesJuntos: number[][], //OS gradientes de todas as camadas(incluindo a camada final)
     initial_parameters: DoneParameters,
     parameters_before_update: DoneParameters,
     parameters_after_update?: DoneParameters,
-    layers_functions: string[][],
+    funcoes_camadas: string[][],
     mlpConfig: MLPConfig,
     oldStep?: TrackedStep
 }

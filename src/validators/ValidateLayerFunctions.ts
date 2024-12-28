@@ -4,14 +4,14 @@ import '../utils/Enums';
 import isDecimalNumber from "../utils/isDecimalNumber";
 
 export default function ValidateLayerFunctions( config:MLPConfig ){
-    const layers:Array<LayerDeclaration> = config.layers;
-    const firstLayer:LayerDeclaration = layers[0];
+    const camadas:Array<LayerDeclaration> = config.camadas;
+    const firstLayer:LayerDeclaration = camadas[0];
 
     if( firstLayer.functions != undefined ){ throw `A camada de entrada não pode ter o atributo 'functions' !` };
 
-    for( let i = 0 ; i < layers.length ; i++ )
+    for( let i = 0 ; i < camadas.length ; i++ )
     {
-        const currentLayer  = layers[  i  ];
+        const currentLayer  = camadas[  i  ];
 
         if( currentLayer.functions )
         {

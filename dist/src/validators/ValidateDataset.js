@@ -1,8 +1,8 @@
 import '../utils/Enums';
 export default function ValidateDataset(config, train_inputs, train_targets) {
-    const layers = config.layers;
-    const firstLayer = layers[0];
-    const lastLayer = layers[layers.length - 1];
+    const camadas = config.camadas;
+    const firstLayer = camadas[0];
+    const lastLayer = camadas[camadas.length - 1];
     if (train_inputs.length != train_targets.length) {
         throw `No seu dataset voce tem ${train_inputs.length} linhas, porém, voce tem apenas ${train_targets.length} targets!`;
     }

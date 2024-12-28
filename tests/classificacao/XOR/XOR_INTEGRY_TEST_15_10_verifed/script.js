@@ -1,6 +1,6 @@
 // Estrutura da rede: 2 neurônios na entrada, 2 na camada oculta, 1 na saída
 const mlp = new MLP({
-    layers: [
+    camadas: [
         { type: LayerType.Input,  inputs: 2, units: 2, title: 'Camada de entrada' },
         { type: LayerType.Hidden, inputs: 2, units: 2, title: 'Camada oculta' },
         { type: LayerType.Final,  inputs: 2, units: 1, title: 'Camada de saida' }
@@ -21,15 +21,14 @@ const mlp = new MLP({
         * Esse parametro quando for 'true', permite capturar informações durante o treinamento,
         * ele captura tudo, deis de pesos iniciais, pesos atuais ANTES DE APLICAR O GRADIENTE DESCEDENTE, gradientes calculados DESSA EPOCA, features das amostras, valores esperados para a amostra, valores estimados para a amostra 
         */
-        debugTrain: true
+        debugTrain: true,
+
+        /**
+        * Esse parametro determina se vai usar Bias ou não 
+        */
+        useBias: true,
     },
 
-    //Apenas para explicar melhor as camadas(OPCIONAL)
-    //layerInfo: [
-    //    { title: 'Camada de entrada' },
-    //    { title: 'Camada oculta' },
-    //    { title: 'Camada de saida' },
-    //]
 });
 
 var pesosIniciais = [
@@ -50,7 +49,7 @@ var pesosIniciais = [
         ]
     ]
 ];
-mlp.weights = [...pesosIniciais.copyWithin()];
+mlp.pesos = [...pesosIniciais.copyWithin()];
 
 var biasesIniciais = [
     [
@@ -80,12 +79,12 @@ const targets = [
 ];
 
 // Treinando a rede
-mlp.train(inputs, targets, 0.1, 10000);
+mlp.treinar(inputs, targets, 0.1, 10000);
 
 // Testando a rede
 console.log('Estimativas:');
 inputs.forEach(input => {
-    const output = mlp.estimate(input);
+    const output = mlp.estimar(input);
     console.log(`Entrada: ${input}, Estimativa: ${output}`);
 });
 
@@ -229,7 +228,7 @@ async function generateHash(input) {
 // Exemplo de geraçao de hash do resultado
 generateHash( String( inputs ) + ' ' +
               String( targets ) +  ' ' +
-              String( mlp.weights ) +
+              String( mlp.pesos ) +
               String( mlp.biases ) ).then(hash => console.log('Hash 1 desse resultado: ', hash));
   
 // Exemplo de geraçao de hash do resultado
@@ -237,6 +236,6 @@ generateHash( String( inputs ) + ' ' +
               String( targets ) +  ' ' +
               String( pesosIniciais ) +
               String( biasesIniciais ) + 
-              String( mlp.weights ) +
+              String( mlp.pesos ) +
               String( mlp.biases ) ).then(hash => console.log('Hash 2 desse resultado: ', hash));
  

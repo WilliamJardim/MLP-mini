@@ -1,5 +1,5 @@
 export default interface DoneParameters{
-    weights: number[][][],
+    pesos: number[][][],
     biases: number[][],
     layers: any[],
     generatedAt: number

@@ -34,8 +34,8 @@ export default function AddInfoToLayersAndUnits( mlpConfig: MLPConfig, layersInf
     //Caso nenhuma configuração seja passada via 'layerInfo'
     }else{
         //Percorre cada definição de camada, procurando por titulos
-        if( mlpConfig.layers ){
-            mlpConfig.layers.forEach( (layerDeclaration:LayerDeclaration, indiceLayerDeclaration:number)=>{
+        if( mlpConfig.camadas ){
+            mlpConfig.camadas.forEach( (layerDeclaration:LayerDeclaration, indiceLayerDeclaration:number)=>{
 
                 const tituloCamada:string = layerDeclaration.title || null;
 

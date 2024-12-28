@@ -5,9 +5,9 @@ import isDecimalNumber from "../utils/isDecimalNumber";
 
 export default function ValidateDataset( config: MLPConfig, train_inputs: number[][], train_targets: number[][] ): void
 {
-    const layers:Array<LayerDeclaration> = config.layers;
-    const firstLayer:LayerDeclaration    = layers[ 0 ];
-    const lastLayer:LayerDeclaration     = layers[layers.length-1];
+    const camadas:Array<LayerDeclaration> = config.camadas;
+    const firstLayer:LayerDeclaration    = camadas[ 0 ];
+    const lastLayer:LayerDeclaration     = camadas[camadas.length-1];
 
     if( train_inputs.length != train_targets.length ){ throw `No seu dataset voce tem ${ train_inputs.length } linhas, porém, voce tem apenas ${ train_targets.length } targets!` };
     

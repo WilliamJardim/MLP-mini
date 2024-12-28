@@ -23,8 +23,8 @@ export default function AddInfoToLayersAndUnits(mlpConfig, layersInfo) {
     }
     else {
         //Percorre cada definição de camada, procurando por titulos
-        if (mlpConfig.layers) {
-            mlpConfig.layers.forEach((layerDeclaration, indiceLayerDeclaration) => {
+        if (mlpConfig.camadas) {
+            mlpConfig.camadas.forEach((layerDeclaration, indiceLayerDeclaration) => {
                 const tituloCamada = layerDeclaration.title || null;
                 const infoAdicionarCamada = {
                     title: tituloCamada || `Camada ${indiceLayerDeclaration + 1}`,
