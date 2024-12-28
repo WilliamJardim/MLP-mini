@@ -453,7 +453,10 @@ class MLP {
                         const unidadeTemFuncao : boolean = (contextoModelo.funcoes_camadas.length > 0 && contextoModelo.funcoes_camadas[l - 1] && contextoModelo.funcoes_camadas[l - 1][j]) ? true : false;
                         const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? contextoModelo.funcoes_camadas[l - 1][j] : 'Sigmoid' );
                     
-                        gradientesCamadaAtual.push(gradienteUnidade * ActivationFunctions[ `${nomeDaFuncao}Derivative` ](contextoModelo.ativacoesPorCamada[l][j]));
+                        gradientesCamadaAtual.push( 
+                                    gradienteUnidade * 
+                                    ActivationFunctions[ `${nomeDaFuncao}Derivative` ](contextoModelo.ativacoesPorCamada[l][j])
+                        );
                     }
 
                     /**
@@ -505,8 +508,9 @@ class MLP {
 
                         //Se estiver usando o Bias
                         if( contextoModelo.hyperparameters.useBias == true ){
-                            // Atualiza os biases com o Gradiente Descedente
-                            contextoModelo.biases[l][j] += learningRate * gradientesPorCamada[l][j];
+                            // Atualiza os biases com o Gradiente Descedentes
+                            // Aqui usamos vezes 1 pois a derivada em relação ao Bias é 1, pois não tem entrada, então só sobra o propio Bias
+                            contextoModelo.biases[l][j] += learningRate * gradientesPorCamada[l][j] * 1;
                         }
                     }
 
