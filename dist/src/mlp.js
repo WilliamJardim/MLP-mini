@@ -305,19 +305,30 @@ class MLP {
                 // Calcular os erros das camadas ocultas, começando da última camada
                 for (let l = contextoModelo.pesos.length - 1; l >= 1; l--) {
                     const gradientesCamadaAtual = [];
+                    // Para cada unidade da camada oculta atual
                     for (let j = 0; j < contextoModelo.pesos[l - 1].length; j++) {
+                        //Calcula o gradiente com relação a unidade J atual da camada oculta atual
+                        let numeroUnidadeOculta = j;
+                        let quantidadeUnidadesCamadaSeguinte = contextoModelo.pesos[l].length;
                         let gradienteUnidade = 0;
-                        for (let k = 0; k < contextoModelo.pesos[l].length; k++) {
-                            gradienteUnidade += gradientesPorCamada[0][k] * contextoModelo.pesos[l][k][j];
+                        /**
+                        * Para cada unidade na camada seguinte
+                        */
+                        for (let k = 0; k < quantidadeUnidadesCamadaSeguinte; k++) {
+                            /**
+                            * OBS: Ao dizer gradienteUnidadeSeguinte ou seja "gradiente da unidada seguinte" aqui, estou me referindo a unidade da camada seguinte
+                            * Ou seja, a camada seguinte é próxima camada que vem depois da camada oculta atual
+                            */
+                            const gradienteUnidadeSeguinte = gradientesPorCamada[0][k];
+                            const pesosUnidadeSeguinte = contextoModelo.pesos[l][k];
+                            const pesoQueLiga = pesosUnidadeSeguinte[numeroUnidadeOculta];
+                            gradienteUnidade += gradienteUnidadeSeguinte * pesoQueLiga;
                         }
                         //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
-                        /* (BUG-FIX 24/12/2024)
-                        *   NOTA: Aqui useo "this.funcoes_camadas[l - 1]" para pegar a função de ativação que vai ser usada nessa camada oculta "l", é isso o que significa
-                        *   Antes era só "l" mais ai mudei para "l - 1" para corrigir um bug que fazia ele pegar a função de ativação incorreta
-                        */
                         const unidadeTemFuncao = (contextoModelo.funcoes_camadas.length > 0 && contextoModelo.funcoes_camadas[l - 1] && contextoModelo.funcoes_camadas[l - 1][j]) ? true : false;
                         const nomeDaFuncao = (unidadeTemFuncao == true ? contextoModelo.funcoes_camadas[l - 1][j] : 'Sigmoid');
-                        gradientesCamadaAtual.push(gradienteUnidade * ActivationFunctions[`${nomeDaFuncao}Derivative`](contextoModelo.ativacoesPorCamada[l][j]));
+                        gradientesCamadaAtual.push(gradienteUnidade *
+                            ActivationFunctions[`${nomeDaFuncao}Derivative`](contextoModelo.ativacoesPorCamada[l][j]));
                     }
                     /**
                     * Adiciona os erros das camada oculta atual como sendo o primeiro elemento do array "gradientesPorCamada", e os demais elementos que já existem no array ficam atráz dele, sequencialmente.
@@ -360,8 +371,9 @@ class MLP {
                         }
                         //Se estiver usando o Bias
                         if (contextoModelo.hyperparameters.useBias == true) {
-                            // Atualiza os biases com o Gradiente Descedente
-                            contextoModelo.biases[l][j] += learningRate * gradientesPorCamada[l][j];
+                            // Atualiza os biases com o Gradiente Descedentes
+                            // Aqui usamos vezes 1 pois a derivada em relação ao Bias é 1, pois não tem entrada, então só sobra o propio Bias
+                            contextoModelo.biases[l][j] += learningRate * gradientesPorCamada[l][j] * 1;
                         }
                     }
                 }
