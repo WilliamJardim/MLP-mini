@@ -396,10 +396,25 @@ class MLP {
         
         let contagemTrackedStep = 0;
 
-        for (let epoca: number = 0; epoca < epocas; epoca++) {
+        /**
+        * Inicio das iterações das epocas
+        */
+        let epoca: number = 0;
+
+        /**
+        * Para cada uma das epocas 
+        */
+        while( epoca < epocas ) {
         
+            /**
+            * Variavel usada para armazenar o contexto do modelo. Ou seja, o "this".
+            * Ela é usada para conseguirmos acessar os pesos, biases, e outros atributos do modelo, usando contextoModelo.<ALGUMA_COISA> 
+            */
             const contextoModelo = this;
 
+            /**
+            * Para cada amostra 
+            */
             amostras.forEach(function(amostra: number[], numAmostra: number){
 
                 // Calculando o erro na camada de saida
@@ -546,13 +561,19 @@ class MLP {
                 
             });
 
+            /**
+            * Percorre novamente "a parte", todas as amostras de treinamento, e calcula o o erro total(o erro somado de todas as amostras)
+            * Pra ajudar a verificar o progresso do treinamento 
+            */
             let erroTotal:number = MLP.compute_train_cost( amostras, metas, amostras.map( (dadosAmostra: number[]) => contextoModelo.estimar(dadosAmostra) ) );
 
             // Monitorar o erro ao longo das épocas
-            // Log do erro para monitoramento
             if (epoca % epocasMostrar === 0) {
                 trainMonitor.log(`Epoch ${epoca}, Erro total: ${erroTotal}, Média Erro Total: ${ erroTotal/metas.length }`);
             }
+        
+            //Pula pra proxima iteração de "epoca"
+            epoca++;
         }
 
         //Integra os logs atuais do treinamento no geral
