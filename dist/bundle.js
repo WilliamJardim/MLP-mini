@@ -38,6 +38,7 @@
 
 
 
+
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
@@ -311,8 +312,9 @@ class MLP {
         let epoca = 0;
         /**
         * Para cada uma das epocas
+        * EXCETO SE UM CRÌTERIO DE PARADA DEFINIDO FOR ATENTIDO
         */
-        while (epoca < epocas) {
+        while (VerificarCriteriosParada(epoca, this.trainTracker, this.trainTracker[contagemTrackedStep], this.hyperparameters.criterioParada) != true && (epoca < epocas)) {
             /**
             * Variavel usada para armazenar o contexto do modelo. Ou seja, o "this".
             * Ela é usada para conseguirmos acessar os pesos, biases, e outros atributos do modelo, usando contextoModelo.<ALGUMA_COISA>
@@ -399,8 +401,8 @@ class MLP {
                         metas: Array.from([...meta]), //Os valores esperados para a amostra atual
                         gradientesUltimaCamada: Array.from([...gradientesFinais]), //Os gradientes calculados da camada de saida DESSA EPOCA
                         todosGradientesJuntos: Array.from([...gradientesPorCamada]), //Os gradientes calculados pelo backpropagation, de todas as camadas, DESSA EPOCA(inclusive a camada de saida)
-                        initial_parameters: contextoModelo.getInitialParameters(), //Os parametros iniciais ANTES DO TREINAMENTO COMEÇAR
-                        parameters_before_update: contextoModelo.exportParameters(), //Os parametros DE ANTES DE APLICAR O GRADIENTE DESCEDENTE DESTA EPOCA
+                        initial_parameters: contextoModelo.hyperparameters.liteTrack == true ? null : contextoModelo.getInitialParameters(), //Os parametros iniciais ANTES DO TREINAMENTO COMEÇAR
+                        parameters_before_update: contextoModelo.hyperparameters.liteTrack == true ? null : contextoModelo.exportParameters(), //Os parametros DE ANTES DE APLICAR O GRADIENTE DESCEDENTE DESTA EPOCA
                         funcoes_camadas: contextoModelo.funcoes_camadas,
                         mlpConfig: contextoModelo.config //As configurações usadas para criar a MLP
                     };
@@ -679,6 +681,18 @@ function notifyIfhasNaN(title, varToCheck, callback) {
 // Função para inicializar pesos de forma aleatória
 function randomWeight() {
     return Math.random() * 2 - 1; // Gera valores entre -1 e 1
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\utils\VerificarCriteriosParada.js
+// Função para inicializar pesos de forma aleatória
+function VerificarCriteriosParada(epocaAtual, trainTracker, ultimoPasso, funcaoCriterio) {
+    if (funcaoCriterio) {
+        //Se ele retorna "true" ele para o loop do treinamento
+        return funcaoCriterio(epocaAtual, ultimoPasso, trainTracker) == true;
+    }
+    //Caso não existe um críterio de parada, por padrão o retorno vai ser "false" pra não interferir no loop
+    return false;
 }
 
 

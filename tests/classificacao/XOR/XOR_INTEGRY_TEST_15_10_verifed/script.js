@@ -27,6 +27,14 @@ const mlp = new MLP({
         * Esse parametro determina se vai usar Bias ou não 
         */
         useBias: true,
+
+        /**
+        * Configura uma condição de parada(além do limite de épocas) 
+        * Exemplo de uso: funcaoCriterio( epocaAtual, ultimoPasso, trainTracker );
+        */
+        criterioParada: function( epocaAtual, ultimoPasso, trainTracker ){
+            return false; //Não existe nenhum critério definido
+        }
     },
 
 });

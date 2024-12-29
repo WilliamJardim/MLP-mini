@@ -9,6 +9,7 @@ import heNormal from './utils/heNormal';
 import heUniform from './utils/heUniform';
 import ConsoleMonitor from './utils/ConsoleMonitor';
 import AddInfoToLayersAndUnits from './utils/AddInfoToLayersAndUnits';
+import VerificarCriteriosParada from './utils/VerificarCriteriosParada';
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
@@ -282,8 +283,9 @@ class MLP {
         let epoca = 0;
         /**
         * Para cada uma das epocas
+        * EXCETO SE UM CRÌTERIO DE PARADA DEFINIDO FOR ATENTIDO
         */
-        while (epoca < epocas) {
+        while (VerificarCriteriosParada(epoca, this.trainTracker, this.trainTracker[contagemTrackedStep], this.hyperparameters.criterioParada) != true && (epoca < epocas)) {
             /**
             * Variavel usada para armazenar o contexto do modelo. Ou seja, o "this".
             * Ela é usada para conseguirmos acessar os pesos, biases, e outros atributos do modelo, usando contextoModelo.<ALGUMA_COISA>
@@ -370,8 +372,8 @@ class MLP {
                         metas: Array.from([...meta]), //Os valores esperados para a amostra atual
                         gradientesUltimaCamada: Array.from([...gradientesFinais]), //Os gradientes calculados da camada de saida DESSA EPOCA
                         todosGradientesJuntos: Array.from([...gradientesPorCamada]), //Os gradientes calculados pelo backpropagation, de todas as camadas, DESSA EPOCA(inclusive a camada de saida)
-                        initial_parameters: contextoModelo.getInitialParameters(), //Os parametros iniciais ANTES DO TREINAMENTO COMEÇAR
-                        parameters_before_update: contextoModelo.exportParameters(), //Os parametros DE ANTES DE APLICAR O GRADIENTE DESCEDENTE DESTA EPOCA
+                        initial_parameters: contextoModelo.hyperparameters.liteTrack == true ? null : contextoModelo.getInitialParameters(), //Os parametros iniciais ANTES DO TREINAMENTO COMEÇAR
+                        parameters_before_update: contextoModelo.hyperparameters.liteTrack == true ? null : contextoModelo.exportParameters(), //Os parametros DE ANTES DE APLICAR O GRADIENTE DESCEDENTE DESTA EPOCA
                         funcoes_camadas: contextoModelo.funcoes_camadas,
                         mlpConfig: contextoModelo.config //As configurações usadas para criar a MLP
                     };
