@@ -1,4 +1,4 @@
-interface HyperParameters{
+export default interface HyperParameters{
     learningRate?: number,
 
     /**

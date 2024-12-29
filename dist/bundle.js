@@ -4,6 +4,7 @@
 
 
 // Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\HyperParameters.js
+{};
 
 
 // Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\interfaces\LayerDeclaration.js
@@ -27,6 +28,7 @@
 
 
 // Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\mlp.js
+
 
 
 
@@ -302,6 +304,8 @@ class MLP {
         this.initialParameters = this.exportParameters();
         // Valida os dados de treinamento
         ValidateDataset(this.config, amostras, metas);
+        // Valida o critério de parada se houver algum
+        ValidateCriterioParada(this.config, this.hyperparameters);
         const erroInicialAntesTreinamento = MLP.compute_train_cost(amostras, metas, amostras.map((dadosAmostra) => this.estimar(dadosAmostra)));
         trainMonitor.log(`Erro Total inicial(ANTES DO TREINAMENTO): ${erroInicialAntesTreinamento}`);
         trainMonitor.log(`Média do Erro Total inicial(ANTES DO TREINAMENTO): ${erroInicialAntesTreinamento / metas.length}`);
@@ -693,6 +697,14 @@ function VerificarCriteriosParada(epocaAtual, trainTracker, ultimoPasso, funcaoC
     }
     //Caso não existe um críterio de parada, por padrão o retorno vai ser "false" pra não interferir no loop
     return false;
+}
+
+
+// Conteúdo do arquivo: C:\Users\Meu Computador\Desktop\Projetos Pessoais Github\Deep Learning\MLP-mini\dist\src\validators\ValidateCriterioParada.js
+function ValidateCriterioParada(config, hyperparameters) {
+    if (!hyperparameters.debugTrain && hyperparameters.criterioParada) {
+        throw `Para usar um critério de parada você precisa ativar o Hyper Parametro "debugTrain", definindo ele como true.`;
+    }
 }
 
 

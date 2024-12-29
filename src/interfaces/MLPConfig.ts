@@ -2,6 +2,7 @@ import LayerDeclaration from '../interfaces/LayerDeclaration';
 import DoneParameters from '../interfaces/DoneParameters';
 import '../utils/Enums';
 import LayerInfo from './UnitInfo';
+import HyperParameters from './HyperParameters';
 
 export default interface MLPConfig{
     

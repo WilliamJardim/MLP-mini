@@ -10,6 +10,7 @@ import heUniform from './utils/heUniform';
 import ConsoleMonitor from './utils/ConsoleMonitor';
 import AddInfoToLayersAndUnits from './utils/AddInfoToLayersAndUnits';
 import VerificarCriteriosParada from './utils/VerificarCriteriosParada';
+import ValidateCriterioParada from './validators/ValidateCriterioParada';
 // Rede Neural MLP com suporte a múltiplas camadas
 class MLP {
     constructor(config) {
@@ -273,6 +274,8 @@ class MLP {
         this.initialParameters = this.exportParameters();
         // Valida os dados de treinamento
         ValidateDataset(this.config, amostras, metas);
+        // Valida o critério de parada se houver algum
+        ValidateCriterioParada(this.config, this.hyperparameters);
         const erroInicialAntesTreinamento = MLP.compute_train_cost(amostras, metas, amostras.map((dadosAmostra) => this.estimar(dadosAmostra)));
         trainMonitor.log(`Erro Total inicial(ANTES DO TREINAMENTO): ${erroInicialAntesTreinamento}`);
         trainMonitor.log(`Média do Erro Total inicial(ANTES DO TREINAMENTO): ${erroInicialAntesTreinamento / metas.length}`);
