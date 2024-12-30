@@ -1,5 +1,6 @@
 import ActivationFunctions from './utils/ActivationFunctions';
 import './utils/Enums';
+import TranslateStructure from './utils/TranslateStructure';
 import ValidateStructure from './validators/ValidateStructure';
 import ValidateDataset from './validators/ValidateDataset';
 import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
@@ -19,6 +20,8 @@ class MLP {
             name: 'GeralConsole'
         });
         this.config = config;
+        // Interpreta o config para permitir passar ele de maneiras alternativas
+        TranslateStructure(this.config);
         this.hyperparameters = config.hyperparameters;
         //Se não for especificado, por padrão, ele vai calcular a derivada da camada de saida, exceto se o usuário quiser mudar isso
         if (this.hyperparameters != undefined &&

@@ -4,6 +4,7 @@ import DoneParameters from './interfaces/DoneParameters';
 import TrackedStep from './interfaces/TrackedStep';
 import MLPConfig from './interfaces/MLPConfig';
 import './utils/Enums';
+import TranslateStructure from './utils/TranslateStructure';
 import ValidateStructure from './validators/ValidateStructure';
 import ValidateDataset from './validators/ValidateDataset';
 import ValidateLayerFunctions from './validators/ValidateLayerFunctions';
@@ -41,6 +42,10 @@ class MLP {
         });
 
         this.config = config;
+
+        // Interpreta o config para permitir passar ele de maneiras alternativas
+        TranslateStructure( this.config );
+
         this.hyperparameters = config.hyperparameters;
 
         //Se não for especificado, por padrão, ele vai calcular a derivada da camada de saida, exceto se o usuário quiser mudar isso
