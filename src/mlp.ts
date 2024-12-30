@@ -433,7 +433,7 @@ class MLP {
                 for (let j: number = 0; j < estimativas.length; j++) 
                 {
                     //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
-                    const unidadeTemFuncao : boolean = (contextoModelo.funcoes_camadas.length > 0 && contextoModelo.funcoes_camadas[ contextoModelo.pesos.length-1 ] && contextoModelo.funcoes_camadas[ contextoModelo.pesos.length-1 ][j]) ? true : false;
+                    const unidadeTemFuncao : boolean = ( contextoModelo.funcoes_camadas.length > 0 && contextoModelo.funcoes_camadas[ contextoModelo.pesos.length-1 ] && contextoModelo.funcoes_camadas[ contextoModelo.pesos.length-1 ][j] ) ? true : false;
                     const nomeDaFuncao     : string  = ( unidadeTemFuncao == true ? contextoModelo.funcoes_camadas[ contextoModelo.pesos.length-1 ][j] : 'Sigmoid' );
                     const diferencaValores : number  = meta[j] - estimativas[j];
 
@@ -487,12 +487,12 @@ class MLP {
                         }
 
                         //Verifica se a unidade tem uma função especificada, ou se vai usar uma função padrão
-                        const unidadeTemFuncao : boolean = (contextoModelo.funcoes_camadas.length > 0 && contextoModelo.funcoes_camadas[l - 1] && contextoModelo.funcoes_camadas[l - 1][j]) ? true : false;
-                        const nomeDaFuncao     : string = ( unidadeTemFuncao == true ? contextoModelo.funcoes_camadas[l - 1][j] : 'Sigmoid' );
+                        const unidadeTemFuncao : boolean = ( contextoModelo.funcoes_camadas.length > 0 && contextoModelo.funcoes_camadas[l - 1] && contextoModelo.funcoes_camadas[l - 1][j] ) ? true : false;
+                        const nomeDaFuncao     : string  = ( unidadeTemFuncao == true ? contextoModelo.funcoes_camadas[l - 1][j] : 'Sigmoid' );
 
                         gradientesCamadaAtual.push( 
                                     gradienteUnidade * 
-                                    ActivationFunctions[ `${nomeDaFuncao}Derivative` ](contextoModelo.ativacoesPorCamada[l][j])
+                                    ActivationFunctions[ `${nomeDaFuncao}Derivative` ]( contextoModelo.ativacoesPorCamada[l][j] )
                         );
                     }
 
